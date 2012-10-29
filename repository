@@ -1,0 +1,41 @@
+Here are some arguments for side B (multiple repo option) mixed
+together with arguments against side A. I use the => characters to
+indicate what I think is the likely outcome of some of the points.
+
+* One repo per bootcamp is the simplest possible construction. There
+  is no coupling to people that aren't instructors at that
+  bootcamp. The simplest possible construction reduces the
+  instructors' cognitive load so they can focus on execution.
+* Every instructor will have idiosyncrasies regarding their teaching
+  style. => Even if there is a common starting point, notes will
+  likely diverge.
+* There won't be 100% consensus on format. => Even if there is a
+  majority, some people will refuse to teach with, for example, slide
+  decks. Thus they will be alienated and feel less enthusiastic about
+  helping with future bootcamps.
+* Maintaining "official" ports of multiple formats will require lots
+  of additional administrative overhead. => Resources will be spent on
+  the administrative overhead even though they may be better spent
+  elsewhere.
+* Air-traffic controlling all this material will require
+  administrative overhead.  => Resources will be spent on the
+  administrative overhead even though they may be better spent
+  elsewhere.
+* Having a system with a lot of administrative overhead increases its
+  brittleness. If the admins disappear for whatever reason, merges to
+  the repo may become unstable since no one would be maintaining them.
+* Complexity is the enemy of execution. => Eventually the single
+  repo/multiple branch model will torpedo a bootcamp.
+* The coupling of instructors at a bootcamp and likely a
+  non-instructor merging pull requests into the same repo will have
+  negative unintended consequences. => Eventually this coupling will
+  torpedo a bootcamp.
+* Bootcamp notes will soon cross a threshold of pedagogical value and
+  reach a point of diminishing returns. At that point time should be
+  spent on improving the performance part of the lecture rather than
+  the notes. Additional modification to the notes only increase the
+  complexity of the repo and threaten the execution of the bootcamp as
+  described above.
+
+Let me reiterate that I don't think the multiple repos model is a
+great option, but I think it is the least worst.
