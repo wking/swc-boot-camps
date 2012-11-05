@@ -1,41 +1,131 @@
-Here are some arguments for side B (multiple repo option) mixed
-together with arguments against side A. I use the => characters to
-indicate what I think is the likely outcome of some of the points.
+Consensus: single, canonical repo
+=================================
+Like Katy noted, we were able to come to a consensus that there should
+be a single repository that contains "canonical" SWC material. This
+repository will serve a few purposes including, but not limited to:
 
-* One repo per bootcamp is the simplest possible construction. There
-  is no coupling to people that aren't instructors at that
-  bootcamp. The simplest possible construction reduces the
-  instructors' cognitive load so they can focus on execution.
-* Every instructor will have idiosyncrasies regarding their teaching
-  style. => Even if there is a common starting point, notes will
-  likely diverge.
-* There won't be 100% consensus on format. => Even if there is a
-  majority, some people will refuse to teach with, for example, slide
-  decks. Thus they will be alienated and feel less enthusiastic about
-  helping with future bootcamps.
-* Maintaining "official" ports of multiple formats will require lots
-  of additional administrative overhead. => Resources will be spent on
-  the administrative overhead even though they may be better spent
-  elsewhere.
-* Air-traffic controlling all this material will require
-  administrative overhead.  => Resources will be spent on the
-  administrative overhead even though they may be better spent
-  elsewhere.
-* Having a system with a lot of administrative overhead increases its
-  brittleness. If the admins disappear for whatever reason, merges to
-  the repo may become unstable since no one would be maintaining them.
-* Complexity is the enemy of execution. => Eventually the single
-  repo/multiple branch model will torpedo a bootcamp.
-* The coupling of instructors at a bootcamp and likely a
-  non-instructor merging pull requests into the same repo will have
-  negative unintended consequences. => Eventually this coupling will
-  torpedo a bootcamp.
-* Bootcamp notes will soon cross a threshold of pedagogical value and
-  reach a point of diminishing returns. At that point time should be
-  spent on improving the performance part of the lecture rather than
-  the notes. Additional modification to the notes only increase the
-  complexity of the repo and threaten the execution of the bootcamp as
-  described above.
+* Reducing the barrier for new instructors by providing them a starting 
+place to create bootcamp material.
+* Demonstrating the scope and essence of the SWC project in a similar 
+way that "the code is the documentation."
+* [Please feel free to expand this list]
 
-Let me reiterate that I don't think the multiple repos model is a
-great option, but I think it is the least worst.
+The following issues regarding the canonical repo were mentioned, but 
+not resolved:
+
+* How are the individual lessons structured in the repository: as 
+folders or as branches?
+* How are different "views" of material structured in the repository. 
+E.g. some people have developed a slide deck for the "python 
+dictionaries and lists" lesson, and others have developed analogous HTML 
+(or markdown, rst, etc) documents.
+
+
+What people are voting on
+=========================
+
+The A/B vote will be how the bootcamp material developed and deployed 
+relative to the canonical repository:
+
+A. As branches of the canonical repository.
+B. As individual repositories within the swcarpentry github org.
+
+
+The case for B: many individual repositories
+============================================
+The question of how to organize material for bootcamps boils down to 
+solving a series of operational issues since everyone is basically in 
+agreement that there should be a single repository of canonical material 
+that is developed according to the typical git fork/pull request model. 
+The process of collaborative, non-colocal, asynchronous, and distributed 
+development of educational material for delivery at a bootcamp shares 
+some similarities with software development, but is sufficiently unique 
+to require a different development methodology. To my knowledge, no one 
+else has attempted to do such a thing in the way that the Software 
+Carpentry project is attempting to do it. So we are building this model 
+without the benefit of copying a successful solution. There will be some 
+inescapable amount of complexity in any system we create, and that 
+complexity will be manifest somewhere where someone has to deal with it.
+
+The following argument is for a development model featuring many 
+individual repositories (one repo for each bootcamp) and against a 
+single repository with many branches (one branch per bootcamp). The 
+argument will describe the way the material is structured, the way 
+upstream merges work (from bootcamp repo to canonical repo), advantages 
+of many repositories, and disadvantages of a single repository with many 
+branches. I believe that this model pushes the burden of complexity onto 
+a SWC contributor or group of contributors who are more able to handle 
+it rather than onto a SWC instructor or the group of students at a 
+bootcamp who may be seriously negatively affected by the inability to 
+handle it.
+
+Structure
+---------
+Each bootcamp will get its own repository. Bootcamps are usually broken 
+up into lectures that occupy either a morning or afternoon slot, and one 
+instructor usually delivers a single lecture. The materials for any 
+lecture would be located in a single directory in the repository. The 
+exact contant and format will be left up to the discretion of the 
+instructor; e.g. if most material is in slide deck format and an 
+instructor wants to write their own textual material, that's fine.
+
+For a new bootcamp, one of the instructors will create a new repository 
+with a uniform name under the swcarpentry github organization. Material 
+from the canonical repository, a previous bootcamp, or an instructor's 
+personal repository will be copied into the new repository and the 
+changes will be pushed back up to github so that all the instructors' 
+local clones are synchronized. Instructors push and pull directly to and 
+from the github repository. Since the group of bootcamp instructors is 
+small and the directory structure isolates them from one another, the 
+merges will all be straightforward. Because of the isolation between 
+different lessons, designating one instructor to merge pull requests is 
+just extra work for one person whos time would be better spent elsewhere.
+
+Merging upstream to the canonical repo
+--------------------------------------
+It will be the responsibility of the bootcamp instructor to determine if 
+the material they created for their bootcamp is worth merging back 
+upstream to the main repository. If the material is worth merging, the 
+instructor will:
+
+1. Clone the canonical repository.
+2. Set up a remote branch to the bootcamp repository.
+3. Merge the relevant data into the canonical repo.
+4. Delete the remote branch.
+
+It is likely that the material in the canonical repository will converge 
+to a steady state within a few months, and upstream merges will be less 
+and less likely.
+
+Advantages of multiple repos
+----------------------------
+The multiple repo model best supports the operational needs of the 
+bootcamp instructors and therefore the needs of bootcamp students by 
+minimizing the complexity they see. Bootcamp instructors have many 
+responsibilities beyond modifying material: coordinating venue, managing 
+logistics (coffee, availability of chairs, etc), managing attendees, 
+practicing delivery of their lesson, travel, etc. The initial setup of 
+the bootcamp repository is simply a git init, a git remote, and a copy 
+operation. Development can occur by local editing and pushing changes 
+with the occasional fetch and fast-forward merge. No one has to take on 
+the extra responsibility of merging pull requests from many forks. Also, 
+there's no chance that another SWC instructor not involved with the 
+bootcamp accidentally deletes the branch or otherwise clobbers data. If 
+a bootcamp has its own repository, the URL is as short and simple as 
+possible. Also, if bootcamp students arrive at the swcarpentry github 
+page, it is straightforward to scroll down until they see the date and 
+venue of the bootcamp they are attending. It would be impossible for a 
+bootcamp student unfamiliar with git to find their branch from the 
+github page and the canonical repository.
+
+Disadvantage of a single repo with multiple branches
+----------------------------------------------------
+Having a single repository with many branches is a hassle, and every 
+year another 50 branches will be added. If the decision is made to 
+expire some of the branches, someone will have to figure out the process 
+to do that as well as how to expire a branch without accidentally 
+deleting material that people want. Having a single repo with multiple 
+branches also increases the difficulty of contribution from instructors 
+that do not have a high level of git skill. Conversely, the multiple 
+repository model allows instructors with less git skill to follow a 
+simplified workflow.
