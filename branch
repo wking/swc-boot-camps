@@ -1,0 +1,122 @@
+Here is an overview of the single repo (side A) option.  For anyone
+who feels like they already have (or don't want) a clear grasp of the
+structure and workflows I've proposed, feel free to skip to the
+“Superiority” section at the end, for a Josua-style bullet list of
+arguments for side A.
+
+Structure
+=========
+
+There is a central repository for all workshops.  This is currently
+living at
+
+  https://github.com/wking/swc-workshop
+
+but I think it should eventually move to
+
+  https://github.com/swcarpentry/workshop
+
+or something similar for visibility reasons.  The central repo will
+have branches for each pending workshops:
+
+  https://github.com/wking/swc-workshop/tree/2012-10-caltech
+  https://github.com/wking/swc-workshop/tree/2012-10-gmu
+  …
+
+and tags for past workshops:
+
+  https://github.com/wking/swc-workshop/tags
+
+Workshop websites will be build from source and linked from a gh-pages
+branch:
+
+  https://github.com/wking/swc-workshop/tree/gh-pages
+
+This branch uses Git submodules to publish official versions of the
+workshop websites:
+
+  http://wking.github.com/swc-workshop/
+
+Pending and past workshop sites live in subdirectories:
+
+  http://wking.github.com/swc-workshop/2012-10-caltech/
+  http://wking.github.com/swc-workshop/2012-10-lbl/
+  …
+
+Workflows
+=========
+
+There are a few possible workflows for maintenance.  Here are some of
+the more obvious ones.  For all of these, you'll have to get
+submodules pushed to the gh-pages branch for an official
+
+  http://swcarpentry.github.com/workshop/2012-10-caltech/
+
+style website.  Of course, if you don't have commit rights on the
+central SWC repo or the SWC maintainers aren't fast enough on the
+draw, you can always push to your own Github account like I've done
+with my mock-up:
+
+  http://wking.github.com/swc-workshop/2012-10-caltech/
+
+Software release style
+----------------------
+
+Treat workshops as releases.  Advance the master branch where you see
+room for improvement.  Start a per-workshop branch off of the current
+master.  Make workshop-specific changes on your branch.  Make future
+general changes on the master branch.  Cherry-pick any futher master
+advances you want to incorperate (including ones you wrote yourself).
+Create a submodule for your workshop in the gh-pages branch, and
+update and rebuild this submodule when you wish to refresh your
+workshop website.  After your workshop is over, tag your current
+branch and delete the branch itself.
+
+Quasi-multi-repo style
+----------------------
+
+For anyone not comfortable with multi-branch development, just clone
+from the master branch directly and dump the other branches:
+
+  $ git clone --single-branch git://github.com/wking/swc-workshop.git
+
+Then build your workshop-specific branch as usual, while trying to
+isolate general-interest commits from workshop-specific commits.  Let
+the central maintainers know about your repo so they can cherry pick
+the general-interest commits back into the master branch.
+
+Alien style
+-----------
+
+Build your workshop website from scratch using whatever you want.  Let
+the central maintainers know where your repo is, so they can pull it
+into the central repository (as a disjoint branch) and build a
+submodule website in the gh-pages branch.
+
+Superiority to the multi repo (side B) option
+=============================================
+
+* Encourages consolidation around a small number of “blessed”
+  branches, avoiding duplicated effort, persistent bugs, etc.
+* Encourages focused commits that don't mix general-interest content
+  changes with workshop-specific structure changes [1].
+* Makes it easy to compare two workshops:
+
+    $ git diff --stat 2012-06-jhu 2012-10-gmu
+     .gitignore                                      |    1 -
+     1-Shell/Readme.md                               |  297 ++-
+     1-Shell/shell-intro.ppt                         |  Bin 0 -> 434176 bytes
+     2-PythonIntro/Debug.ipynb                       |   22 +
+     2-PythonIntro/GMU presentation.pdf              |  Bin 0 -> 92339 bytes
+    …
+
+* Multi-repo style development (and any associated benefits) are one
+  `--single-branch` option away, for workshop leaders that want to go
+  that way.
+
+
+[1] This also avoids the temptation for making a single,
+  history-destroying “stuff-from-2012-12-my-worshop” commits, which
+  you probably *can't* make if you have several workshop leaders
+  working on the 2012-12-my-worshop and we start requiring
+  Signed-off-by lines in the commit message.
