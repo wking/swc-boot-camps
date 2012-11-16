@@ -71,7 +71,7 @@ workshop repository:
 
   -o--o--o--o--o          origin/master
     \-o--o      \         origin/git-wtk
-          \------o--a--b  2012-12-my-workshop
+          \------o--a--b  master
 
   Figure 2: Workshop-specific changes go into the workshop-specific
   repository.  Example log:
