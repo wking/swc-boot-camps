@@ -1,54 +1,186 @@
-Here is an overview of the single repo (side A) option.  There is a
-central repository for all workshops [1]:
+Creating a new workshop
+=======================
+
+There is a central repository for all workshops [1].
 
   https://github.com/swcarpentry/workshop
 
-The “master” branch has the current state-of-the-art content.  If we
-can't agree on that, there may be a handful of feature branches with
-alternative content.  A developer preparing for a new workshop should
-create a per-workshop branch from the master:
+The “master” branch has the current state-of-the-art source (Markdown,
+ReST, LaTeX, …) for the instructors' projected content (HTML pages,
+PDF slides, …), handouts, workshop homepage, ….  If we can't agree on
+a canonical representation, there may be a handful of feature branches
+with alternative content.
+
+An instructor preparing for a new workshop should create a
+per-workshop branch from the master:
 
   $ git checkout -b 2012-12-my-workshop master
 
-and optionally merge the feature branches they like:
+and optionally merge feature branches they like:
 
   $ git merge git-wtk
 
-They adjust the index page to include only the content subdirectories
-that they are interested in, and then they build their workshop
-website and publish it somewhere [2].
+This gives a starting point for developing your workshop.
 
-They may, at their discretion, push their branch back into the master
-repository (to show other instructors what they're up to during
-development).  After the workshop is over, they should push their
-branch back into the master, tag the branch tip, and delete their
-branch.  Instructors can use the past-workshop tags and
-pending-workshop branches to get a feel for the material that other
-instructors are teaching [3].
+  -o--o--o--o--o    master
+    \-o--o      \   git-wtk
+          \------o  2012-12-my-workshop
 
-Workshop-specific changes go into the new per-workshop branch.
-General changes go into feature branches which should be merged into
-the master branch (possibly via GitHub pull requests) and into your
-own per-workshop branch.  If you don't like changing branches, poke a
-SWC dev to cherry-pick general changes into a feature branch for you.
+  Figure 1: Graph of commits for the beginning of the
+  2012-12-my-workshop branch.  Time increases to the right.  Commits
+  are marked with “o”.  ASCII art connects child commits with their
+  parents.  The merge of a well-maintained feature branch should be
+  painless.
+
+If you don't like remote branches cluttering your local repo, you can
+clone a single branch of the master repository using
+
+  $ git clone --single-branch …
+
+Topics will live in per-subject subdirectories, ideally organized in
+half-day-sized chunks.
+
+  .
+  ├── README
+  ├── index.rst
+  ├── debugging
+  │   ├── index.ipynb
+  │   …
+  ├── make
+  │   ├── index.md
+  │   ├── example-project
+  │   …
+  ├── python
+  │   ├── index.rst
+  │   ├── animals.txt
+  │   …
+  ├── shell
+  │   …
+  ├── version-control
+  │   ├── git
+  │   │   ├── basic
+  │   │   │   … 
+  │   │   └── advanced
+  …   …       …
+
+  Figure 2: Example directory tree for the current 2012-12-my-workshop
+  tip.  Sections should be in half-day-ish chunks.  Complicated topics
+  that need more detailed coverage (e.g. version control) can have
+  nested sub-sections.
+
+Developing workshop content
+===========================
+
+If you don't have strong ideas about the content, there's probably not
+much to do here besides tweaking a few workshop-specific bits
+(location, dates, master-index, …).  These changes should go into the workshop
+branch:
+
+  -o--o--o--o--o          master
+    \-o--o      \         git-wtk
+          \------o--a--b  2012-12-my-workshop
+
+  Figure 2: Workshop-specific changes go into the workshop-specific
+  branch.  Example log:
+
+    commit  message
+    ------  -----------------------------------------------------
+    a       index.rst: link to shell, git/basic, and git/advanced
+    b       index.rst: localize for 2012-12 workshop at my house
+
+If you want to change some of the general content, you have some
+choices.
+
+1. With commit rights to the central repo, go ahead and make your
+   change on the master branch (or the feature branch like “git-wtk”).
+   Then pull your changes into your workshop branch.
+
+    -o--o--o--o--o--a-----\    master
+      \-o--o      \        \   git-wtk
+            \------o--o--o--b  2012-12-my-workshop
+
+    Figure 3: General changes go into their general branch.  Example log:
+
+    commit  message
+    ------  ------------------------------------------------------------------
+    a       version-control/git/basic: fix origin\master -> origin/master typo
+    b       merge recent master branch updates
+
+2. If you can't commit to the central repo, put your changes in their
+   own feature branch and make a pull request.
+
+                  /-a----\---\   typo-fix
+    -o--o--o--o--o--------\---c  master
+      \-o--o      \        \     git-wtk
+            \------o--o--o--b    2012-12-my-workshop
+
+    Figure 4: You can't push to master, so you made a new “typo-fix”
+    branch.  Later on, a SWC dev will merge it into master (c).  The
+    content of commits “a” and “b” is the same as in Figure 3.
+
+3. You don't like this fancy branch stuff, so you just make the commit
+   in your workshop branch.  You let the SWC devs know so they can
+   cherry-pick it into the master branch.
+
+    -o--o--o--o--o------------d  master
+      \-o--o      \          :   git-wtk
+            \------o--o--o--a    2012-12-my-workshop
+
+    Figure 5: You make the general change “a” in your workshop branch.
+    SWC devs have to cherry pick the change into the master with “d”.
+    This makes it awkward for other people to base work off your
+    workshop branch.  It is even more awkward if you've stuffed
+    workshop-specific changes into “a”, but you can avoid that by
+    making clean commits.
+
+4. If you really want to roll your own content, feel free to skip the
+   master branch entirely.
+
+    -o--o--o--o--o        master
+      \-o--o              git-wtk
+              I--o--o--a  2012-12-my-workshop
+
+    Figure 6: A disjoint branch (2012-12-my-workshop).  The commit “I”
+    has no parents.  Different branches stored in the same repository
+    don't need to share any common commits.  They're still addressing
+    the same goal, and having them in the same repo means its easier
+    to clone/fetch/diff/….
+
+Publishing workshop websites
+============================
+
+This is not really part of the workshop-branch vs. workshop-repo
+discussion, but one benefit to the workshop-repo approach is that each
+workshop has a gh-pages website at
+
+  http://<user>.github.com/<repo>
+  http://swcarpentry.github.com/2012-12-my-workshop
+
+In the workshop-branch approach, that website should probably live at
+
+  http://swcarpentry.github.com/workshop/2012-12-my-workshop
+
+Keeping the master gh-pages branch up-to-date amongst several
+simultaneous workshops may involve some submodule shenanigans [1].
+However many instructors will not be SWC devs, so they'll just be
+building their own workshop site from their workshop branch and
+publishing it wherever they like (e.g. their department server,
+personal GitHub account, …).
+
+Post-workshop archival
+======================
+
+The per-workshop branch is a clean record of how your source
+developed.  A SWC dev that has been working on the master repository
+directly should just tag your tip and delete the branch.  Git branches
+are basically tags that move.  Once the workshop is done, there's no
+need for its tip commit to change, so you might as well mark it with a
+tag.
+
+If your workshop branch has been living in your own personal
+repository.  Submit a pull request to the master repo, and a SWC dev
+will import your branch, tag the tip, and delete the branch for you.
+
 
 [1]: There's a mock-up at https://github.com/wking/swc-workshop
-
-[2]: The tools used to build the website (and thus the format of the
-     index page) are outside the scope of this proposal.  The example
-     [1] uses Jekyll (the gh-pages default) to build the websites, and
-     publishes the per-workshop sites:
-
-       http://wking.github.com/swc-workshop/
-       http://wking.github.com/swc-workshop/master/Readme.html
-       http://wking.github.com/swc-workshop/2012-10-caltech/
-       http://wking.github.com/swc-workshop/2012-10-lbl/
-       …
-
-     as submodules of the master gh-pages branch:
-
-       https://github.com/wking/swc-workshop/tree/gh-pages
-
-[3]: I think this paragraph is the only real developer-workflow
-     difference between the single-repo model and the multi-repo
-     model.
+[2]: https://github.com/wking/swc-workshop/blob/gh-pages/README
