@@ -73,8 +73,8 @@ Developing workshop content
 
 If you don't have strong ideas about the content, there's probably not
 much to do here besides tweaking a few workshop-specific bits
-(location, dates, master-index, …).  These changes should go into the workshop
-branch:
+(location, dates, master-index, …).  These changes should go into the
+workshop branch:
 
   -o--o--o--o--o          master
     \-o--o      \         git-wtk
