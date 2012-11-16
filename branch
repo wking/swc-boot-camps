@@ -102,8 +102,8 @@ choices.
     Figure 3: General changes go into their general branch.  Example log:
 
     commit  message
-    ------  ------------------------------------------------------------------
-    a       version-control/git/basic: fix origin\master -> origin/master typo
+    ------  --------------------------------------------------
+    a       git/basic: fix origin\master -> origin/master typo
     b       merge recent master branch updates
 
 2. If you can't commit to the central repo, put your changes in their
