@@ -1,50 +1,28 @@
 Creating a new workshop
 =======================
 
-There is a central repository for all workshops.
+There is a central repository for boot camp material:
 
   https://github.com/swcarpentry/workshop
 
-The “master” branch has the current state-of-the-art source (Markdown,
-ReST, LaTeX, …) for the instructors' projected content (HTML pages,
-PDF slides, …), handouts, workshop homepage, ….  If we can't agree on
-a canonical representation, there may be a handful of feature branches
-with alternative content.
-
-An instructor preparing for a new workshop should create a
-new repository on the SWC GitHub page by forking the master.
-
-After the fork, they can optionally merge feature branches they like:
-
-  $ git merge git-wtk
-
-This gives a starting point for developing your workshop.
-
-  -o--o--o--o--o    origin/master
-    \-o--o      \   origin/git-wtk
-          \------o  master
-
-  Figure 1: Graph of commits for the beginning of the
-  2012-12-my-workshop repository.  Time increases to the right.
-  Commits are marked with “o”.  ASCII art connects child commits with
-  their parents.  The merge of a well-maintained feature branch should
-  be painless.
+The “master” branch has the current state-of-the-art source for the
+instructors' projected content, handouts, workshop homepage, etc.
+Different "editions" of material can live side-by-side in subdirectories.
 
 Topics will live in per-subject subdirectories, ideally organized in
 half-day-sized chunks.
 
   .
-  ├── README
-  ├── index.rst
+  ├── README.md
   ├── debugging
-  │   ├── index.ipynb
+  │   ├── README.md
   │   …
   ├── make
-  │   ├── index.md
+  │   ├── README.md
   │   ├── example-project
   │   …
   ├── python
-  │   ├── index.rst
+  │   ├── README.md
   │   ├── animals.txt
   │   …
   ├── shell
@@ -52,14 +30,19 @@ half-day-sized chunks.
   ├── version-control
   │   ├── git
   │   │   ├── basic
-  │   │   │   … 
+  │   │   │   …
   │   │   └── advanced
   …   …       …
 
-  Figure 2: Example directory tree for the current 2012-12-my-workshop
+  Figure 1: Example directory tree for the current 2012-12-my-workshop
   tip.  Sections should be in half-day-ish chunks.  Complicated topics
   that need more detailed coverage (e.g. version control) can have
   nested sub-sections.
+
+An instructor preparing for a new workshop should create a
+new, empty repository on the SWC GitHub organization. Material can be
+added to this repositry either by merging from the central repo or simply
+copying in any material.
 
 Developing workshop content
 ===========================
@@ -67,75 +50,20 @@ Developing workshop content
 If you don't have strong ideas about the content, there's probably not
 much to do here besides tweaking a few workshop-specific bits
 (location, dates, master-index, …).  These changes should go into the
-workshop repository:
+workshop repository.
 
-  -o--o--o--o--o          origin/master
-    \-o--o      \         origin/git-wtk
-          \------o--a--b  master
-
-  Figure 2: Workshop-specific changes go into the workshop-specific
-  repository.  Example log:
-
-    commit  message
-    ------  -----------------------------------------------------
-    a       index.rst: link to shell, git/basic, and git/advanced
-    b       index.rst: localize for 2012-12 workshop at my house
-
-If you want to change some of the general content, you have some
-choices.
-
-1. With commit rights to the central repo, go ahead and make your
-   change on the master repository.  Then pull your changes into your
-   workshop repository.
-
-    -o--o--o--o--o--a-----\    origin/master
-      \-o--o      \        \   origin/git-wtk
-            \------o--o--o--b  master
-
-    Figure 3: General changes go into their general branch.  Example log:
-
-    commit  message
-    ------  --------------------------------------------------
-    a       git/basic: fix origin\master -> origin/master typo
-    b       merge recent master branch updates
-
-2. If you can't commit to the central repo, put your changes in their
-   own feature branch and make a pull request.
-
-                  /-a----\---\   typo-fix
-    -o--o--o--o--o--------\---c  origin/master
-      \-o--o      \        \     origin/git-wtk
-            \------o--o--o--b    master
-
-    Figure 4: You can't push to master, so you made a new “typo-fix”
-    branch.  Later on, a SWC dev will merge it into the master
-    repository (c).  The content of commits “a” and “b” is the same as
-    in Figure 3.
-
-3. You don't like this fancy branch stuff, so you just make the commit
-   in your workshop repository.  You let the SWC devs know so they can
-   cherry-pick it into the master branch.
-
-    -o--o--o--o--o------------d  origin/master
-      \-o--o      \          :   origin/git-wtk
-            \------o--o--o--a    master
-
-    Figure 5: You make the general change “a” in your workshop branch.
-    SWC devs have to cherry pick the change into the master repository
-    with “d”.  This makes it awkward for other people to base work off
-    your workshop branch.  It is even more awkward if you've stuffed
-    workshop-specific changes into “a”, but you can avoid that by
-    making clean commits.
-
-4. If you really want to roll your own content, feel free to skip the
-   master repository entirely.
+If you plan to make significant (but not workshop specific)
+changes to workshop material you should
+make those changes in your personal fork of the central repository. That way
+it's easy to ask for those changes to be included in the central repo via
+a pull request.
 
 Publishing workshop websites
 ============================
 
 This is not really part of the workshop-branch vs. workshop-repo
 discussion, but one benefit to the workshop-repo approach is that each
-workshop has a gh-pages website at
+workshop may have a gh-pages website at
 
   http://<user>.github.com/<repo>
   http://swcarpentry.github.com/2012-12-my-workshop
