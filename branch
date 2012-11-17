@@ -150,7 +150,7 @@ Publishing workshop websites
 
 This is not really part of the workshop-branch vs. workshop-repo
 discussion, but one benefit to the workshop-repo approach is that each
-workshop has a gh-pages website at
+workshop may have a gh-pages website at
 
   http://<user>.github.com/<repo>
   http://swcarpentry.github.com/2012-12-my-workshop
