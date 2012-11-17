@@ -1,0 +1,75 @@
+Creating a new workshop
+=======================
+
+There is a central repository for all workshops.
+
+  https://github.com/swcarpentry/workshop
+
+The âmasterâ branch has the current state-of-the-art source for the
+instructors' projected content, handouts, workshop homepage, etc.
+Different "editions" of material can live side-by-side in subdirectories.
+
+Topics will live in per-subject subdirectories, ideally organized in
+half-day-sized chunks.
+
+  .
+  âââ README.md
+  âââ debugging
+  â   âââ README.md
+  â   â¦
+  âââ make
+  â   âââ README.md
+  â   âââ example-project
+  â   â¦
+  âââ python
+  â   âââ README.md
+  â   âââ animals.txt
+  â   â¦
+  âââ shell
+  â   â¦
+  âââ version-control
+  â   âââ git
+  â   â   âââ basic
+  â   â   â   â¦
+  â   â   âââ advanced
+  â¦   â¦       â¦
+
+  Figure 1: Example directory tree for the current 2012-12-my-workshop
+  tip.  Sections should be in half-day-ish chunks.  Complicated topics
+  that need more detailed coverage (e.g. version control) can have
+  nested sub-sections.
+
+An instructor preparing for a new workshop should create a
+new, empty repository on the SWC GitHub organization. Material can be
+added to this repositry either by merging from the central repo or simply
+copying in any material.
+
+Developing workshop content
+===========================
+
+If you don't have strong ideas about the content, there's probably not
+much to do here besides tweaking a few workshop-specific bits
+(location, dates, master-index, â¦).  These changes should go into the
+workshop repository.
+
+If you plan to make significant (but not workshop specific)
+changes to workshop material you should
+make those changes in your personal fork of the central repository. That way
+it's easy to ask for those changes to be included in the central repo via
+a pull request.
+
+Publishing workshop websites
+============================
+
+This is not really part of the workshop-branch vs. workshop-repo
+discussion, but one benefit to the workshop-repo approach is that each
+workshop may have a gh-pages website at
+
+  http://<user>.github.com/<repo>
+  http://swcarpentry.github.com/2012-12-my-workshop
+
+Post-workshop archival
+======================
+
+The workshop repositories are already on the SWC GitHub page, so
+there's nothing to do here.
