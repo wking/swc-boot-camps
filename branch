@@ -17,14 +17,14 @@ half-day-sized chunks.
   .
   ├── README.md
   ├── debugging
-  │   ├── README.ipynb
+  │   ├── README.md
   │   …
   ├── make
   │   ├── README.md
   │   ├── example-project
   │   …
   ├── python
-  │   ├── README.rst
+  │   ├── README.md
   │   ├── animals.txt
   │   …
   ├── shell
