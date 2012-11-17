@@ -6,10 +6,9 @@ There is a central repository for all boot camp material [1].
   https://github.com/swcarpentry/workshop
 
 The “master” branch has the current state-of-the-art source for the
-instructors' projected content (HTML pages, PDF slides, …), handouts,
-workshop homepage, ….  If we can't agree on a canonical
-representation, there may be a handful of feature branches with
-alternative content.
+instructors' projected content, handouts, workshop homepage, ….  If we
+can't agree on a canonical representation, there may be a handful of
+feature branches with alternative content.
 
 Topics will live in per-subject subdirectories, ideally organized in
 half-day-sized chunks.
