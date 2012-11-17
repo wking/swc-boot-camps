@@ -86,39 +86,38 @@ workshop branch:
     a       README.md: link to shell, git/basic, and git/advanced
     b       README.md: localize for 2012-12 workshop at my house
 
-If you want to change some of the general content, you have some
-choices.
+If you want to change some of the general content, you should make
+your change on the master branch (or the feature branch like
+“git-wtk”).  Then pull your changes into your workshop branch and make
+a pull request for inclusion in the master repository.
 
-1. Make your change on the master branch (or the feature branch like
-   “git-wtk”).  Then pull your changes into your workshop branch and
-   make a pull request for inclusion in the master repository.
+                /-a----\---\   typo-fix
+  -o--o--o--o--o--------\---c  origin/master
+    \-o--o      \        \     origin/git-wtk
+          \------o--o--o--b    2012-12-my-workshop
 
-                  /-a----\---\   typo-fix
-    -o--o--o--o--o--------\---c  origin/master
-      \-o--o      \        \     origin/git-wtk
-            \------o--o--o--b    2012-12-my-workshop
+  Figure 3: You can't push to master, so you made a new “typo-fix”
+  branch.  Later on, a SWC dev will merge it into master.  Example
+  log:
 
-    Figure 3: You can't push to master, so you made a new “typo-fix”
-    branch.  Later on, a SWC dev will merge it into master.  Example log:
+  commit  message
+  ------  --------------------------------------------------
+  a       git/basic: fix origin\master -> origin/master typo
+  b       merge recent master branch updates
+  c       git/basic: merge origin\master typo fix
 
-    commit  message
-    ------  --------------------------------------------------
-    a       git/basic: fix origin\master -> origin/master typo
-    b       merge recent master branch updates
-    c       git/basic: merge origin\master typo fix
+If you really want to roll your own content, feel free to skip the
+master branch entirely.
 
-2. If you really want to roll your own content, feel free to skip the
-   master branch entirely.
+  -o--o--o--o--o        origin/master
+    \-o--o              origin/git-wtk
+            I--o--o--a  2012-12-my-workshop
 
-    -o--o--o--o--o        origin/master
-      \-o--o              origin/git-wtk
-              I--o--o--a  2012-12-my-workshop
-
-    Figure 4: A disjoint branch (2012-12-my-workshop).  The commit “I”
-    has no parents.  Different branches stored in the same repository
-    don't need to share any common commits.  They're still addressing
-    the same goal, and having them in the same repo means its easier
-    to clone/fetch/diff/….
+  Figure 4: A disjoint branch (2012-12-my-workshop).  The commit “I”
+  has no parents.  Different branches stored in the same repository
+  don't need to share any common commits.  They're still addressing
+  the same goal, and having them in the same repo means its easier to
+  clone/fetch/diff/….
 
 Publishing workshop websites
 ============================
