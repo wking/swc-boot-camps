@@ -15,17 +15,16 @@ Topics will live in per-subject subdirectories, ideally organized in
 half-day-sized chunks.
 
   .
-  ├── README
-  ├── index.rst
+  ├── README.md
   ├── debugging
-  │   ├── index.ipynb
+  │   ├── README.ipynb
   │   …
   ├── make
-  │   ├── index.md
+  │   ├── README.md
   │   ├── example-project
   │   …
   ├── python
-  │   ├── index.rst
+  │   ├── README.rst
   │   ├── animals.txt
   │   …
   ├── shell
@@ -85,8 +84,8 @@ workshop branch:
 
     commit  message
     ------  -----------------------------------------------------
-    a       index.rst: link to shell, git/basic, and git/advanced
-    b       index.rst: localize for 2012-12 workshop at my house
+    a       README.md: link to shell, git/basic, and git/advanced
+    b       README.md: localize for 2012-12 workshop at my house
 
 If you want to change some of the general content, you have some
 choices.
