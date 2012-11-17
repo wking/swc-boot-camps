@@ -51,8 +51,8 @@ and optionally merge feature branches they like:
 
 This gives a starting point for developing your workshop.
 
-  -o--o--o--o--o    master
-    \-o--o      \   git-wtk
+  -o--o--o--o--o    origin/master    (same as local master)
+    \-o--o      \   origin/git-wtk
           \------o  2012-12-my-workshop
 
   Figure 2: Graph of commits for the beginning of the
@@ -74,8 +74,8 @@ much to do here besides tweaking a few workshop-specific bits
 (location, dates, master-index, …).  These changes should go into the
 workshop branch:
 
-  -o--o--o--o--o          master
-    \-o--o      \         git-wtk
+  -o--o--o--o--o          origin/master
+    \-o--o      \         origin/git-wtk
           \------o--a--b  2012-12-my-workshop
 
   Figure 2: Workshop-specific changes go into the workshop-specific
@@ -89,56 +89,32 @@ workshop branch:
 If you want to change some of the general content, you have some
 choices.
 
-1. With commit rights to the central repo, go ahead and make your
-   change on the master branch (or the feature branch like “git-wtk”).
-   Then pull your changes into your workshop branch.
+1. Make your change on the master branch (or the feature branch like
+   “git-wtk”).  Then pull your changes into your workshop branch and
+   make a pull request for inclusion in the master repository.
 
-    -o--o--o--o--o--a-----\    master
-      \-o--o      \        \   git-wtk
-            \------o--o--o--b  2012-12-my-workshop
+                  /-a----\---\   typo-fix
+    -o--o--o--o--o--------\---c  origin/master
+      \-o--o      \        \     origin/git-wtk
+            \------o--o--o--b    2012-12-my-workshop
 
-    Figure 3: General changes go into their general branch.  Example log:
+    Figure 3: You can't push to master, so you made a new “typo-fix”
+    branch.  Later on, a SWC dev will merge it into master.  Example log:
 
     commit  message
     ------  --------------------------------------------------
     a       git/basic: fix origin\master -> origin/master typo
     b       merge recent master branch updates
+    c       git/basic: merge origin\master typo fix
 
-2. If you can't commit to the central repo, put your changes in their
-   own feature branch and make a pull request.
-
-                  /-a----\---\   typo-fix
-    -o--o--o--o--o--------\---c  master
-      \-o--o      \        \     git-wtk
-            \------o--o--o--b    2012-12-my-workshop
-
-    Figure 4: You can't push to master, so you made a new “typo-fix”
-    branch.  Later on, a SWC dev will merge it into master (c).  The
-    content of commits “a” and “b” is the same as in Figure 3.
-
-3. You don't like this fancy branch stuff, so you just make the commit
-   in your workshop branch.  You let the SWC devs know so they can
-   cherry-pick it into the master branch.
-
-    -o--o--o--o--o------------d  master
-      \-o--o      \          :   git-wtk
-            \------o--o--o--a    2012-12-my-workshop
-
-    Figure 5: You make the general change “a” in your workshop branch.
-    SWC devs have to cherry pick the change into the master with “d”.
-    This makes it awkward for other people to base work off your
-    workshop branch.  It is even more awkward if you've stuffed
-    workshop-specific changes into “a”, but you can avoid that by
-    making clean commits.
-
-4. If you really want to roll your own content, feel free to skip the
+2. If you really want to roll your own content, feel free to skip the
    master branch entirely.
 
-    -o--o--o--o--o        master
-      \-o--o              git-wtk
+    -o--o--o--o--o        origin/master
+      \-o--o              origin/git-wtk
               I--o--o--a  2012-12-my-workshop
 
-    Figure 6: A disjoint branch (2012-12-my-workshop).  The commit “I”
+    Figure 4: A disjoint branch (2012-12-my-workshop).  The commit “I”
     has no parents.  Different branches stored in the same repository
     don't need to share any common commits.  They're still addressing
     the same goal, and having them in the same repo means its easier
