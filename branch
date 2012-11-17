@@ -151,8 +151,8 @@ need for its tip commit to change, so you might as well mark it with a
 tag.
 
 If your workshop branch has been living in your own personal
-repository.  Submit a pull request to the master repo, and a SWC dev
-will import your branch, tag the tip, and delete the branch for you.
+repositor, submit a pull request to the master repo.  A SWC dev will
+import your branch, tag the tip, and delete the branch for you.
 
 
 [1]: There's a mock-up at https://github.com/wking/swc-workshop
