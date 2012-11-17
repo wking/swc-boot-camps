@@ -5,37 +5,11 @@ There is a central repository for all boot camp material [1].
 
   https://github.com/swcarpentry/workshop
 
-The “master” branch has the current state-of-the-art source (Markdown,
-ReST, LaTeX, …) for the instructors' projected content (HTML pages,
-PDF slides, …), handouts, workshop homepage, ….  If we can't agree on
-a canonical representation, there may be a handful of feature branches
-with alternative content.
-
-An instructor preparing for a new workshop should create a
-per-workshop branch from the master:
-
-  $ git checkout -b 2012-12-my-workshop master
-
-and optionally merge feature branches they like:
-
-  $ git merge git-wtk
-
-This gives a starting point for developing your workshop.
-
-  -o--o--o--o--o    master
-    \-o--o      \   git-wtk
-          \------o  2012-12-my-workshop
-
-  Figure 1: Graph of commits for the beginning of the
-  2012-12-my-workshop branch.  Time increases to the right.  Commits
-  are marked with “o”.  ASCII art connects child commits with their
-  parents.  The merge of a well-maintained feature branch should be
-  painless.
-
-If you don't like remote branches cluttering your local repo, you can
-clone a single branch of the master repository using
-
-  $ git clone --single-branch …
+The “master” branch has the current state-of-the-art source for the
+instructors' projected content (HTML pages, PDF slides, …), handouts,
+workshop homepage, ….  If we can't agree on a canonical
+representation, there may be a handful of feature branches with
+alternative content.
 
 Topics will live in per-subject subdirectories, ideally organized in
 half-day-sized chunks.
@@ -63,10 +37,36 @@ half-day-sized chunks.
   │   │   └── advanced
   …   …       …
 
-  Figure 2: Example directory tree for the current 2012-12-my-workshop
+  Figure 1: Example directory tree for the current 2012-12-my-workshop
   tip.  Sections should be in half-day-ish chunks.  Complicated topics
   that need more detailed coverage (e.g. version control) can have
   nested sub-sections.
+
+An instructor preparing for a new workshop should create a
+per-workshop branch from the master:
+
+  $ git checkout -b 2012-12-my-workshop master
+
+and optionally merge feature branches they like:
+
+  $ git merge git-wtk
+
+This gives a starting point for developing your workshop.
+
+  -o--o--o--o--o    master
+    \-o--o      \   git-wtk
+          \------o  2012-12-my-workshop
+
+  Figure 2: Graph of commits for the beginning of the
+  2012-12-my-workshop branch.  Time increases to the right.  Commits
+  are marked with “o”.  ASCII art connects child commits with their
+  parents.  The merge of a well-maintained feature branch should be
+  painless.
+
+If you don't like remote branches cluttering your local repo, you can
+clone a single branch of the master repository using
+
+  $ git clone --single-branch …
 
 Developing workshop content
 ===========================
