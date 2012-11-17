@@ -1,11 +1,11 @@
 Creating a new workshop
 =======================
 
-There is a central repository for all workshops.
+There is a central repository for boot camp material:
 
   https://github.com/swcarpentry/workshop
 
-The âmasterâ branch has the current state-of-the-art source for the
+The "master" branch has the current state-of-the-art source for the
 instructors' projected content, handouts, workshop homepage, etc.
 Different "editions" of material can live side-by-side in subdirectories.
 
