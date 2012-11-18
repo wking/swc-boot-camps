@@ -1,75 +1,54 @@
-Creating a new workshop
-=======================
+Introduction
+============
 
-There is a central repository for boot camp material:
+There are two major components to this model: a canonical repository
+and repositories for each individual workshop. The canonical
+repository serves several purposes: one, it is an incarnation of the
+phrase, "the code is the documentation" and addresses the question,
+"What is Software Carpentry?" If someone looks at the canonical
+repository they will get a sense of the scope and depth of the SWC
+project. Second, the canonical repo gives new instructors a starting
+seed so they don't have to generate their lesson material from
+scratch. The canonical repository will mostly be viewed by people
+arriving from the web and will mostly be consumed by individuals
+working alone. As such, the material in it should be constructed to
+best serve those users. The individual workshop repos exist to
+minimize the operational overhead of workshop instructors and to draw
+a sharp logical boundary between different types of material that is
+pitched at distinct audiences. Material in any workshop repo should be
+constructed to best serve students attending that specific workshop.
 
-  https://github.com/swcarpentry/workshop
+Filesystem Structure
+====================
 
-The “master” branch has the current state-of-the-art source for the
-instructors' projected content, handouts, workshop homepage, etc.
-Different "editions" of material can live side-by-side in subdirectories.
+The canonical repo and the workshop repos will have the same general
+filesystem structure. Different modules will be organized into
+different folders. For example, there may be a folder with material on
+"python testing" or on "remote repos with git." The specific format of
+the material in any of these folders as well as auxiliary files
+(images, ipython notebooks, data) are decisions left up to the
+developers/workshop instructors.
 
-Topics will live in per-subject subdirectories, ideally organized in
-half-day-sized chunks.
+Canonical Repo Development Workflow
+===================================
 
-  .
-  ├── README.md
-  ├── debugging
-  │   ├── README.md
-  │   …
-  ├── make
-  │   ├── README.md
-  │   ├── example-project
-  │   …
-  ├── python
-  │   ├── README.md
-  │   ├── animals.txt
-  │   …
-  ├── shell
-  │   …
-  ├── version-control
-  │   ├── git
-  │   │   ├── basic
-  │   │   │   …
-  │   │   └── advanced
-  …   …       …
+The development model of the canonical repository will be the typical
+DVCS github model: a contributor forks the repo into their own github
+account, makes changes, then issues a pull request. SWC maintainers
+look at the changes and merge them into the main repo when
+appropriate.
 
-  Figure 1: Example directory tree for the current 2012-12-my-workshop
-  tip.  Sections should be in half-day-ish chunks.  Complicated topics
-  that need more detailed coverage (e.g. version control) can have
-  nested sub-sections.
+Workshop Repos Development Workflow
+===================================
 
-An instructor preparing for a new workshop should create a
-new, empty repository on the SWC GitHub organization. Material can be
-added to this repositry either by merging from the central repo or simply
-copying in any material.
-
-Developing workshop content
-===========================
-
-If you don't have strong ideas about the content, there's probably not
-much to do here besides tweaking a few workshop-specific bits
-(location, dates, master-index, …).  These changes should go into the
-workshop repository.
-
-If you plan to make significant (but not workshop specific)
-changes to workshop material you should
-make those changes in your personal fork of the central repository. That way
-it's easy to ask for those changes to be included in the central repo via
-a pull request.
-
-Publishing workshop websites
-============================
-
-This is not really part of the workshop-branch vs. workshop-repo
-discussion, but one benefit to the workshop-repo approach is that each
-workshop may have a gh-pages website at
-
-  http://<user>.github.com/<repo>
-  http://swcarpentry.github.com/2012-12-my-workshop
-
-Post-workshop archival
-======================
-
-The workshop repositories are already on the SWC GitHub page, so
-there's nothing to do here.
+The development workflow for a workshop is as follows: one of the
+workshop instructors creates a new repository under the swcarpentry
+github organization with a uniform name (YYYY-MM-location). The
+repository is populated with material via copy-and-paste or by setting
+up a remote and merging in content from, say, a previous
+workshop. Material in the repository is developed by instructors
+commiting and pushing directly to the repository without the fork/pull
+request like in the canonical repo. In the unlikely event that
+workshop material needs to be merged back into the canonical
+repository, the maintainers of the canonical repo set up a remote to
+the workshop repo and merge in the changes.
