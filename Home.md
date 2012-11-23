@@ -1,0 +1,1 @@
+Welcome to the boot-camps wiki!
