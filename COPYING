@@ -1,0 +1,12 @@
+Documentation in this project is released under the Creative Commons
+Attribution 3.0 Unported License. There is a copy of the license in
+`license/CC-BY.full` and a human-readable summary in
+`license/CC-BY.md`.
+
+Source code in this project is released under the MIT (Expat) license.
+There is a copy of the license in `license/MIT`.
+
+Individual files in this project should contain comments that
+explicitly list their license and copyright owners.  In the absence of
+such comments, you should consult the versioned history for the file
+in question.
