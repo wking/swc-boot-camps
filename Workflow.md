@@ -50,7 +50,7 @@ head to be on GitHub, that means you'll need a [GitHub
 account][gh-account].  Log into GitHub, and [fork][gh-fork] the
 [boot-camps repository][boot-camps].  Clone your fork with:
 
-    $ git clone https://github.com/your-username/boot-camps.git
+    $ git clone https://github.com/YOU/boot-camps.git
     $ cd boot-camps
 
 You'll want to track the SWC repository to stay abreast of changes, so
@@ -199,10 +199,14 @@ should publish your final branch state on your GitHub repository:
     $ git push origin 2012-12-my-camp
 
 and submit a pull request (the base branch should match your
-`YYYY-MM-LOCATION` branch tag).  After the pull request is accepted
-(which shouldn't take long, since there shouldn't be any controversy
-over its content), the developer who merged the pull request will tag
-the boot camp branch and delete the branch itself
+`YYYY-MM-LOCATION` branch tag).  The base branch of your pull request
+is irrelevant; GitHub doesn't allow you to explicitly request new
+branches with pull requests.
+
+After the pull request is accepted (which shouldn't take long, since
+there shouldn't be any controversy over its content), the developer
+who merged the pull request will tag the boot camp branch and delete
+the branch itself
 
     $ git tag 2012-12-my-camp swc/2012-12-my-camp
     $ git push swc tag 2012-12-my-camp
@@ -238,7 +242,7 @@ Simplifying your local repository
 If you don't like remote branches cluttering your local repo, you can
 clone a single branch of the master repository using:
 
-    $ git clone --single-branch https://github.com/your-username/boot-camps.git
+    $ git clone --single-branch https://github.com/YOU/boot-camps.git
 
 You can also limit the branches you fetch from upstream.  After adding
 the `swc` remote, run:
@@ -265,6 +269,55 @@ master branch entirely.
     the same goal, and having them in the same repo means its easier to
     clone/fetch/diff/….
 
+Avoiding the GitHub website
+---------------------------
+
+If you don't like forking and issusing pull requests from the GitHub
+websites, you can use [hub][] to perform these operations from the
+command line.  Hub is available as `dev-vcs/hub` in Evgeny Mandrikov's
+`godin` overlay on [Gentoo][]; installation instructions for some
+other platforms is available [in the README][hub-install].
+
+### Cloning the master repository
+
+    $ git clone https://github.com/swcarpentry/boot-camps.git
+    $ cd boot-camps
+    $ hub fork
+
+This is the same as the hub-less procedure, except that the remote
+names have changed.
+
+    hub-less  hub     Repository URL
+    ========  ======  ===========================================
+    swc       origin  git://github.com/swcarpentry/boot-camps.git
+    origin    YOU     git://github.com/YOU/boot-camps.git
+
+You'll have to make appropriate adjustments to the other commands
+(e.g. for creating a new boot camp, branch off from `origin/master`
+instead of `swc/master`).
+
+### General content
+
+Create your feature branch as described for hub-less development, but
+after publishing to `YOU/feature-branch` you can create the pull
+request using hub:
+
+    $ hub pull-request 
+
+The pull request base defaults to the tracked branch and the head
+defaults to the current branch, so you shouldn't need to specify
+either explicitly.
+
+### Post-boot-camp archival
+
+After publishing your boot camp branch to `YOU/2012-12-my-camp`,
+create a pull request using:
+
+    $ hub pull-request 'tag completed 2012-12-my-camp' -b origin:master
+
+As mentioned earlier, don't worry about having `master` as the base
+branch.
+
 
 [boot-camps]: https://github.com/swcarpentry/boot-camps
 [gh-pull]: https://help.github.com/articles/using-pull-requests
@@ -274,3 +327,6 @@ master branch entirely.
 [gh-pages]: https://help.github.com/categories/20/articles
 [Jekyll]: https://github.com/mojombo/jekyll
 [website-readme]: https://github.com/swcarpentry/boot-camps/blob/gh-pages/README
+[hub]: https://github.com/defunkt/hub
+[Gentoo]: http://www.gentoo.org/
+[hub-install]: https://github.com/defunkt/hub#installation
