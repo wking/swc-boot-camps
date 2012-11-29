@@ -278,6 +278,11 @@ command line.  Hub is available as `dev-vcs/hub` in Evgeny Mandrikov's
 `godin` overlay on [Gentoo][]; installation instructions for some
 other platforms is available [in the README][hub-install].
 
+Using `hub` to submit pull requests is similar to using Git's builtin
+`request-pull` command, except that `hub` created pull requests on
+GitHub, while `request-pull` prints a message onto stdout that should
+be emailed to the maintainer.
+
 ### Cloning the master repository
 
     $ git clone https://github.com/swcarpentry/boot-camps.git
