@@ -2,6 +2,7 @@
 layout: base
 title: Boot Camps
 ---
+<div class="title">{{page.title}}</div>
 
 <p><a href="faq.html">FAQ</a></p>
 
@@ -15,7 +16,7 @@ title: Boot Camps
       </td>
       <td>&nbsp;...&nbsp;</td>
       <td>
-        {{bootcamp.date | date_to_string}}
+        {{bootcamp.dates}}
       </td>
     </tr>
   {% endif %}
@@ -53,7 +54,7 @@ title: Boot Camps
       </td>
       <td>&nbsp;...&nbsp;</td>
       <td>
-        {{bootcamp.date | date_to_string}}
+        {{bootcamp.dates}}
       </td>
     </tr>
   {% endif %}
