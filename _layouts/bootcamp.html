@@ -1,0 +1,14 @@
+---
+layout: base
+---
+<table width="100%">
+  <tr>
+    <td width="5%">{% include nav_left.html %}</td>
+    <td width="90%" align="center">{{page.venue}}: {{page.date | date_to_string}}</td>
+    <td width="5%">{% include nav_right.html %}</td>
+  </tr>
+</table>
+
+{{content}}
+
+{% include disqus.html %}
