@@ -1,0 +1,5 @@
+safe : true
+lsi: false
+pygments: true
+swc_main: http://dev.software-carpentry.org
+swc_github: http://swcarpentry.github.com
