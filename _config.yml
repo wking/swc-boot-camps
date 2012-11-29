@@ -1,5 +1,6 @@
 safe : true
 lsi: false
 pygments: true
+permalink: /:year-:month-:day-:title.html
 swc_main: http://dev.software-carpentry.org
 swc_github: http://swcarpentry.github.com
