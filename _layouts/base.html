@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<!-- pageclass: GenericPage -->
+
+{% macro youtube(title, stem, time) -%}
+  <div class="youtube">
+    <iframe title="{{title}}"
+            src="http://www.youtube.com/embed/{{stem}}"
+            time="{{time}}"
+            width="640" height="506"
+            frameborder="0"
+            allowfullscreen="allowfullscreen"></iframe>
+  </div>
+{%- endmacro %}
+
+{% macro nav_left() -%}
+  {% if page.prev %}
+    <a id="id_prev_link" href="{{page.prev}}">&lt;</a>
+  {% else %}
+    <a id="id_up_link" href="{{page.uplink}}">^</a>
+  {% endif %}
+{%- endmacro %}
+
+{% macro nav_right() -%}
+  {% if page.next %}
+    <a id="id_next_link" href="{{page.next}}">&gt;</a>
+  {% else %}
+    <a id="id_up_link" href="{{page.uplink}}">^</a>
+  {% endif %}
+{%- endmacro %}
+
+{% macro disqus(title, ident) -%}
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'software-carpentry';
+  var disqus_developer = 1;
+  var disqus_identifier = '{{ident}}';
+  var disqus_title = '{{title}}';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+{%- endmacro %}
+
+  <head>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
+    {% block css %}
+    <link rel="stylesheet" href="{{root_path}}/css/blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="{{root_path}}/css/blueprint/print.css" type="text/css" media="print"/>
+    <!--[if lt IE 8]>
+      <link rel="stylesheet" href="{{root_path}}/css/blueprint/ie.css" type="text/css" media="screen, projection"/>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="{{root_path}}/css/swc.css" />
+
+    {% endblock css %}
+    {% block metadata %}{% endblock metadata %}
+    {% block file_metadata %}{% endblock file_metadata %}
+    {% block pagetitle %}<title>Software Carpentry: {{page.title}}</title>{% endblock pagetitle %}
+    {% block javascript %}{% endblock javascript %}
+  </head>
+
+  <body>
+    <div class="container shadow">
+
+      <div class="banner">
+        <a href="{{root_path}}/index.html" title="Software Carpentry Home">
+          <img src="{{root_path}}/img/software-carpentry-banner.png" alt="Software Carpentry banner" />
+        </a>
+      </div>
+
+  <div class="mainmenu">
+    <div id="menubar">
+            <a href="{{root_path}}/index.html">Home</a>
+            |
+            <a href="{{root_path}}/about/index.html">About</a>
+            |
+            <a href="{{root_path}}/4_0/index.html">Lessons</a>
+            |
+            <a href="{{root_path}}/bootcamps/index.html">Boot Camps</a>
+            |
+            <a href="{{root_path}}/setup/index.html">Setup</a>
+            |
+            <a href="{{root_path}}/blog/index.html">Blog</a>
+            |
+            <a href="{{root_path}}/license.html">License</a>
+          </div>
+          <div id="searchbar">
+            <form name="google-search" method="get" action="http://www.google.com/search">
+                <input type="hidden" name="sitesearch" value="{{site}}" />
+                <input name="q" type="text" />
+                <input type="submit" name="sa" value="Search" />
+            </form>
+          </div>
+  </div>
+
+      <div class="title">
+        {% block title %}{{page.title}}{% endblock title %}
+      </div>
+
+      {% block files %}{% endblock files %}
+
+      <div class="content">
+        {% block content %}{% endblock content %}
+  {% block details %}{% endblock details %}
+  {% block comments %}{{disqus(page.title, page.filename)}}{% endblock comments %}
+      </div>
+
+      <div class="footer">
+        <a href="{{root_path}}/license.html"><img src="{{root_path}}/img/creative-commons-attribution-license.png" alt="Creative Commons Attribution License" /></a>
+      </div>
+
+    </div>
+  </body>
+</html>
