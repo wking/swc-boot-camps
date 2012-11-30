@@ -1,0 +1,130 @@
+{% extends "_bootcamp.html" %} {% block file_metadata %}  {% endblock
+file_metadata %} {% block content %}
+
+Software Carpentry is teaming up with [Scinet](http://www.scinethpc.ca/about-
+scinet/) and [The Hacker Within](http://hackerwithin.org/thw/) to host a 2 day
+workshop on software engineering at the University of Toronto for graduate
+students in the sciences. The workshop is sold out, but we'll be posting all
+of our course materials here for anyone who wants to use them.
+
+**Information for Attendees**
+
+Please follow the instructions on the setup page _before_ November 7 so we can
+get a quick start.
+
+The SWC Bootcamp will be covering several topics including data storage, the
+shell, and a lot of Python. Everything is interactive, which means you should
+bring a laptop and your power cord with you both days.
+
+**Topics and Schedule**
+
+&nbsp_place_holder;
+
+**Tuesday**
+
+**Monday**
+
+**Subject**
+**Details**
+**Begin**
+**End**
+
+Register
+
+Woodsworth 120
+
+8:30
+
+8:45
+
+Introduction
+
+Dominique Vuvan
+
+9:00
+
+9:45
+
+Version Control
+
+Greg Wilson
+
+10:00
+
+12:00
+
+Lunch
+
+sponsored by scinet
+
+12:00
+
+1:00
+
+Python
+
+Tommy Guy
+
+1:00
+
+4:00
+
+Nirvana
+
+not sponsored
+
+6:00
+
+++
+
+**Tuesday**
+
+**Subject**
+**Details**
+**Begin**
+**End**
+
+The Shell
+
+Jonathan Dursi
+
+9:00
+
+10:30
+
+Databases
+
+Katy Huff
+
+10:30
+
+12:00
+
+Lunch
+
+sponsored by scinet
+
+12:00
+
+1:00
+
+Software Testing
+
+Katy Huff
+
+1:00
+
+2:00
+
+Python II
+
+Tommy Guy
+
+2:00
+
+4:00
+
+&nbsp_place_holder;
+
+{% endblock content %}
+
