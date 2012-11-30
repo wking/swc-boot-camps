@@ -1,6 +1,6 @@
 ---
 layout: bootcamp
-title: Michigan State University: May 07-08, 2012
+title: 'Michigan State University: May 07-08, 2012'
 venue: Michigan State University
 dates: May 07-08, 2012
 ---

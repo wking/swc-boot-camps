@@ -1,6 +1,6 @@
 ---
 layout: bootcamp
-title: Newcastle University: May 14-15, 2012
+title: 'Newcastle University: May 14-15, 2012'
 venue: Newcastle University
 dates: May 14-15, 2012
 ---
@@ -10,8 +10,10 @@ dates: May 14-15, 2012
 
 **Where:** Newcastle University, Newcastle upon Tyne
 
-{% include "_what.html" %} {% include "_who.html" %} {% include
-"_requirements.html" %} {% include "_content.html" %}
+{% include what.html %}
+{% include who.html %}
+{% include requirements.html %}
+{% include content.html %}
 
 **Registration:** Please use this form to register your interest by April 6. We will allocate places to individuals and groups we believe will benefit, while aiming for a balance of subjects and geographical areas. We strongly encourage learners to attend with colleagues, so please create or join a team when you sign up. Ideally we would like teams of 3 to 6 members, and we will give preference to teams including one more knowledgeable member who is interested in organizing further training at their own institution. By registering you are stating that you will attend both days of the workshop and participate in the online exercises and follow-up sessions in the following weeks. We will notify all applicants as to whether they have a spot no later than April 13.
 
@@ -52,4 +54,4 @@ conclusions.ppt) -- Mike Jackson
 
 **Event Evaluation:**
 
-****Evaluation of the event venue and local organisation: [http://forms.ncl.ac.uk/view.php?id=3205](http://forms.ncl.ac.uk/view.php?id=3205)
+Evaluation of the event venue and local organisation: [http://forms.ncl.ac.uk/view.php?id=3205](http://forms.ncl.ac.uk/view.php?id=3205)

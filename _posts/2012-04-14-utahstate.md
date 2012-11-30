@@ -1,6 +1,6 @@
 ---
 layout: bootcamp
-title: Utah State University: Apr 14-15, 2012
+title: 'Utah State University: Apr 14-15, 2012'
 venue: Utah State University
 dates: Apr 14-15, 2012
 ---
@@ -75,10 +75,7 @@ The workshop is free, you just need to bring a laptop and commit to spending 2
 days learning about how to be a better scientific programmer. Space is limited
 and signups are on a first come first serve basis.
 
-For more information, please see [http://software-carpentry.org](http
-://software-carpentry.org), or contact us by email at info@software-
+For more information, please see [http://software-carpentry.org](http://software-carpentry.org),
+or contact us by email at info@software-
 carpentry.org. You can also feel free to email Ethan (ethan.white@usu.edu)
 with any questions.
-
-{% endblock content %}
-

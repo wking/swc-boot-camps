@@ -1,6 +1,6 @@
 ---
 layout: bootcamp
-title: University of Newcastle: Oct 22-23, 2012
+title: 'University of Newcastle: Oct 22-23, 2012'
 venue: University of Newcastle
 dates: Oct 22-23, 2012
 ---

@@ -1,6 +1,6 @@
 ---
 layout: bootcamp
-title: University of Edinburgh: Dec 04-05, 2012
+title: 'University of Edinburgh: Dec 04-05, 2012'
 venue: University of Edinburgh
 dates: Dec 04-05, 2012
 ---
