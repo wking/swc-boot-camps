@@ -1,9 +1,13 @@
-{% extends "_bootcamp.html" %} {% block file_metadata %}  {% endblock
-file_metadata %} {% block content %}
-
+---
+layout: bootcamp
+title: University of Waterloo: Jul 12-13, 2012
+venue: University of Waterloo
+dates: Jul 12-13, 2012
+eventbrite_key: 3558725243
+---
 data1.txt
 
-    
+
     Date,Species,Count
     2012-07-01,squirrel,23
     2012-07-01,goose,9
@@ -15,7 +19,7 @@ data1.txt
 
 data2.txt
 
-    
+
     Date,Species,Count
     2012-07-01,squirrel,15
     2012-07-01,goose,5
@@ -28,8 +32,9 @@ data2.txt
 
 **When:** July 12-13, 2012. We will start at 9:00 and end at 4:30 each day.
 
-{% include "_what.html" %} {% include "_who.html" %} {% include
-"_requirements.html" %} {% include "_content.html" %} {% include
-"_contact.html" %} {{eventbrite(page.eventbrite_key, page.venue, page.date)}}
-{% endblock content %}
-
+{% include what.html %}
+{% include who.html %}
+{% include requirements.html %}
+{% include content.html %}
+{% include contact.html %}
+{% include eventbrite.html %}

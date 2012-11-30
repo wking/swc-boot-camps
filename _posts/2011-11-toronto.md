@@ -1,6 +1,9 @@
-{% extends "_bootcamp.html" %} {% block file_metadata %}  {% endblock
-file_metadata %} {% block content %}
-
+---
+layout: bootcamp
+title: University of Toronto: Nov 07-08, 2011
+venue: University of Toronto
+dates: Nov 07-08, 2011
+---
 Software Carpentry is teaming up with [Scinet](http://www.scinethpc.ca/about-
 scinet/) and [The Hacker Within](http://hackerwithin.org/thw/) to host a 2 day
 workshop on software engineering at the University of Toronto for graduate
@@ -125,6 +128,3 @@ Tommy Guy
 4:00
 
 &nbsp_place_holder;
-
-{% endblock content %}
-

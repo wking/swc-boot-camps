@@ -1,12 +1,17 @@
-{% extends "_bootcamp.html" %} {% block file_metadata %}  {% endblock
-file_metadata %} {% block content %}
+---
+layout: bootcamp
+title: University of Waterloo: Jan 12-13, 2013
+venue: University of Waterloo
+dates: Jan 12-13, 2013
+eventbrite_key: 4455642948
+---
+**Where:** {{page.venue}}, Engineering 6 building, room 4022 [[map](https://uwaterloo.ca/map/)]
 
-**Where:** University of Waterloo, Engineering 6 building, room 4022 [[map](https://uwaterloo.ca/map/)]
+**When:** {{page.dates}}. We will start at 9:00 and end at 4:30 each day.
 
-**When:** January 12-13, 2013. We will start at 9:00 and end at 4:30 each day.
-
-{% include "_what.html" %} {% include "_who.html" %} {% include
-"_requirements.html" %}
+{% include what.html %}
+{% include who.html %}
+{% include requirements.html %}
 
 **Content:** ****The syllabus for this boot camp will include:
 
@@ -15,6 +20,6 @@ file_metadata %} {% block content %}
   * basic Python programming
   * how (and how much) to test programs
   * Scientific Python, manipulation of arrays, matrices, and plotting data
-{% include "_contact.html" %} {{eventbrite(page.eventbrite_key, page.venue,
-page.date)}} {% endblock content %}
 
+{% include contact.html %}
+{% include eventbrite.html %}

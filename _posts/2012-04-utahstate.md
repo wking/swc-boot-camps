@@ -1,18 +1,21 @@
-{% extends "_bootcamp.html" %} {% block file_metadata %}  {% endblock
-file_metadata %} {% block content %}
-
+---
+layout: bootcamp
+title: Utah State University: Apr 14-15, 2012
+venue: Utah State University
+dates: Apr 14-15, 2012
+---
 Please download:
 
 **Count lines in files or in standard input**
-    
+
     import sys
-    
+
     def counter(source):
         count = 0
         for line in source:
             count += 1
         return count
-    
+
     filenames = sys.argv[1:]
     if len(filenames) == 0:
         print 'STDIN', counter(sys.stdin)
@@ -23,7 +26,7 @@ Please download:
             print filename, count
 
 **Count marlins in each file in turn**
-    
+
     # Count marlins in each data file.
     for filename in $*
     do
@@ -32,7 +35,7 @@ Please download:
     done
 
 **Count by date**
-    
+
     echo '# count-by-date.sh' $*
     grep -h -v '#' $* | \
     grep -v Species | \
@@ -41,7 +44,7 @@ Please download:
     uniq -c
 
 **Count marlins using Python**
-    
+
     my_file = file('fish.txt', 'r')
     sum = 0
     for line in my_file:

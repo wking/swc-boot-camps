@@ -1,6 +1,9 @@
-{% extends "_bootcamp.html" %} {% block file_metadata %}  {% endblock
-file_metadata %} {% block content %}
-
+---
+layout: bootcamp
+title: Newcastle University: May 14-15, 2012
+venue: Newcastle University
+dates: May 14-15, 2012
+---
 **This course is now fully booked and has a long waiting list. If you would like to be informed of similar events in the future, please e-mail us on [swc2012@ncl.ac.uk](mailto:swc2012@ncl.ac.uk).**
 
 **When:** May 14-15, 2012. 9am to 5pm.
@@ -36,8 +39,8 @@ Tuesday May 15
 
 Continuing Python programming
 
-- Round 1 (Functions) [Slides]({{root_path}}/files/2012/05/SC-FunctionsIntro.ppt), [Script]({{root_path}}/files/2012/05/SC-FunctionsScript.docx) -- Steve Crouch  
-- Round 2 (Testing) [Slides]({{root_path}}/files/2012/05/python-test-practical.ppt), [Script]({{root_path}}/files/2012/05/python-testing.docx), [code]({{root_path}}/files/2012/05/code.zip) -- Mike Jackson  
+- Round 1 (Functions) [Slides]({{root_path}}/files/2012/05/SC-FunctionsIntro.ppt), [Script]({{root_path}}/files/2012/05/SC-FunctionsScript.docx) -- Steve Crouch
+- Round 2 (Testing) [Slides]({{root_path}}/files/2012/05/python-test-practical.ppt), [Script]({{root_path}}/files/2012/05/python-testing.docx), [code]({{root_path}}/files/2012/05/code.zip) -- Mike Jackson
 Using relational databases [Table Overview]({{root_path}}/files/2012/05
 /Experiments-DB-Overview.pdf), [Slides]({{root_path}}/files/2012/05/SC-
 DatabasesIntro.ppt), [Script]({{root_path}}/files/2012/05/SC-
@@ -50,6 +53,3 @@ conclusions.ppt) -- Mike Jackson
 **Event Evaluation:**
 
 ****Evaluation of the event venue and local organisation: [http://forms.ncl.ac.uk/view.php?id=3205](http://forms.ncl.ac.uk/view.php?id=3205)
-
-{% endblock content %}
-

@@ -1,12 +1,14 @@
-{% extends "_bootcamp.html" %} {% block file_metadata %}  {% endblock
-file_metadata %} {% block content %}
-
+---
+layout: bootcamp
+title: University of Toronto: Feb 23-24, 2012
+venue: University of Toronto
+dates: Feb 23-24, 2012
+---
 **When:** February 23-24, 2012. 9am to 5pm.
 
 **Where:** Rooms 1230 & 1240, Bahen Centre for Information Technology, 40 St. George Street, Toronto, Ontario.
 
-**Instructors and Teaching Assistants:  
-**
+**Instructors and Teaching Assistants:**
 
   * Jonathan Dursi (main contact)
   * Matt Davis
@@ -14,5 +16,3 @@ file_metadata %} {% block content %}
   * Christian Muise
   * Elizabeth Patsis
   * Greg Wilson
-{% endblock content %}
-

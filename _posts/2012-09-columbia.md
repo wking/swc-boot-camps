@@ -1,9 +1,12 @@
-{% extends "_bootcamp.html" %} {% block file_metadata %}  {% endblock
-file_metadata %} {% block content %}
-
+---
+layout: bootcamp
+title: Columbia University: Sep 28-29, 2012
+venue: Columbia University
+dates: Sep 28-29, 2012
+---
 Data:
 
-    
+
     22
     23
     -34
@@ -14,6 +17,3 @@ Data:
     -17
     26
     0
-
-{% endblock content %}
-

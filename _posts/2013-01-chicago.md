@@ -1,12 +1,17 @@
-{% extends "_bootcamp.html" %} {% block file_metadata %}  {% endblock
-file_metadata %} {% block content %}
+---
+layout: bootcamp
+title: University of Chicago: Jan 12-13, 2013
+venue: University of Chicago
+dates: Jan 12-13, 2013
+eventbrite_key: 4044017766
+---
+**Where:** {{page.venue}}
 
-**Where:** University of Chicago.
+**When:** {{page.dates}}. We will start at 9:00 and end at 4:30 each day.
 
-**When:** January 19-20, 2013. We will start at 9:00 and end at 4:30 each day.
-
-{% include "_what.html" %} {% include "_who.html" %} {% include
-"_requirements.html" %} {% include "_content.html" %} {% include
-"_contact.html" %} {{eventbrite(page.eventbrite_key, page.venue, page.date)}}
-{% endblock content %}
-
+{% include what.html %}
+{% include who.html %}
+{% include requirements.html %}
+{% include content.html %}
+{% include contact.html %}
+{% include eventbrite.html %}

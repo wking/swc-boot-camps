@@ -1,6 +1,9 @@
-{% extends "_bootcamp.html" %} {% block file_metadata %}  {% endblock
-file_metadata %} {% block content %}
-
+---
+layout: bootcamp
+title: Indiana University: Mar 07-08, 2012
+venue: Indiana University
+dates: Mar 07-08, 2012
+---
 **When:** March 7-8, 2012. 9am to 5pm.
 
 **Where:** Indiana University, Bloomington, Indiana
@@ -8,15 +11,15 @@ file_metadata %} {% block content %}
 * * *
 
 **_matrix.py_**
-    
+
     # Read files containing matrices of integer and store each in
     # a list of lists.  For example, the file:
     #   1 2 3
     #   4 5 6
     # produces the list [[1, 2, 3], [4, 5, 6]]
-    
+
     import sys
-    
+
     all_files = sys.argv[1:]
     for filename in all_files:
         reader = open(filename, 'r')
@@ -34,18 +37,18 @@ file_metadata %} {% block content %}
 * * *
 
 **_check.py_**
-    
+
     # Read a file that is supposed to contain a
     # rectangular matrix of numbers, and check that
     # each row has the same number of columns.
-    
+
     import sys
-    
+
     if len(sys.argv) == 1:
         reader = sys.stdin
     elif len(sys.argv) == 2:
         reader = open(sys.argv[1], 'r')
-    
+
     expected = -1
     for line in reader:
         fields = line.strip().split()
@@ -54,22 +57,22 @@ file_metadata %} {% block content %}
         elif len(fields) != expected:
             print line.rstrip()
             sys.exit()
-    
+
     reader.close()
 
 * * *
 
 **_stats.py_**
-    
+
     # Read a file containing one number per line and report min, max, and average.
-    
+
     import sys
-    
+
     if len(sys.argv) == 1:
         reader = sys.stdin
     elif len(sys.argv) == 2:
         reader = open(sys.argv[1], 'r')
-    
+
     first = True
     total = 0
     count = 0
@@ -86,7 +89,7 @@ file_metadata %} {% block content %}
               minimum = value
           if value > maximum:
               maximum = value
-    
+
     reader.close()
     if count == 0:
         print 0, 0, 0
@@ -97,7 +100,7 @@ file_metadata %} {% block content %}
 * * *
 
 **_glue.py_**
-    
+
     # Read two files, each containing columns of numbers, and write
     # a third file that joins them together.  For example, if the
     # two input files contain:
@@ -112,25 +115,25 @@ file_metadata %} {% block content %}
     #  1 4 5
     #  2 6 7
     #  3 8 9
-    
+
     import sys
-    
+
     if len(sys.argv) != 4:
         print 'You really are a fool, I need three filenames'
         sys.exit()
-    
+
     left = open(sys.argv[1], 'r')
     left_lines = left.readlines()
     left.close()
-    
+
     right = open(sys.argv[2], 'r')
     right_lines = right.readlines()
     right.close()
-    
+
     if len(left_lines) != len(right_lines):
         print 'Oh, you fool'
         sys.exit()
-    
+
     writer = open(sys.argv[3], 'w')
     for i in range(len(left_lines)):
         temp = left_lines[i].strip() + ' ' + right_lines[i].strip()
@@ -140,7 +143,7 @@ file_metadata %} {% block content %}
 * * *
 
 **_malcolm.sql_**
-    
+
     select   Experiment.NumInvolved, Project.ProjectName
     from     Project join Experiment
     where    Project.ProjectId = Experiment.ProjectId
@@ -149,7 +152,7 @@ file_metadata %} {% block content %}
 * * *
 
 **_bethany.sql_**
-    
+
     select distinct Project.ProjectName,
                     Person.FirstName,
                     Person.LastName
@@ -160,7 +163,7 @@ file_metadata %} {% block content %}
 * * *
 
 **_quincy.sql_**
-    
+
     select *
     from Involved join
          (select NumInvolved, ProjectID as PID
@@ -169,6 +172,3 @@ file_metadata %} {% block content %}
              (select max(NumInvolved) from Experiment)
          )
     where Involved.ProjectID = PID;
-
-{% endblock content %}
-

@@ -1,12 +1,17 @@
-{% extends "_bootcamp.html" %} {% block file_metadata %}  {% endblock
-file_metadata %} {% block content %}
+---
+layout: bootcamp
+title: Macquarie University: Feb 07-08, 2013
+venue: Macquarie University
+dates: Feb 07-08, 2013
+eventbrite_key: 4114901782
+---
+**Where:** {{page.venue}}
 
-**Where:** Macquarie University, Sydney.
+**When:** {{page.dates}}. We will start at 9:00 and end at 4:30 each day.
 
-**When:** February 7-8, 2013. We will start at 9:00 and end at 4:30 each day.
-
-{% include "_what.html" %} {% include "_who.html" %} {% include
-"_requirements.html" %} {% include "_content.html" %} {% include
-"_contact.html" %} {{eventbrite(page.eventbrite_key, page.venue, page.date)}}
-{% endblock content %}
-
+{% include what.html %}
+{% include who.html %}
+{% include requirements.html %}
+{% include content.html %}
+{% include contact.html %}
+{% include eventbrite.html %}
