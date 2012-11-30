@@ -12,7 +12,7 @@ title: Boot Camps
   {% if bootcamp.date >= site.time %}
     <tr>
       <td>
-        <a href="{{bootcamp.url}}">{{bootcamp.venue}}</a>
+        <a href="{{bootcamp.url | prepend: site.baseurl}}">{{bootcamp.venue}}</a>
       </td>
       <td>&nbsp;...&nbsp;</td>
       <td>
@@ -50,7 +50,7 @@ title: Boot Camps
   {% if bootcamp.date < site.time %}
     <tr>
       <td>
-        <a href="{{bootcamp.url}}">{{bootcamp.venue}}</a>
+        <a href="{{bootcamp.url | prepend: site.baseurl}}">{{bootcamp.venue}}</a>
       </td>
       <td>&nbsp;...&nbsp;</td>
       <td>
