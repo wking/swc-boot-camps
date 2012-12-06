@@ -2,15 +2,15 @@
 layout: base
 ---
 <div class="title">
-  <table width="100%">
-    <tr>
-      <td width="5%">{% include nav_left.html %}</td>
-      <td width="90%" align="center">{{page.title}}</td>
-      <td width="5%">{% include nav_right.html %}</td>
-    </tr>
-  </table>
+    <ul class="pager">
+        {% include nav_left.html %}
+        {% include nav_right.html %}
+    </ul>
+    <h1>{{page.title}}</h1>
 </div>
 
-{{content}}
-
-{% include disqus.html %}
+<div class="row-fluid">
+    <div class="span10 offset1">
+        {{content}}
+    </div>
+</div>

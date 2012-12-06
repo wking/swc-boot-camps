@@ -1,5 +1,9 @@
 {% if page.previous %}
-    <a id="id_prev_link" href="{{page.previous.url | prepend: site.baseurl}}">&lt;</a>
+    <li class="previous">
+        <a id="id_prev_link" href="{{page.previous.url | prepend: site.baseurl}}">&larr; Previous</a>
+    </li>
 {% else %}
-    <a id="id_up_link" href="index.html">^</a>
+    <li class="previous">
+        <a id="id_up_link" href="index.html">&uarr; Up</a>
+    </li>
 {% endif %}

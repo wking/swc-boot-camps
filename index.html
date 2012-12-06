@@ -2,20 +2,36 @@
 layout: base
 title: Boot Camps
 ---
-<div class="title">{{page.title}}</div>
+<div class="title"><h1>{{page.title}}</h1></div>
 
-<p><a href="faq.html">FAQ</a></p>
+<div class="row-fluid">
+<div class="span10 offset1">
+<p>A boot camp is an in-person, example-driven workshop, typically two
+or three days long. A boot camp covers the core skills needed to be
+productive in a small research team: basic programming skills, version
+control, testing, using the shell, and relational databases.</p>
+
+<p>Short tutorials alternate with hands-on practical exercises, and
+participants are encouraged both to help one another, and to try
+applying what they have learned to their own research problems during
+and between sessions. Participants usually work on their own computers
+(typically laptops), using either native software or a standard set of
+packages running in a virtual machine. This ensures that they have a
+working environment when the boot camp is done.</p>
+
+<p>Want to know more?  See our <a href="faq.html">FAQ</a>.</p>
 
 <h2>Upcoming Workshops</h2>
-<table>
+<div class="bootcamps">
+<table class="table table-striped bootcamps" style="max-width: 500px">
 {% for bootcamp in site.posts reversed %}
   {% if bootcamp.date >= site.time %}
     <tr>
-      <td>
+      <td class="link">
         <a href="{{bootcamp.url | prepend: site.baseurl}}">{{bootcamp.venue}}</a>
       </td>
-      <td>&nbsp;...&nbsp;</td>
-      <td>
+      <td class="spacer">&nbsp;...&nbsp;</td>
+      <td class="date">
         {{bootcamp.dates}}
       </td>
     </tr>
@@ -43,20 +59,25 @@ title: Boot Camps
           width="700"
           height="500"></iframe>
 </p>
+</div>
 
 <h2>Past Workshops</h2>
-<table>
+<div class="bootcamps">
+<table class="table table-striped bootcamps">
 {% for bootcamp in site.posts %}
   {% if bootcamp.date < site.time %}
     <tr>
-      <td>
+      <td class="linkl">
         <a href="{{bootcamp.url | prepend: site.baseurl}}">{{bootcamp.venue}}</a>
       </td>
-      <td>&nbsp;...&nbsp;</td>
-      <td>
+      <td class="spacer">&nbsp;...&nbsp;</td>
+      <td class="date">
         {{bootcamp.dates}}
       </td>
     </tr>
   {% endif %}
 {% endfor %}
 </table>
+</div>
+</div>
+</div>

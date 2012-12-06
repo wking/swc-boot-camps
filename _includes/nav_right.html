@@ -1,5 +1,9 @@
 {% if page.next %}
-    <a id="id_next_link" href="{{page.next.url | prepend: site.baseurl}}">&gt;</a>
+    <li class="next">
+        <a id="id_next_link" href="{{page.next.url | prepend: site.baseurl}}">Next &rarr;</a>
+    </li>
 {% else %}
-    <a id="id_up_link" href="index.html">^</a>
+   <li class="next">
+        <a id="id_up_link" href="index.html">&uarr; Up</a>
+    </li>
 {% endif %}

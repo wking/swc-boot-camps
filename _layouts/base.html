@@ -2,14 +2,17 @@
 <html>
 <!-- pageclass: GenericPage -->
   <head>
-    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{site.swc_main}}/img/favicon.ico" />
 
-    <link rel="stylesheet" href="{{site.swc_main}}/css/blueprint/screen.css" type="text/css" media="screen, projection"/>
-    <link rel="stylesheet" href="{{site.swc_main}}/css/blueprint/print.css" type="text/css" media="print"/>
-    <!--[if lt IE 8]>
-      <link rel="stylesheet" href="{{site.swc_main}}/css/blueprint/ie.css" type="text/css" media="screen, projection"/>
-    <![endif]-->
+    <link href="{{site.swc_main}}/css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{{site.swc_main}}/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{site.swc_main}}/css/swc.css" />
+    <link rel="stylesheet" type="text/css" href="{{site.swc_main}}/css/swc-bootstrap.css" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
     <title>Software Carpentry: {{page.title}}</title>
   </head>
@@ -23,41 +26,50 @@
         </a>
       </div>
 
-  <div class="mainmenu">
-    <div id="menubar">
-            <a href="{{site.swc_main}}/index.html">Home</a>
-            |
-            <a href="{{site.swc_main}}/about/index.html">About</a>
-            |
-            <a href="{{site.swc_main}}/4_0/index.html">Lessons</a>
-            |
-            <a href="{{site.swc_github}}/boot-camps/index.html">Boot Camps</a>
-            |
-            <a href="{{site.swc_main}}/setup/index.html">Setup</a>
-            |
-            <a href="{{site.swc_main}}/blog/index.html">Blog</a>
-            |
-            <a href="{{site.swc_main}}/license.html">License</a>
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="{{site.swc_main}}/index.html">Home</a></li>
+                <li><a href="{{site.swc_main}}/about/index.html">About</a></li>
+                <li><a href="{{site.swc_main}}/4_0/index.html">Lessons</a></li>
+                <li><a href="{{site.swc_github}}/boot-camps/index.html">Boot Camps</a></li>
+                <li><a href="{{site.swc_main}}/blog/index.html">Blog</a></li>
+                <li><a href="{{site.swc_main}}/license.html">License</a></li>
+              </ul>
+              <form class="navbar-search pull-right" method="get" action="http://www.google.com/search">
+                <input type="hidden" name="sitesearch" value="{{site.swc_github}}" />
+                <input name="q" type="text" class="search-query" placeholder="Search" />
+              </form>
+            </div>
           </div>
-          <div id="searchbar">
-            <form name="google-search" method="get" action="http://www.google.com/search">
-                <input type="hidden" name="sitesearch" value="{{http://software-carpentry.org"}} />
-                <input name="q" type="text" />
-                <input type="submit" name="sa" value="Search" />
-            </form>
-          </div>
-  </div>
-
-      <div class="content">
-        {{content}}
+        </div>
       </div>
 
-      {% include disqus.html %}
+      {{content}}
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+          {% include disqus.html %}
+        </div>
+      </div>
 
       <div class="footer">
         <a href="{{site.swc_main}}/license.html"><img src="{{site.swc_main}}/img/creative-commons-attribution-license.png" alt="Creative Commons Attribution License" /></a>
       </div>
 
     </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="{{site.swc_main}}/js/bootstrap/bootstrap.min.js"></script>
   </body>
 </html>
