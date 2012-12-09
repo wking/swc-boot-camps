@@ -11,5 +11,6 @@ DTSTAMP:{{ bootcamp.timestamp | date: '%Y%m%dT%H%M%SZ'}}
 DTSTART:{{ bootcamp.date | date: '%Y%m%dT%H%M%SZ'}}
 {% if bootcamp.days %}DTEND:{{ bootcamp.end | date: '%Y%m%dT%H%M%SZ' }}
 {% endif %}SUMMARY:{{bootcamp.title}}
-END:VEVENT
+{% if bootcamp.venue %}LOCATION:{{bootcamp.venue}}
+{% endif %}END:VEVENT
 {% endif %}{% endfor %}END:VCALENDAR
