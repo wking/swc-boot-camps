@@ -1,0 +1,15 @@
+---
+title: Boot Camps
+root: .
+---
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Software Carpentry/Boot Camps//NONSGML v1.0//EN
+{% for bootcamp in site.posts %}{% if bootcamp.timestamp %}BEGIN:VEVENT
+UID:{{bootcamp.url | replace: '/', '' | replace: '.html', ''}}@{{site.host}}
+DTSTAMP:{{ bootcamp.timestamp | date: '%Y%m%dT%H%M%SZ'}}
+DTSTART:{{ bootcamp.date | date: '%Y%m%dT%H%M%SZ'}}
+{% if bootcamp.days %}DTEND:{{ bootcamp.end | date: '%Y%m%dT%H%M%SZ' }}
+{% endif %}SUMMARY:{{bootcamp.title}}
+END:VEVENT
+{% endif %}{% endfor %}END:VCALENDAR
