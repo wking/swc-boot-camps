@@ -3,9 +3,10 @@
   <head>
     {% include header.html %}
     {% include map-header.html %}
+    {% include calendar-header.html %}
   </head>
 
-  <body onload="initialize_map()">
+  <body onload="initialize_map();">
     <div class="container shadow">
 
       {% include banner.html %}
@@ -16,7 +17,17 @@
 
 
         {% include posts-future.html %}
-        {% include map-body.html %}
+
+        <div style="width: 100%;">
+          <div style="margin-left: auto; margin-right: auto; width: 600px;">
+            {% include map-body.html %}
+          </div>
+          <div style="margin-left: auto; margin-right: auto; margin-top: 10px; width: 600px">
+            {% include calendar-body.html %}
+          </div>
+        </div>
+        <div style="clear: both;">
+
         {% include posts-past.html %}
       </div>
 
@@ -27,6 +38,7 @@
 
     {% include footer-javascript.html %}
     {% include map-footer.html %}
+    {% include calendar-footer.html %}
 
   </body>
 </html>

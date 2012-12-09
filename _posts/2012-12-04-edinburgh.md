@@ -3,6 +3,7 @@ layout: bootcamp
 title: 'University of Edinburgh: Dec 04-05, 2012'
 venue: University of Edinburgh
 dates: Dec 04-05, 2012
+days: 2
 ---
 **Where:** {{page.venue}}
 
