@@ -1,0 +1,31 @@
+{% include doctype.html %}
+<html>
+  <head>
+    {% include header.html %}
+    {% include map-header.html %}
+  </head>
+
+  <body onload="initialize()">
+    <div class="container shadow">
+
+      {% include banner.html %}
+      {% include main-menu.html %}
+
+      <div class="content">
+        {{content}}
+
+
+        {% include posts-future.html %}
+        {% include map-body.html %}
+        {% include posts-past.html %}
+      </div>
+
+      {% include disqus-span.html %}
+      {% include footer.html %}
+
+    </div>
+
+    {% include footer-javascript.html %}
+
+  </body>
+</html>

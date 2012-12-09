@@ -1,0 +1,18 @@
+<h2>Upcoming Workshops</h2>
+<div class="bootcamps">
+<table class="table table-striped bootcamps">
+{% for bootcamp in site.posts reversed %}
+  {% if bootcamp.date >= site.time %}
+    <tr>
+      <td class="link">
+        <a href="{{bootcamp.url | prepend: site.baseurl}}">{{bootcamp.venue}}</a>
+      </td>
+      <td class="spacer">&nbsp;...&nbsp;</td>
+      <td class="date">
+        {{bootcamp.dates}}
+      </td>
+    </tr>
+  {% endif %}
+{% endfor %}
+</table>
+</div>
