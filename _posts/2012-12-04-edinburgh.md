@@ -1,5 +1,4 @@
 ---
-timestamp: 2012-12-09
 layout: bootcamp
 title: 'University of Edinburgh: Dec 04-05, 2012'
 venue: University of Edinburgh

@@ -5,13 +5,13 @@ root: .
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Software Carpentry/Boot Camps//NONSGML v1.0//EN
-{% for bootcamp in site.posts %}{% if bootcamp.timestamp %}BEGIN:VEVENT
+{% for bootcamp in site.posts %}BEGIN:VEVENT
 UID:{{bootcamp.url | replace: '/', '' | replace: '.html', ''}}@{{site.host}}
-DTSTAMP:{{ bootcamp.timestamp | date: '%Y%m%dT%H%M%SZ'}}
+DTSTAMP:{{ site.time | date: '%Y%m%dT%H%M%SZ'}}
 DTSTART:{{ bootcamp.date | date: '%Y%m%d'}}
 {% if bootcamp.days %}DTEND:{{ bootcamp.end | date: '%Y%m%d' }}
 {% endif %}SUMMARY:{{bootcamp.title}}
 {% if bootcamp.venue %}LOCATION:{{bootcamp.venue}}
 {% endif %}{% if bootcamp.latlng %}GEO:{{ bootcamp.latlng | replace: ',', ';' }}
 {% endif %}END:VEVENT
-{% endif %}{% endfor %}END:VCALENDAR
+{% endfor %}END:VCALENDAR
