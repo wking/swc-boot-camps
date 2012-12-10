@@ -8,7 +8,7 @@ PRODID:-//Software Carpentry/Boot Camps//NONSGML v1.0//EN
 {% for bootcamp in site.posts %}BEGIN:VEVENT
 UID:{{bootcamp.url | replace: '/', '' | replace: '.html', ''}}@{{site.host}}
 DTSTAMP:{{ site.time | date: '%Y%m%dT%H%M%SZ'}}
-DTSTART:{{ bootcamp.date | date: '%Y%m%d'}}
+DTSTART;VALUE=DATE:{{ bootcamp.date | date: '%Y%m%d'}}
 {% if bootcamp.days %}DURATION:P{{bootcamp.days}}D
 {% endif %}SUMMARY:{{bootcamp.title}}
 DESCRIPTION;ALTREP="http://{{site.host}}{{site.baseurl}}{{bootcamp.url}}":http://{{site.host}}{{site.baseurl}}{{bootcamp.url}}
