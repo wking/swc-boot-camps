@@ -3,6 +3,6 @@ lsi: false
 pygments: true
 baseurl: /boot-camps
 permalink: /:year-:month-:day-:title.html
-host: software-carpentry.org
+host: wking.github.com
 swc_main: http://dev.software-carpentry.org
 swc_github: http://swcarpentry.github.com
