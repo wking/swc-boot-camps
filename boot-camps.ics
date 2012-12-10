@@ -10,7 +10,7 @@ UID:{{bootcamp.url | replace: '/', '' | replace: '.html', ''}}@{{site.host}}
 DTSTAMP:{{ site.time | date: '%Y%m%dT%H%M%SZ'}}
 DTSTART;VALUE=DATE:{{ bootcamp.date | date: '%Y%m%d'}}
 {% if bootcamp.days %}DURATION:P{{bootcamp.days}}D
-{% endif %}SUMMARY:{{bootcamp.title}}
+{% endif %}SUMMARY:{{ bootcamp.title | replace: '\', '\\' | replace: ';', '\;' | replace: ',', '\,' }}
 DESCRIPTION;ALTREP="http://{{site.host}}{{site.baseurl}}{{bootcamp.url}}":http://{{site.host}}{{site.baseurl}}{{bootcamp.url}}
 {% if bootcamp.venue %}LOCATION:{{bootcamp.venue}}
 {% endif %}{% if bootcamp.latlng %}GEO:{{ bootcamp.latlng | replace: ',', ';' }}
