@@ -24,11 +24,12 @@ Both templates include full access to [Bootstrap][] CSS and JavaScript libraries
 Jekyll will only process files that have a YAML block at the top. The YAML is where you specify a template you'd like to use and other metadata for the file. The most basic YAML block you should use will look something like this:
 
     ---
+    root: ..
     layout: base
     title: My Page
     ---
 
-That tells Jekyll to use the `base` template and sets the metadata `title` of your page, which the base template uses to set the title of the resulting HTML document.
+That tells Jekyll to use the `base` template and sets the metadata `title` of your page, which the base template uses to set the title of the resulting HTML document.  `root` gives the relative URL from your page (e.g. `http://swcarpentry.github.com/boot-camps/2013-01-12-chicago/`) to the website root (`http://swcarpentry.github.com/boot-camps/`), which the templates use when linking to CSS and other auxiliary files. Note that the value for `root` should be determined relative to a page's URL, not the page's source path.  The path will have an extra `_posts/` directory that disappears during the Jekyll compilation (e.g. `_posts/2012-10-23-caltech/index.html`).
 
 # Syntax Highlighting
 
