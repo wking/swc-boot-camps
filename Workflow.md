@@ -54,9 +54,10 @@ account][gh-account].  Log into GitHub, and [fork][gh-fork] the
     $ cd boot-camps
 
 You'll want to track the SWC repository to stay abreast of changes, so
-add it as a remote:
+add it as a remote and fetch it:
 
     $ git remote add swc https://github.com/swcarpentry/boot-camps.git
+    $ git fetch swc
 
 Now you're ready to start hacking away.
 
