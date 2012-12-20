@@ -4,7 +4,7 @@ The [gh-pages branch][gh-pages] of the [boot-camps repo][boot-camps] is availabl
 
 [Jekyll][] is a static site generator. It simplifies the process of web page creating by allowing you to base your page on a template and write just the content without worrying about headers. You can even write your pages in [Markdown][] so you don't have to worry about HTML at all, though if you want to work in HTML that's fine too. You can even skip the templates entirely and give Jekyll fully formed HTML files, Jekyll will just leave those alone.
 
-[GitHub Pages][pages] are a way for us to publish web pages via GitHub. On any repository you can push content to a branch called 'gh-pages' and GitHub will run that content through Jekyll and publish it on the web at a URL like `http://account-name.github.com/repo-name/`.
+[GitHub Pages][pages] are a way for us to publish web pages via GitHub. On any repository you can push content to a branch called `gh-pages` and GitHub will run that content through Jekyll and publish it on the web at a URL like `http://account-name.github.com/repo-name/`.
 
 # Markup Languages
 
@@ -14,8 +14,8 @@ Any `.md`, `.markdown`, or `.html` file with a YAML block at the top (described 
 
 We've set up the [gh-pages branch][gh-pages] of the [boot-camps repo][boot-camps] with a Jekyll framework and two initial templates:
 
-* base: matches the style of http://software-carpentry.org
-* bare-bootstrap: purely the defaults of [Bootstrap][]
+* `base`: matches the style of http://software-carpentry.org
+* `bare-bootstrap`: purely the defaults of [Bootstrap][]
 
 Both templates include full access to [Bootstrap][] CSS and JavaScript libraries and have [Disqus][] comments enabled.
 
@@ -28,7 +28,7 @@ Jekyll will only process files that have a YAML block at the top. The YAML is wh
     title: My Page
     ---
 
-That tells Jekyll to use the 'base' template and sets the metadata 'title' of your page, which the base template uses to set the title of the resulting HTML document.
+That tells Jekyll to use the `base` template and sets the metadata `title` of your page, which the base template uses to set the title of the resulting HTML document.
 
 # Syntax Highlighting
 
