@@ -68,7 +68,7 @@ Your boot camp directory should probably have at least an `index.md` or `index.h
 
 # Example Pages
 
-To save time creating pages it may be helpful to copy existing pages in the `_posts` directory. The directory `1900-01-01-example-page` contains purely example material, and the directory `2012-10-23-caltech` contains an [example][http://swcarpentry.github.com/boot-camps/2012-10-23-caltech/] of a highly customized HTML page used for a 2012 boot camp.
+To save time creating pages it may be helpful to copy existing pages in the `_posts` directory. The directory `1900-01-01-example-page` contains purely example material, and the directory `2012-10-23-caltech` contains an [example](http://swcarpentry.github.com/boot-camps/2012-10-23-caltech/) of a highly customized HTML page used for a 2012 boot camp.
 
 [gh-pages]: https://github.com/swcarpentry/boot-camps/tree/gh-pages
 [boot-camps]: https://github.com/swcarpentry/boot-camps
