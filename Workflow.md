@@ -169,27 +169,6 @@ repository:
 
     $ git push origin :typo-fix
 
-Publishing boot camp websites
-=============================
-
-NOTE: SWC has not yet formed a consensus about organizing boot camp
-websites.  Until it has, take this section with a grain of salt.
-
-The boot camp source should be set up for easy compilation into a
-web-site.  Once you build the website, you can publish it wherever you
-like (e.g. on a departmental server).  If you want to publish your
-boot camp website on the [SWC GitHub page][camps] at
-
-    http://swcarpentry.github.com/boot-camps/2012-12-my-camp
-
-you'll need to edit the `gh-pages` branch.  The [pages][gh-pages] are
-built with [Jekyll][], so consult the Jekyll docs for details on
-markup, templates, ….
-
-Keeping the master gh-pages branch up-to-date amongst several
-simultaneous boot camps may involve some [submodule
-shenanigans][website-readme].
-
 Post-boot-camp archival
 =======================
 
@@ -329,10 +308,6 @@ branch.
 [gh-pull]: https://help.github.com/articles/using-pull-requests
 [gh-account]: https://github.com/signup/free
 [gh-fork]: https://help.github.com/articles/fork-a-repo
-[camps]: http://swcarpentry.github.com/boot-camps/
-[gh-pages]: https://help.github.com/categories/20/articles
-[Jekyll]: https://github.com/mojombo/jekyll
-[website-readme]: https://github.com/swcarpentry/boot-camps/blob/gh-pages/README
 [hub]: https://github.com/defunkt/hub
 [Gentoo]: http://www.gentoo.org/
 [hub-install]: https://github.com/defunkt/hub#installation
