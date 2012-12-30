@@ -8,7 +8,7 @@ The [gh-pages branch][gh-pages] of the [boot-camps repo][boot-camps] is availabl
 
 # Markup Languages
 
-Any `.md`, `.markdown`, or `.html` file with a YAML block at the top (described below) is converty by Jekyll into standard HTML. Jekyll uses [Maruku][] to process the Markdown so you can use any syntax supported by Maruku.
+Any `.md`, `.markdown`, or `.html` file with a YAML block at the top (described below) is converted by Jekyll into standard HTML. Jekyll uses [Maruku][] to process the Markdown so you can use any syntax supported by Maruku.
 
 # Boot Camp Pages Templates
 
