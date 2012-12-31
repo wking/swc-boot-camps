@@ -34,7 +34,7 @@ half-day-sized chunks.
     │   │   │   …
     │   │   └── advanced
     …   …       …
-  
+
     Figure 1: Example directory tree for the current master tip.
     Sections should be in half-day-ish chunks.  Complicated topics
     that need more detailed coverage (e.g. version control) can have
@@ -78,7 +78,7 @@ This gives a starting point for developing your boot camp.
     -o--o--o--o--o    swc/master    (same as local master)
       \-o--o      \   swc/git-wtk
             \------o  2012-12-my-camp
-  
+
     Figure 2: Graph of commits for the beginning of the
     2012-12-my-camp branch.  Time increases to the right.  Commits
     are marked with “o”.  ASCII art connects child commits with their
@@ -108,10 +108,10 @@ This creates:
     -o--o--o--o--o          swc/master
       \-o--o      \         swc/git-wtk
             \------o--a--b  2012-12-my-camp
-  
+
     Figure 2: Boot-camp-specific changes go into the boot-camp-specific
     branch.  Example log:
-  
+
       commit  message
       ------  -----------------------------------------------------
       a       README.md: link to shell, git/basic, and git/advanced
@@ -147,11 +147,11 @@ This creates:
     -o--o--o--o--o--------\---c  swc/master
       \-o--o      \        \     swc/git-wtk
             \------o--o--o--b    2012-12-my-camp
-  
+
     Figure 3: You can't push to master, so you made a new “typo-fix”
     branch.  Later on, a SWC dev will merge it into master.  Example
     log:
-  
+
     commit  message
     ------  --------------------------------------------------
     a       git/basic: fix origin\master -> origin/master typo
@@ -242,7 +242,7 @@ master branch entirely.
     -o--o--o--o--o        swc/master
       \-o--o              swc/git-wtk
               I--o--o--a  2012-12-my-camp
-  
+
     Figure 4: A disjoint branch (2012-12-my-camp).  The commit “I”
     has no parents.  Different branches stored in the same repository
     don't need to share any common commits.  They're still addressing
@@ -287,7 +287,7 @@ Create your feature branch as described for hub-less development, but
 after publishing to `YOU/feature-branch` you can create the pull
 request using hub:
 
-    $ hub pull-request 
+    $ hub pull-request
 
 The pull request base defaults to the tracked branch and the head
 defaults to the current branch, so you shouldn't need to specify
