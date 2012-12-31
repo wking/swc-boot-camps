@@ -109,7 +109,7 @@ This creates:
       \-o--o      \         swc/git-wtk
             \------o--a--b  2012-12-my-camp
 
-    Figure 2: Boot-camp-specific changes go into the boot-camp-specific
+    Figure 3: Boot-camp-specific changes go into the boot-camp-specific
     branch.  Example log:
 
       commit  message
@@ -148,7 +148,7 @@ This creates:
       \-o--o      \        \     swc/git-wtk
             \------o--o--o--b    2012-12-my-camp
 
-    Figure 3: You can't push to master, so you made a new “typo-fix”
+    Figure 4: You can't push to master, so you made a new “typo-fix”
     branch.  Later on, a SWC dev will merge it into master.  Example
     log:
 
@@ -243,7 +243,7 @@ master branch entirely.
       \-o--o              swc/git-wtk
               I--o--o--a  2012-12-my-camp
 
-    Figure 4: A disjoint branch (2012-12-my-camp).  The commit “I”
+    Figure 5: A disjoint branch (2012-12-my-camp).  The commit “I”
     has no parents.  Different branches stored in the same repository
     don't need to share any common commits.  They're still addressing
     the same goal, and having them in the same repo means its easier to
