@@ -75,15 +75,17 @@ and optionally merge feature branches they like:
 
 This gives a starting point for developing your boot camp.
 
-    -o--o--o--o--o    swc/master    (same as local master)
-      \-o--o      \   swc/git-wtk
-            \------o  2012-12-my-camp
+    -o---o---o---o      swc/master    (same as local master)
+      \           \
+       o---o       \    swc/git-wtk
+            \       \
+             `-------M  2012-12-my-camp
 
     Figure 2: Graph of commits for the beginning of the
-    2012-12-my-camp branch.  Time increases to the right.  Commits
-    are marked with “o”.  ASCII art connects child commits with their
-    parents.  The merge of a well-maintained feature branch should be
-    painless.
+    2012-12-my-camp branch.  Time increases to the right.  Commits are
+    marked with “o”.  ASCII art connects child commits with their
+    parents.  The merge of a well-maintained feature branch (marked
+    with an “M”) should be painless.
 
 Developing boot camp content
 ============================
@@ -105,17 +107,19 @@ boot camp branch:
 
 This creates:
 
-    -o--o--o--o--o          swc/master
-      \-o--o      \         swc/git-wtk
-            \------o--a--b  2012-12-my-camp
+    -o---o---o---o              swc/master    (same as local master)
+      \           \
+       o---o       \            swc/git-wtk
+            \       \
+             `-------o---A---B  2012-12-my-camp
 
     Figure 3: Boot-camp-specific changes go into the boot-camp-specific
     branch.  Example log:
 
       commit  message
       ------  -----------------------------------------------------
-      a       README.md: link to shell, git/basic, and git/advanced
-      b       README.md: localize for 2012-12 boot camp at my house
+      A       README.md: link to shell, git/basic, and git/advanced
+      B       README.md: localize for 2012-12 boot camp at my house
 
 General content
 ---------------
@@ -143,10 +147,13 @@ merge your changes into your boot camp branch.
 
 This creates:
 
-                  /-a----\---\   typo-fix
-    -o--o--o--o--o--------\---c  swc/master
-      \-o--o      \        \     swc/git-wtk
-            \------o--o--o--b    2012-12-my-camp
+                   A-------------.    typo-fix
+                  /         \     \
+    -o---o---o---o-----------\-----C  swc/master
+      \           \           \
+       o---o       \           \      swc/git-wtk
+            \       \           \
+             `-------o---o---o---B    2012-12-my-camp
 
     Figure 4: You can't push to master, so you made a new “typo-fix”
     branch.  Later on, a SWC dev will merge it into master.  Example
@@ -154,9 +161,9 @@ This creates:
 
     commit  message
     ------  --------------------------------------------------
-    a       git/basic: fix origin\master -> origin/master typo
-    b       merge recent master branch updates
-    c       git/basic: merge origin\master typo fix
+    A       git/basic: fix origin\master -> origin/master typo
+    B       merge recent master branch updates
+    C       git/basic: merge origin\master typo fix
 
 After your feature branch has been merged into your boot camp branch
 and the upstream branch, it no longer needs a convenient name.  Delete
@@ -239,9 +246,11 @@ Disjoint branches
 If you really want to roll your own content, feel free to skip the
 master branch entirely.
 
-    -o--o--o--o--o        swc/master
-      \-o--o              swc/git-wtk
-              I--o--o--a  2012-12-my-camp
+    -o---o---o---o          swc/master
+      \
+       o---o                swc/git-wtk
+
+             I---o---o---o  2012-12-my-camp
 
     Figure 5: A disjoint branch (2012-12-my-camp).  The commit “I”
     has no parents.  Different branches stored in the same repository
