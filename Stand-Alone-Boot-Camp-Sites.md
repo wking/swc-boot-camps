@@ -78,8 +78,9 @@ Commit your changes and push:
 # Archival
 
 After the boot camp is over, you can replace your boot camp branch
-with a tag.  For more detail, see the “Post-boot-camp archival”
-section of the [[suggested Git workflow|Workflow]].
+with a tag.  For more detail, see the [[Post-boot-camp archival
+section|Workflow#wiki-archive]] of the [[suggested Git
+workflow|Workflow]].
 
 # Other generators
 

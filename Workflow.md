@@ -302,7 +302,7 @@ The pull request base defaults to the tracked branch and the head
 defaults to the current branch, so you shouldn't need to specify
 either explicitly.
 
-### Post-boot-camp archival
+### <a id="archive" /> Post-boot-camp archival
 
 After publishing your boot camp branch to `YOU/2012-12-my-camp`,
 create a pull request using:
