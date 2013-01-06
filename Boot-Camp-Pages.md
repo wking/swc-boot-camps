@@ -1,5 +1,7 @@
 The [gh-pages branch][gh-pages] of the [boot-camps repo][boot-camps] is available for making web pages for particular boot camps. We use GitHub Pages' built-in [Jekyll][] rendering.
 
+This wiki page covers simple Jekyll-rendered boot camp pages.  You can also compile a website using another generator and easily include its output in the `gh-pages` branch using Git submodules.  This workflow is discussed [[here|Stand-Alone-Boot-Camp-Sites]].
+
 # About Jekyll and GitHub Pages
 
 [Jekyll][] is a static site generator. It simplifies the process of web page creating by allowing you to base your page on a template and write just the content without worrying about headers. You can even write your pages in [Markdown][] so you don't have to worry about HTML at all, though if you want to work in HTML that's fine too. You can even skip the templates entirely and give Jekyll fully formed HTML files, Jekyll will just leave those alone.
