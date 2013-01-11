@@ -62,31 +62,32 @@ CHECKS = [
 # Editors
     'virtual-editor',
 # Browsers
-    'virtual-browser',
+    #'virtual-browser',
+    'firefox',         # TODO: check for the SQLite Manager add-on?
 # Version control
-    'git',
+    #'git',
     'hg',              # Command line tool
     #'mercurial',       # Python package
 # Build tools and packaging
-    'make',
-    'virtual-pypi-installer',
-    'setuptools',
+    #'make',
+    #'virtual-pypi-installer',
+    #'setuptools',
 # Testing
     'nosetests',       # Command line tool
-    'nose',            # Python package
+    #'nose',            # Python package
 # SQL
-    'sqlite3',         # Command line tool
-    'sqlite3-python',  # Python package
+    #'sqlite3',         # Command line tool
+    #'sqlite3-python',  # Python package
 # Python
     'python',
-    'IPython',
+    #'IPython',
     'numpy',
-    'scipy',
+    #'scipy',
     'matplotlib',
-    'sympy',
-    'Cython',
-    'networkx',
-    'mayavi.mlab',
+    #'sympy',
+    #'Cython',
+    #'networkx',
+    #'mayavi.mlab',
     ]
 
 CHECKER = {}
