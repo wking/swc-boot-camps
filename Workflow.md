@@ -1,4 +1,4 @@
-# Repository structure
+# <a id="structure" /> Repository structure
 
 There is a [central repository][boot-camps] for all boot camp
 material.  The `master` branch has the current state-of-the-art source
@@ -39,7 +39,7 @@ half-day-sized chunks.
     that need more detailed coverage (e.g. version control) can have
     nested sub-sections.
 
-# Cloning the master repository
+# <a id="clone" /> Cloning the master repository
 
 If you haven't worked on any boot camp content before, you'll need to
 clone the master repository.  You'll also want a way to publish your
@@ -59,7 +59,7 @@ add it as a remote and fetch it:
 
 Now you're ready to start hacking away.
 
-# Creating a new boot camp
+# <a id="new" /> Creating a new boot camp
 
 An instructor preparing for a new boot camp should create a per-camp
 branch from the upstream `master`:
@@ -84,9 +84,9 @@ This gives a starting point for developing your boot camp.
     parents.  The merge of a well-maintained feature branch (marked
     with an “M”) should be painless.
 
-# Developing boot camp content
+# <a id="develop" /> Developing boot camp content
 
-## Camp-specific content
+## <a id="camp-specific" /> Camp-specific content
 
 If you don't have strong ideas about the content, there's probably not
 much to do here besides tweaking a few boot-camp-specific bits
@@ -116,7 +116,7 @@ This creates:
       A       README.md: link to shell, git/basic, and git/advanced
       B       README.md: localize for 2012-12 boot camp at my house
 
-## General content
+## <a id="general" /> General content
 
 If you want to change some of the general content, you should make
 your change on the master branch (or the feature branch like
@@ -210,12 +210,12 @@ old branch.
     $ git push --tags origin
     $ git push origin :heads/2012-12-my-camp
 
-# Tweaks
+# <a id="tweaks" /> Tweaks
 
 The following notes provide helpful hints for managing your
 repositories.  Feel free to skip them if they don't sound interesting.
 
-## Simplifying your local repository
+## <a id="simple" /> Simplifying your local repository
 
 If you don't like remote branches cluttering your local repo, you can
 clone a single branch of the master repository using:
@@ -231,7 +231,7 @@ After this, future calls to `git fetch` will retrieve only the
 `master` branch from `swc` and its associated tags, ignoring other
 branches and unrelated tags.
 
-## Disjoint branches
+## <a id="disjoint" /> Disjoint branches
 
 
 If you really want to roll your own content, feel free to skip the
@@ -249,7 +249,7 @@ master branch entirely.
     the same goal, and having them in the same repo means its easier to
     clone/fetch/diff/….
 
-## Avoiding the GitHub website
+## <a id="hub" /> Avoiding the GitHub website
 
 If you don't like forking and issusing pull requests from the GitHub
 websites, you can use [hub][] to perform these operations from the
@@ -262,7 +262,7 @@ Using `hub` to submit pull requests is similar to using Git's builtin
 GitHub, while `request-pull` prints a message onto stdout that should
 be emailed to the maintainer.
 
-### Cloning the master repository
+### <a id="hub-clone" /> Cloning the master repository
 
     $ git clone https://github.com/swcarpentry/boot-camps.git
     $ cd boot-camps
@@ -280,7 +280,7 @@ You'll have to make appropriate adjustments to the other commands
 (e.g. for creating a new boot camp, branch off from `origin/master`
 instead of `swc/master`).
 
-### General content
+### <a id="hub-general" /> General content
 
 Create your feature branch as described for hub-less development, but
 after publishing to `YOU/feature-branch` you can create the pull
@@ -292,7 +292,7 @@ The pull request base defaults to the tracked branch and the head
 defaults to the current branch, so you shouldn't need to specify
 either explicitly.
 
-### Post-boot-camp archival
+### <a id="hub-archive" /> Post-boot-camp archival
 
 After publishing your boot camp branch to `YOU/2012-12-my-camp`,
 create a pull request using:
