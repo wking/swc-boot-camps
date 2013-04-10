@@ -48,12 +48,20 @@ The language specifier can be any "short name" for the
 
 # <a id="pages" /> Instructions for Making Pages
 
+These instructions describe a workflow that incorporates some of the best practices advocated by Software Carpentry.
+
 ## <a id="checkout" /> 0. Checkout the `gh-pages` branch
 
     cd boot-camps
     git checkout gh-pages
 
-## <a id="naming" /> 1. Make a directory for the boot camp
+## <a id="branch" /> 1. Checkout a new branch for your changes
+
+Make a branch in your repo based on the `gh-pages` branch that will hold a set of changes
+
+    git checkout -b my-boot-camp-changes gh-pages
+
+## <a id="naming" /> 2. Make a directory for the boot camp
 
 By convention and for compatibility with Jekyll your directory name will be in the form `YYYY-MM-DD-venue`. To figure out the directory name go to the [Software Carpentry boot camps directory][swc-bootcamps] and find the page for your boot camp. It should have a URL something like http://software-carpentry.org/bootcamps/2013-01-chicago.html. In the file name at the end is the short designation for your boot camp, in this case `2013-01-chicago`.
 
@@ -64,9 +72,25 @@ Finally, make a new directory with this name in the `_posts` directory:
     cd boot-camps
     mkdir _posts/YYYY-MM-DD-venue
 
-## <a id="content" /> 2. Add content
+## <a id="content" /> 3. Add content
 
 Your boot camp directory should probably have at least an `index.md` or `index.html` file, but the site design is up to you. Remember that Jekyll will only process files that contain YAML front matter, as described above.
+
+## <a id="testing" /> 4. Test your changes
+
+In order to ensure that your changes render appropriately, you can [process them locally with Jekyll][gh-pages-jekyll].  If you already have Jekyll installed, then this may be sufficient:
+
+    jekyll --pygments --no-lsi --safe
+
+## <a id="push" /> 5. Push your new branch
+
+Once you are happy that your changes are correct, push the new branch to the repo.  This may depend on whether you are pushing to the main Software Carpentry repo or you are planning to use your own.
+
+    git push origin my-boot-camp-changes
+
+## <a id="pull_request" /> 6. Issue a pull request
+
+On github, find your branch and issue a pull request from this branch to the gh-pages branch, with comments/guidance for a potential reviewer.  Another user can then review your changes and merge your pull request when satisfied.
 
 # <a id="example" /> Example Pages
 
@@ -83,3 +107,4 @@ To save time creating pages it may be helpful to copy existing pages in the `_po
 [extensions]: https://github.com/mojombo/jekyll/wiki/Liquid-Extensions
 [lexers]: http://pygments.org/docs/lexers/
 [swc-bootcamps]: http://software-carpentry.org/bootcamps/
+[gh-pages-jekyll]: https://help.github.com/articles/using-jekyll-with-pages
