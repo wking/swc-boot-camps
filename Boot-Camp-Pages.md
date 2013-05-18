@@ -80,7 +80,11 @@ Your boot camp directory should probably have at least an `index.md` or `index.h
 
 In order to ensure that your changes render appropriately, you can [process them locally with Jekyll][gh-pages-jekyll].  If you already have Jekyll installed, then this may be sufficient:
 
+    # jekyll versions < 0.12.1
     jekyll --pygments --no-lsi --safe
+
+    # jekyll versions >= 0.12.1 
+    jekyll build
 
 ## <a id="push" /> 5. Push your new branch
 
