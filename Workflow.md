@@ -1,3 +1,26 @@
+# <a id="contents" /> Contents
+
+1. [An overview of the repository structure](#structure)
+2. [Cloning the master repository](#clone)
+3. [Creating a new boot camp](#new)
+4. [Publishing your local work](#push)
+5. [Developing boot camp content](#develop)
+    1. [Camp-specific content](#camp-specific)
+    2. [General content](#general)
+6. [Post-boot-camp archival](#archive)
+7. [Tweaks and hints](#archive)
+    1. [Simplifying your local branch structure](#simple)
+    2. [Disjoint branches](#disjoint)
+    3. [Avoiding the GitHub website](#hub)
+
+The important parts to get right before your boot camp are
+[cloning](#clone), [branch creation](#new), [publishing](#push), and
+[development](#develop).  This clone/branch/develop/publish/(merge)
+cycle is the common Git workflow, so there are [lots of][git-book]
+[tutorials][user-manual] to get you oriented, if the information here
+is not sufficient.  Also feel free to ask on the [mailing list][gits]
+or [IRC][].
+
 # <a id="structure" /> Repository structure
 
 There is a [central repository][boot-camps] for all boot camp
@@ -233,12 +256,12 @@ old branch.
     $ git push --tags origin
     $ git push origin :heads/2012-12-my-camp
 
-# <a id="tweaks" /> Tweaks
+# <a id="tweaks" /> Tweaks and hints
 
 The following notes provide helpful hints for managing your
 repositories.  Feel free to skip them if they don't sound interesting.
 
-## <a id="simple" /> Simplifying your local repository
+## <a id="simple" /> Simplifying your local branch structure
 
 If you don't like remote branches cluttering your local repo, you can
 clone a single branch of the master repository using:
@@ -255,7 +278,6 @@ After this, future calls to `git fetch` will retrieve only the
 branches and unrelated tags.
 
 ## <a id="disjoint" /> Disjoint branches
-
 
 If you really want to roll your own content, feel free to skip the
 master branch entirely.
@@ -326,6 +348,10 @@ As mentioned earlier, don't worry about having `master` as the base
 branch.
 
 
+[git-book]: http://git-scm.com/book/en/Git-Basics-Working-with-Remotes
+[user-manual]: https://www.kernel.org/pub/software/scm/git/docs/user-manual.html#public-repositories
+[gits]: http://lists.software-carpentry.org/listinfo.cgi/gits-software-carpentry.org
+[IRC]: http://webchat.freenode.net/?channels=swcarpentry
 [boot-camps]: https://github.com/swcarpentry/boot-camps
 [gh-pull]: https://help.github.com/articles/using-pull-requests
 [gh-account]: https://github.com/signup/free
