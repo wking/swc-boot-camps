@@ -84,6 +84,29 @@ This gives a starting point for developing your boot camp.
     parents.  The merge of a well-maintained feature branch (marked
     with an “M”) should be painless.
 
+# <a id="push" /> Publishing your local work
+
+The `checkout -b` command mentioned above creates a new branch in your
+local repository, but you'll want to publish this branch so others can
+see it.  Push your branch to your public repository with:
+
+    $ git push origin 2012-12-my-camp
+
+GitHub doesn't accept pushes via the `git://` protocol, so you'll want
+to use an `https://` URL (with optional [password caching][https]) or
+[setup SSH keys][ssh] and push over SSH.  You can list remotes and
+their associated URLs with `git remote -v` to help you remember what
+you've already configured.
+
+You'll want to push again whenever you need to publish additional
+local work.
+
+If you have commit access to the [swcarpentry repository][boot-camps],
+you can push your branch directly, instead of staging it in *your*
+GitHub repository:
+
+    $ git push swc 2012-12-my-camp
+
 # <a id="develop" /> Developing boot camp content
 
 ## <a id="camp-specific" /> Camp-specific content
@@ -307,6 +330,8 @@ branch.
 [gh-pull]: https://help.github.com/articles/using-pull-requests
 [gh-account]: https://github.com/signup/free
 [gh-fork]: https://help.github.com/articles/fork-a-repo
+[https]: https://help.github.com/articles/set-up-git#password-caching
+[ssh]: https://help.github.com/articles/generating-ssh-keys
 [hub]: https://github.com/defunkt/hub
 [Gentoo]: http://www.gentoo.org/
 [hub-install]: https://github.com/defunkt/hub#installation
