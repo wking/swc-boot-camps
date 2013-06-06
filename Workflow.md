@@ -2,8 +2,8 @@
 
 1. [An overview of the repository structure](#structure)
 2. [Cloning the master repository](#clone)
-3. [Creating a new boot camp](#new)
-4. [Publishing your local work](#push)
+3. [Creating a new boot camp branch](#new)
+4. [Publishing your local work in a branch of a GitHub repository](#push)
 5. [Developing boot camp content](#develop)
     1. [Camp-specific content](#camp-specific)
     2. [General content](#general)
@@ -82,7 +82,7 @@ add it as a remote and fetch it:
 
 Now you're ready to start hacking away.
 
-# <a id="new" /> Creating a new boot camp
+# <a id="new" /> Creating a new boot camp branch
 
 An instructor preparing for a new boot camp should create a per-camp
 branch from the upstream `master`:
@@ -107,7 +107,7 @@ This gives a starting point for developing your boot camp.
     parents.  The merge of a well-maintained feature branch (marked
     with an “M”) should be painless.
 
-# <a id="push" /> Publishing your local work
+# <a id="push" /> Publishing your local work in a branch of a GitHub repository
 
 The `checkout -b` command mentioned above creates a new branch in your
 local repository, but you'll want to publish this branch so others can
