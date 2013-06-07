@@ -1,3 +1,6 @@
+This page tries to explain each of the steps, if you want to cut out
+the chatter, see [[the condensed version|Workflow-short]].
+
 # <a id="contents" /> Contents
 
 1. [An overview of the repository structure](#structure)
