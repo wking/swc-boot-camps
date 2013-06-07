@@ -68,20 +68,11 @@ half-day-sized chunks.
 # <a id="clone" /> Cloning the master repository
 
 If you haven't worked on any boot camp content before, you'll need to
-clone the master repository.  You'll also want a way to publish your
-changes.  Because [GitHub pull requests][gh-pull] require the pulled
-head to be on GitHub, that means you'll need a [GitHub
-account][gh-account].  Log into GitHub, and [fork][gh-fork] the
-[boot-camps repository][boot-camps].  Clone your fork with:
+clone the master repository.  You'll also use branches on the master
+repository to publish your changes.  Clone with:
 
-    $ git clone https://github.com/YOU/boot-camps.git
+    $ git clone https://github.com/swcarpentry/boot-camps.git
     $ cd boot-camps
-
-You'll want to track the SWC repository to stay abreast of changes, so
-add it as a remote and fetch it:
-
-    $ git remote add swc https://github.com/swcarpentry/boot-camps.git
-    $ git fetch swc
 
 Now you're ready to start hacking away.
 
@@ -90,17 +81,17 @@ Now you're ready to start hacking away.
 An instructor preparing for a new boot camp should create a per-camp
 branch from the upstream `master`:
 
-    $ git checkout -b 2012-12-my-camp swc/master
+    $ git checkout -b 2012-12-my-camp origin/master
 
 and optionally merge feature branches they like:
 
-    $ git merge swc/git-wtk
+    $ git merge origin/git-wtk
 
 This gives a starting point for developing your boot camp.
 
-    -o---o---o---o      swc/master    (same as local master)
+    -o---o---o---o      origin/master    (same as local master)
       \           \
-       o---o       \    swc/git-wtk
+       o---o       \    origin/git-wtk
             \       \
              `-------M  2012-12-my-camp
 
@@ -114,7 +105,7 @@ This gives a starting point for developing your boot camp.
 
 The `checkout -b` command mentioned above creates a new branch in your
 local repository, but you'll want to publish this branch so others can
-see it.  Push your branch to your public repository with:
+see it.  Push your branch to the public repository with:
 
     $ git push origin 2012-12-my-camp
 
@@ -127,11 +118,8 @@ you've already configured.
 You'll want to push again whenever you need to publish additional
 local work.
 
-If you have commit access to the [swcarpentry repository][boot-camps],
-you can push your branch directly, instead of staging it in *your*
-GitHub repository:
-
-    $ git push swc 2012-12-my-camp
+If you don't have push access to the [swcarpentry
+repository][boot-camps], just ask an admin to set you up.
 
 # <a id="develop" /> Developing boot camp content
 
@@ -151,9 +139,9 @@ boot camp branch:
 
 This creates:
 
-    -o---o---o---o              swc/master    (same as local master)
+    -o---o---o---o              origin/master    (same as local master)
       \           \
-       o---o       \            swc/git-wtk
+       o---o       \            origin/git-wtk
             \       \
              `-------o---A---B  2012-12-my-camp
 
@@ -168,10 +156,11 @@ This creates:
 ## <a id="general" /> General content
 
 If you want to change some of the general content, you should make
-your change on the master branch (or the feature branch like
-“git-wtk”).
+your change in a feature branch based on the master branch (or based
+on a general feature branch like `git-wtk`).  Pick a unique name for
+your branch to avoid colliding with existing branches.
 
-    $ git checkout -b typo-fix swc/master
+    $ git checkout -b typo-fix origin/master
     $ sed -i 's|origin\\master|origin/master|g' version-control/git/basic/README.md
     $ git commit -am 'git/basic: fix origin\master -> origin/master typo'
 
@@ -192,15 +181,15 @@ This creates:
 
                    A-------------.    typo-fix
                   /         \     \
-    -o---o---o---o-----------\-----C  swc/master
+    -o---o---o---o-----------\-----C  origin/master
       \           \           \
-       o---o       \           \      swc/git-wtk
+       o---o       \           \      origin/git-wtk
             \       \           \
              `-------o---o---o---B    2012-12-my-camp
 
-    Figure 4: You can't push to master, so you made a new “typo-fix”
-    branch.  Later on, a SWC dev will merge it into master.  Example
-    log:
+    Figure 4: Pushing directly to master is bad form, so you made a
+    new “typo-fix” branch.  Later on, a SWC dev will merge it into
+    master.  Example log:
 
     commit  message
     ------  --------------------------------------------------
@@ -214,7 +203,7 @@ the branch itself:
 
     $ git branch -d typo-fix
 
-You'll also want to remove the branch from your public GitHub
+You'll also want to remove the branch from the public GitHub
 repository:
 
     $ git push origin :typo-fix
@@ -223,41 +212,34 @@ repository:
 
 The boot camp branch is a clean record of how your source developed
 and the particular material that you presented to your students.  You
-should publish your final branch state on your GitHub repository:
+should push your final branch state to the GitHub repository:
 
     $ git push origin 2012-12-my-camp
 
 and submit a pull request (the base branch should match your
 `YYYY-MM-LOCATION` branch tag).  The base branch of your pull request
-is irrelevant; GitHub doesn't allow you to explicitly request new
-branches with pull requests.
+is irrelevant.
 
 After the pull request is accepted (which shouldn't take long, since
 there shouldn't be any controversy over its content), the developer
 who merged the pull request will tag the boot camp branch and delete
 the branch itself
 
-    $ git tag 2012-12-my-camp swc/2012-12-my-camp
-    $ git push swc tag 2012-12-my-camp
-    $ git push swc :heads/2012-12-my-camp
+    $ git tag 2012-12-my-camp origin/2012-12-my-camp
+    $ git push origin tag 2012-12-my-camp
+    $ git push origin :heads/2012-12-my-camp
 
 Git branches are basically tags that move.  Once the boot camp is done,
 there's no need for its tip commit to change, so you might as well
 mark it with a tag.  After your branch has been tagged upstream, you
 can fetch the new tag with:
 
-    $ git fetch swc
+    $ git fetch origin
 
 The new tag should match your branch tip, so you can safely delete the
 branch:
 
     $ git branch -d 2012-12-my-camp
-
-Then push any new tags to your public GitHub repository and remove the
-old branch.
-
-    $ git push --tags origin
-    $ git push origin :heads/2012-12-my-camp
 
 # <a id="tweaks" /> Tweaks and hints
 
@@ -269,25 +251,24 @@ repositories.  Feel free to skip them if they don't sound interesting.
 If you don't like remote branches cluttering your local repo, you can
 clone a single branch of the master repository using:
 
-    $ git clone --single-branch https://github.com/YOU/boot-camps.git
+    $ git clone --single-branch https://github.com/swcarpentry/boot-camps.git
 
-You can also limit the branches you fetch from upstream.  After adding
-the `swc` remote, run:
+You can also limit the branches you fetch from upstream.  For example:
 
-    $ git config remote.swc.fetch +refs/heads/master:refs/remotes/swc/master
+    $ git config remote.origin.fetch +refs/heads/master:refs/remotes/origin/master
 
-After this, future calls to `git fetch` will retrieve only the
-`master` branch from `swc` and its associated tags, ignoring other
-branches and unrelated tags.
+will setup future calls to `git fetch` to retrieve only the `master`
+branch from `origin` and its associated tags, ignoring other branches
+and unrelated tags.
 
 ## <a id="disjoint" /> Disjoint branches
 
 If you really want to roll your own content, feel free to skip the
 master branch entirely.
 
-    -o---o---o---o          swc/master
+    -o---o---o---o          origin/master
       \
-       o---o                swc/git-wtk
+       o---o                origin/git-wtk
 
              I---o---o---o  2012-12-my-camp
 
@@ -312,43 +293,32 @@ be emailed to the maintainer.
 
 ### <a id="hub-clone" /> Cloning the master repository
 
-    $ git clone https://github.com/swcarpentry/boot-camps.git
+    $ hub clone swcarpentry/boot-camps
     $ cd boot-camps
-    $ hub fork
-
-This is the same as the hub-less procedure, except that the remote
-names have changed.
-
-    hub-less  hub     Repository URL
-    ========  ======  ===========================================
-    swc       origin  git://github.com/swcarpentry/boot-camps.git
-    origin    YOU     git://github.com/YOU/boot-camps.git
-
-You'll have to make appropriate adjustments to the other commands
-(e.g. for creating a new boot camp, branch off from `origin/master`
-instead of `swc/master`).
 
 ### <a id="hub-general" /> General content
 
 Create your feature branch as described for hub-less development, but
-after publishing to `YOU/feature-branch` you can create the pull
-request using hub:
+after publishing to `feature-branch` you can create the pull request
+using hub:
 
     $ hub pull-request
 
 The pull request base defaults to the tracked branch and the head
 defaults to the current branch, so you shouldn't need to specify
-either explicitly.
+either explicitly if you previously pushed with `-u`:
+
+    $ git push -u origin feature-branch
 
 ### <a id="hub-archive" /> Post-boot-camp archival
 
-After publishing your boot camp branch to `YOU/2012-12-my-camp`,
+After publishing your boot camp branch to `2012-12-my-camp`,
 create a pull request using:
 
     $ hub pull-request 'tag completed 2012-12-my-camp' -b origin:master
 
-As mentioned earlier, don't worry about having `master` as the base
-branch.
+Don't worry about having `master` as the base branch, we're just using
+the pull request as a way to record which branch you'd like tagged.
 
 
 [git-book]: http://git-scm.com/book/en/Git-Basics-Working-with-Remotes

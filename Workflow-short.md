@@ -3,17 +3,12 @@ each step, see [[the extended version|Workflow]].
 
 # <a id="clone" /> Cloning the master repository
 
-Log into GitHub, and [fork][gh-fork] the [boot-camps
-repository][boot-camps].  Then:
-
-    $ git clone https://github.com/YOU/boot-camps.git
+    $ git clone https://github.com/swcarpentry/boot-camps.git
     $ cd boot-camps
-    $ git remote add swc https://github.com/swcarpentry/boot-camps.git
-    $ git fetch swc
 
 # <a id="new" /> Creating a new boot camp branch
 
-    $ git checkout -b 2012-12-my-camp swc/master
+    $ git checkout -b 2012-12-my-camp origin/master
 
 # <a id="develop" /> Developing boot camp content
 
@@ -24,9 +19,10 @@ repository][boot-camps].  Then:
 
 ## <a id="general" /> General content
 
-Put general content in feature branches (e.g. `typo-fix`):
+Put general content in feature branches (e.g. `typo-fix`, but pick a
+unique name):
 
-    $ git checkout -b typo-fix swc/master
+    $ git checkout -b typo-fix origin/master
     $ …hack commit hack commit hack commit…
     $ git push origin typo-fix
     $ git checkout 2012-12-my-camp
@@ -46,4 +42,3 @@ Then submit a pull request asking for a tag.
 
 [boot-camps]: https://github.com/swcarpentry/boot-camps
 [gh-pull]: https://help.github.com/articles/using-pull-requests
-[gh-fork]: https://help.github.com/articles/fork-a-repo
