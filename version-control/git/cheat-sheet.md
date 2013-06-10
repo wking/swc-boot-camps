@@ -1,3 +1,16 @@
+Configuring
+===========
+
+* Tell Git who you are:
+
+        $ git config --global user.name 'User Name'
+        $ git config --global user.email 'user@email.com'
+
+* Customize the user interface:
+
+        $ git config --global core.editor nano
+        $ git config --global color.ui auto
+
 Basic use
 =========
 
@@ -37,8 +50,22 @@ Merging
 
         $ git add $FILES
 
+* Instead of merging `origin/master` into your local branch, you can
+  rebase your local branch onto `origin/master` (useful options:
+  `-i`):
+
+        $ git rebase origin/master
+
 Comparing changes
 =================
+
+* Compare the current working directory to the staging area:
+
+        $ git diff
+
+* Compare the staging area to the last commit:
+
+        $ git diff --cached
 
 * Compare the current working directory to the last commit:
 
@@ -51,14 +78,15 @@ Browsing history
 
         $ git status
 
-* View past commits:
+* View past commits (useful options: `--oneline`, `--graph`,
+  `--decorate`, `--stat`, …):
 
         $ git log
 
 * Who wrote this line, and what were they thinking?
 
         $ git blame $FILES
-        $ git show $COMMIT_HASH
+        $ git show $COMMIT
 
 Recovering old versions
 =======================
@@ -95,6 +123,54 @@ Provenance
   [compile the project][git-makefile].  Most Python projects just
   increment `package.__version__` by hand
   (e.g. [pygit2][pygit2-version]).
+
+Branches
+========
+
+* What branch am I on?  What other branches are there?
+
+        $ git branch
+
+* Make a new branch (e.g. `some-feature`):
+
+        $ git branch some-feature
+
+* Change the current branch (e.g. to `some-feature`) and update the
+  staging area and working directory:
+
+        $ git checkout some-feature
+
+Remotes
+=======
+
+* List configured remotes (URL nicknames):
+
+        $ git remote
+
+* List configured remotes with push/pull URLs:
+
+        $ git remote -v
+
+* Add a new remote:
+
+        $ git remote add $NAME $URL
+
+Manipulating history
+====================
+
+* Squash new changes onto the most recent commit:
+
+        $ git commit --amend …
+
+* Move the current branch to `$COMMIT` without touching the staging
+  area or working directory:
+
+        $ git reset $COMMIT
+
+* Move the current branch to `$COMMIT` while also resetting the
+  staging area and working directory:
+
+        $ git reset --hard $COMMIT
 
 
 [git-version-gen]: http://git.kernel.org/cgit/git/git.git/tree/GIT-VERSION-GEN
