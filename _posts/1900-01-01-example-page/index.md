@@ -15,3 +15,5 @@ elsewhere to save us from ourselves.
 def hello_world():
     print 'Hello, world!'
 {% endhighlight %}
+
+{% include join.md %}
