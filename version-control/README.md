@@ -1,3 +1,12 @@
+Version control is a way to keep a track of changing files and store a
+history of those changes and the motivation behind them.  This
+organized history allows many people in a collaboration to make
+changes concurrently, while staying up to date with changes made by
+their collaborators.  It also makes it easy to keep yourself organized
+if you store similar files in several different locations (e.g. a
+project that you develop on both your home computer and your work
+computer).
+
 Basic use
 =========
 
