@@ -1,6 +1,6 @@
 The [gh-pages branch][gh-pages] of the [boot-camps repo][boot-camps] is available for making web pages for particular boot camps. We use GitHub Pages' built-in [Jekyll][] rendering.
 
-This wiki page covers simple Jekyll-rendered boot camp pages.  You can also compile a website using another generator and easily include its output in the `gh-pages` branch using Git submodules.  This workflow is discussed [[here|Stand-Alone-Boot-Camp-Sites]].
+This wiki page covers simple Jekyll-rendered boot camp pages.  You can also compile a website using another generator and easily include its output in the `gh-pages` branch using Git submodules.  This workflow is discussed [here][stand-alone-boot-camp-sites].
 
 # <a id="jekyll" /> About Jekyll and GitHub Pages
 
@@ -103,6 +103,7 @@ To save time creating pages it may be helpful to copy existing pages in the `_po
 [gh-pages]: https://github.com/swcarpentry/boot-camps/tree/gh-pages
 [boot-camps]: https://github.com/swcarpentry/boot-camps
 [Jekyll]: http://jekyllrb.com/
+[stand-alone-boot-camp-sites]: stand-alone-boot-camp-sites.md
 [Markdown]: http://daringfireball.net/projects/markdown/
 [pages]: http://pages.github.com
 [Maruku]: http://maruku.rubyforge.org/

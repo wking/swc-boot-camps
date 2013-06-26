@@ -1,8 +1,8 @@
 Warning: the following workflows use Git's [submodule][] command ([Pro
 Git chapter][pg-submodules]).  This isn't really very difficult, but
 if you're still struggling to wrap your head around the whole “branch”
-concept, you're probably better off [[developing your site in the
-gh-pages branch|Boot-Camp-Pages]].
+concept, you're probably better off [developing your site in the
+gh-pages branch][boot-camp-pages].
 
 Sometimes you want more than Jekyll can offer, or you want to keep the
 source for your website in its own branch, away from the other stuff
@@ -78,9 +78,8 @@ Commit your changes and push:
 # Archival
 
 After the boot camp is over, you can replace your boot camp branch
-with a tag.  For more detail, see the [[Post-boot-camp archival
-section|Workflow#wiki-archive]] of the [[suggested Git
-workflow|Workflow]].
+with a tag.  For more detail, see the [Post-boot-camp archival
+section][archive] of the [suggested Git workflow][workflow].
 
 # Other generators
 
@@ -126,4 +125,7 @@ the Git manipulations for you:
 
 [submodule]: http://www.kernel.org/pub/software/scm/git/docs/git-submodule.html
 [pg-submodules]: http://git-scm.com/book/en/Git-Tools-Submodules
+[boot-camp-pages]: boot-camp-pages.md
 [pages-submodule]: https://help.github.com/articles/using-submodules-with-pages
+[archive]: workflow.md#archive
+[workflow]: workflow.md

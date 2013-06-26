@@ -1,5 +1,5 @@
 This page tries to explain each of the steps, if you want to cut out
-the chatter, see [[the condensed version|Workflow-short]].
+the chatter, see [the condensed version][Workflow-short].
 
 # <a id="contents" /> Contents
 
@@ -321,6 +321,7 @@ Don't worry about having `master` as the base branch, we're just using
 the pull request as a way to record which branch you'd like tagged.
 
 
+[workflow-short]: workflow-short.md
 [git-book]: http://git-scm.com/book/en/Git-Basics-Working-with-Remotes
 [user-manual]: https://www.kernel.org/pub/software/scm/git/docs/user-manual.html#public-repositories
 [gits]: http://lists.software-carpentry.org/listinfo.cgi/gits-software-carpentry.org

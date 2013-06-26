@@ -1,5 +1,5 @@
 This page just tells you what to do.  If you want an explanation of
-each step, see [[the extended version|Workflow]].
+each step, see [the extended version][workflow].
 
 # <a id="clone" /> Cloning the master repository
 
@@ -40,5 +40,7 @@ merged upstream.  After the pull request is merged:
 
 Then submit a pull request asking for a tag.
 
+
+[workflow]: workflow.md
 [boot-camps]: https://github.com/swcarpentry/boot-camps
 [gh-pull]: https://help.github.com/articles/using-pull-requests
