@@ -25,8 +25,12 @@ your pull request message, to let them know that they should review it
 for merging.
 
 * contributing: [wking][] (but let me know if you want to take over)
+* setup: [wking][] (but let me know if you want to take over)
+* version-control: [wking][] (but let me know if you want to take over)
 * version-control/git: [wking][] (but let me know if you want to take over)
 * version-control/svn: unmaintained
+* testing: [wking][] (but let me know if you want to take over)
+* testing/nose: [wking][] (but let me know if you want to take over)
 
 It's also considerate to prefix your commit messages and pull requests
 with at least the subject/tool to help others who are interested in
