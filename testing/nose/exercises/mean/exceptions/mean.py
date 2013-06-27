@@ -3,7 +3,7 @@ def mean(numlist):
         total = sum(numlist)
         length = len(numlist)
     except TypeError :
-        raise TypeError("The list was not numbers.")
+        raise TypeError("numlist was not a list of numbers.")
     except :
         print "Something unknown happened with the list."
     return total/length

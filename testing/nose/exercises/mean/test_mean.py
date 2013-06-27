@@ -3,6 +3,7 @@ from nose.tools import assert_equal, assert_almost_equal, assert_true, \
 
 from mean import mean
 
+
 def test_mean1():
     obs = mean([0, 0, 0, 0])
     exp = 0
