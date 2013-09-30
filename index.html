@@ -1,42 +1,66 @@
 ---
 layout: bootcamp
 root: .
-venue: Euphoric State University
-address: 123 College Street, Euphoria
-country: United-States
-humandate: June 17-18, 2020
+venue: The University of Edinburgh
+address: Room 3217, James Clark Maxwell Building, Kings Buildings, Mayfield Road, Edinburgh, EH9 3JZ
+country: United-Kingdon
+humandate: December 3-4, 2013
 humantime: 9:00 am - 4:30 pm
-startdate: 2020-06-17
-enddate: 2020-06-18
-latlng: 41.7901128,-87.6007318
-registration: restricted
-instructor: ["Grace Hopper", "Alan Turing"]
-contact: random@software-carpentry.org
+startdate: 2013-12-03
+enddate: 2013-12-04
+latlng: 55.921628,-3.174155
+registration: open
+instructor: ["Mike Jackson", "Mario Antonioletti"]
+contact: host-edinburgh@software-carpentry.org
 ---
-<div align="center">
-  <p><strong><em>
-      This page is a template for bootcamp home pages.
-      <br/>
-      Please see
-      <a href="https://github.com/swcarpentry/bc">https://github.com/swcarpentry/bc</a>
-      for instructions on how to create
-      a repository for your bootcamp.
-      <br/>
-      Please also see
-      the <a href="{{page.root}}/lessons/index.html">index to our lessons</a>
-      and the <a href="{{page.root}}/lessons/setup.html">index to setup instructions</a>.
-  </em></strong></p>
-</div>
 {% include bootcamps/instructors.html %}
+<p>
+  <strong>Organisers:</strong> This boot camp is being organised by <a href="http://www.epcc.ed.ac.uk">EPCC</a> as part of <a href="http://www.prace-ri.eu/">PRACE</a> (Partnership for Advanced Computing in Europe) and <a href="http://www.software.ac.uk">The Software Sustainability Institute</a>.
+</p>
 {% include bootcamps/what.html %}
 {% include bootcamps/who.html %}
-{% include bootcamps/requirements.html %}
-{% include bootcamps/python.html %}
+<p>
+  <strong>Registration:</strong> please visit our 
+<a href="http://events.prace-ri.eu/confRegistrationFormDisplay.py?confId=192">registration site</a>
+</p>
 {% include bootcamps/contact.html %}
 
 <hr/>
 
-<h2>Setup</h2>
+<h2>Timetable</h2>
+
+Tuesday 3rd December
+<ul>
+ <li>09:00 - 09:30 Registration and Software Installation</li>
+ <li>09:30 - 10:00 Welcome</li>
+ <li>10:00 - 10:30 Using version control to manage and share information</li>
+ <li>10:30 - 11:00 Break</li>
+ <li>11:00 - 12:30 Using version control to manage and share information (cont)</li>
+ <li>12:30 - 13:30 Lunch</li>
+ <li>13:30 - 15:00 Using Python for scientific programming</li>
+ <li>15:00 - 15:30 Break</li>
+ <li>15:30 - 17:00 Using Python for scientific programming (cont)</li>
+</ul>
+
+Wednesday 4th December
+<ul>
+ <li>09:00 - 09:30 Recap</li>
+ <li>09:30 - 10:30 How (and how much) to test programs</li>
+ <li>10:30 - 11:00 Break</li>
+ <li>11:00 - 12:00 How (and how much) to test programs (cont)</li>
+ <li>12:00 - 13:00 Lunch</li>
+ <li>13:00 - 14:00 Debugging</li>
+ <li>14:00 - 14:30 Documenting code</li>
+ <li>14:30 - 15:00 Break</li>
+ <li>15:00 - 16:30 To be determined based on the expectations and preferences of the attendees.</li>
+ <li>16:30 - 17:00 Wrap-up</li>
+</ul>
+
+<hr/>
+
+<h2>Required Software</h2>
+
+A full set of installation instructions will be circulated two weeks before the bootcamp.
 
 <div class="row-fluid">
   <div class="span6">
@@ -46,41 +70,6 @@ contact: random@software-carpentry.org
   <div class="span6">
     {% include setup/overview-git.html %}
     {% include setup/overview-python.html %}
-  </div>
-</div>
-
-<hr/>
-
-<h2>Topics</h2>
-
-<div class="row-fluid">
-  <div class="span6">
-    <h3><a href="lessons/shell.html">The Unix Shell</a></h3>
-    <ul>
-      <li>{% include guide-shell/filedir/title.md %}</li>
-      <li>{% include guide-shell/create/title.md %}</li>
-      <li>{% include guide-shell/pipefilter/title.md %}</li>
-      <li>{% include guide-shell/loop/title.md %}</li>
-      <li>{% include guide-shell/scripts/title.md %}</li>
-      <li>{% include guide-shell/find/title.md %}</li>
-    </ul>
-  </div>
-  <div class="span6">
-    <h3><a href="lessons/db.html">Databases</a></h3>
-    <ul>
-      <li>{% include guide-db/select/title.md %}</li>
-      <li>{% include guide-db/distinct/title.md %}</li>
-      <li>{% include guide-db/filter/title.md %}</li>
-      <li>{% include guide-db/calc/title.md %}</li>
-      <li>{% include guide-db/sort/title.md %}</li>
-      <li>{% include guide-db/null/title.md %}</li>
-      <li>{% include guide-db/aggregate/title.md %}</li>
-      <li>{% include guide-db/grouping/title.md %}</li>
-      <li>{% include guide-db/join/title.md %}</li>
-      <li>{% include guide-db/create/title.md %}</li>
-      <li>{% include guide-db/transactions/title.md %}</li>
-      <li>{% include guide-db/programming/title.md %}</li>
-    </ul>
   </div>
 </div>
 
