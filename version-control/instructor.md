@@ -6,8 +6,24 @@ changes upstream and why that's a good way to structure development.
 Provided there aren't network problems, this entire lesson can be
 covered in 90 minutes.
 
+Tool choices
+============
+
+There are many version control tools available, and we have Software
+Carpentry branches for some of them.  Possible choices:
+
+Git
+---
+
+* `git://github.com/wking/swc-boot-camps.git version-control-git`
+
+Subversion
+----------
+
+* `git://github.com/wking/swc-boot-camps.git version-control-svn`
+
 Teaching notes
---------------
+==============
 
 * Make sure the network is working *before* starting this lesson.
 
