@@ -1,0 +1,132 @@
+---
+layout: lesson
+root: .
+title: Hints and tips
+---
+
+<h2>Getting help about a command - <code>man</code> pages</h2>
+<p>
+Type:
+</p>
+<pre>
+$ man COMMAND
+</pre>
+<p>
+For example:
+</p>
+<pre>
+$ man ls
+$ man grep
+$ man git
+</pre>
+<p>
+The up and down arrows on your keyboard allow you to scroll up and down the page.
+</p>
+<p>
+To exit from the <code>man</code> page, press <code>q</code>.
+</p>
+
+<h2>Auto-completion</h2>
+<p>
+Bash shells support what is called <em>tab completion</em>. If you type part of a command or file name, then press TAB, it will show the commands or files that match that prefix of the command. For example, if you type:
+</p>
+<pre>
+$ gre
+</pre>
+<p>
+then, without pressing ENTER, you press TAB you should see something like
+</p>
+<pre>
+$ gre
+greadelf  grep           grepjar
+grefer    grep-changelog
+</pre>
+<p>
+which are all the commands that match <code>gre</code>. This also works for files. For example, if you type:
+</p>
+<pre>
+$ ls dat
+</pre>
+<p>
+then, without pressing ENTER, you press TAB you should see a list of all the files that start with <code>dat</code>. If there is only one, then the file name will be auto-completed e.g.
+</p>
+<pre>
+$ ls data.txt
+</pre>
+
+<h2>Command history, or avoid having to retype commands</h2>
+<p>
+Bash shells support a command history - they record every command you type in. If you use up-arrow, or <code>CTRL-P</code>, at the command prompt you can scroll back to the previous command you executed. Down-arrow, or <code>CTRL-N</code>, allows you to scroll to the next command.
+</p>
+<p>
+You can then move the cursor and edit the command. To move the cursor in the line you can do:
+</p>
+<ul>
+<li>Left, <code>CTRL-B</code></li>
+<li>Right, <code>CTRL-F</code></li>
+<li>To the start of the line, <code>CTRL-A</code></li>
+<li>To the end of the line, <code>CTRL-E</code></li>
+</ul>
+<p>
+If you enter:
+</p>
+<pre>
+$ history
+</pre>
+<p>
+You'll see a list of the commands in the history. Each has a number. If you enter:
+</p>
+<pre>
+$ !NNN
+</pre>
+<p>
+where <code>NNN</code> is the number of a command in the history, that command will be rerun.
+</p>
+<p>
+To search for a command that you've run before you can do:
+</p>
+<pre>
+$ history | grep "COMMAND"
+</pre>
+<p>
+For example:
+</p>
+<pre>
+$ history | grep "ls"
+</pre>
+
+<h2>A quick-start guide to the <code>nano</code> editor</h2>
+<p>
+nano is a simple text editor for Linux/Unix.
+</p>
+<p>
+To start:
+</p>
+<pre>
+$ nano file.txt
+</pre>
+<p>
+To move the cursor:
+</p>
+<ul>
+<li>Left, <code>CTRL-B</code></li>
+<li>Right, <code>CTRL-F</code></li>
+<li>Up a line, <code>CTRL-P</code></li>
+<li>Down a line, <code>CTRL-N</code></li>
+<li>To the start of the line, <code>CTRL-A</code></li>
+<li>To the end of the line, <code>CTRL-E</code></li>
+</ul>
+<p>
+To delete and undelete a line:
+</p>
+<ul>
+<li>Delete the current line, <code>CTRL-K</code></li>
+<li>Undelete the recently deleted lines, <code>CTRL-U</code></li>
+</ul>
+<p>
+To save a file, <code>CTRL-O</code>. You will be given the opportunity to edit the file name to save the file under a different name.
+</p>
+<p>
+To quit, <code>CTRL-X</code>. If the file has unsaved changes you'll be given the chance to save them now.
+</p>
+
