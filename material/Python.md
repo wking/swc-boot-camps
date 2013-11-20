@@ -296,18 +296,18 @@ and compare it with the average maximum cell count for people who weren't showin
 
 Our code highlights the simultaneous strength and weakness of using array operators. On the one hand, we can write a single expression that calculates the same result as this:
 
-total = 0.0
-num = 0
-for p in range(60):
-    if patients[p, 1] == 0:
-        max_count = 0
-        for t in range(40):
-            if patients[p, t] > max_count:
-                max_count = patients[p, t]
-        total += max_count
-        num += 1
-print 'result', total / num
-result 17.5757575758
+    total = 0.0
+    num = 0
+    for p in range(60):
+        if patients[p, 1] == 0:
+            max_count = 0
+            for t in range(40):
+                if patients[p, t] > max_count:
+                    max_count = patients[p, t]
+            total += max_count
+            num += 1
+    print 'result', total / num
+    result 17.5757575758
 
 On the other hand, the expression:
 
@@ -317,7 +317,7 @@ does take a bit of practice to read, and it's very easy to fail to notice the di
 
 ## Visualization and matplotlib
 
-The mathematician Richard Hamming once said, "The purpose of computing is insight, not numbers," and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few features of Python's 2D plotting library, [matplotlib](http://matplotlib.org) here. 
+The mathematician Richard Hamming once said, "The purpose of computing is insight, not numbers," and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few features of Python's 2D plotting library, [matplotlib](http://matplotlib.org), here. 
 
 First let us import Matplotlib:
 
