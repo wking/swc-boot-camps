@@ -10,8 +10,8 @@ t = np.linspace(0, 20, 2000)
 X_initial = np.array([20, 4])
 from scipy import integrate
 X = integrate.odeint(dX_dt, X_initial, t)
-predators = X[:, 0]
-prey = X[:, 1]
+prey = X[:, 0]
+predators = X[:, 1]
 fig = plt.figure()
 plt.plot(t, prey, 'r-', label='Prey')
 plt.plot(t, predators, 'b-', label='Predators')

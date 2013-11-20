@@ -432,8 +432,8 @@ We can now integrate numerically using `odeint`, the ordinary differential equat
 
 Let us now plot these:
 
-    predators = X[:, 0]
-    prey = X[:, 1]
+    prey = X[:, 0]
+    predators = X[:, 1]
     fig = plt.figure()
     plt.plot(t, prey, 'r-', label='Prey')
     plt.plot(t, predators, 'b-', label='Predators')
