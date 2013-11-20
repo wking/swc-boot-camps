@@ -391,7 +391,7 @@ The [Lotka-Volterra](http://wiki.scipy.org/Cookbook/LoktaVolterraTutorial) equat
 
     dv/dt = -c*v + d*b*u*v
 
-(or see it in [mathematical notation](lotkavolterra.png))
+(or see it in [mathematical notation](lotkavolterra/lotkavolterra.png))
 
 where:
 
