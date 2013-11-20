@@ -385,18 +385,21 @@ This time we start by creating a figure that is 8.0 units wide and 3.0 units hig
 
 [SciPy](http://scipy.org) is an open source library of Python tools for mathematics, science and engineering. We've already been using three of these tools: UIPython, NumPy and Matplotlib. Here, we'll play with an ordinary differential equation (ODE) solver.
 
-The Lotka-Volterra equation, first proposed in the 1920s, models the interactions between predators and prey (e.g. cats and mice, foxes and rabbits). When predators are scarce, prey breed rapidly; as more prey become available, the predator population increases; and as the number of predators increases, prey become scarcer, so the predator population peaks and falls. In mathematical form, this is:
+The [Lotka-Volterra](http://wiki.scipy.org/Cookbook/LoktaVolterraTutorial) equation, first proposed in the 1920s, models the interactions between predators and prey (e.g. cats and mice, foxes and rabbits). When predators are scarce, prey breed rapidly; as more prey become available, the predator population increases; and as the number of predators increases, prey become scarcer, so the predator population peaks and falls. In mathematical form, this is:
 
-TODO
-TODO
-TODO
+    du/dt =  a*u -   b*u*v
 
-Where:
+    dv/dt = -c*v + d*b*u*v
 
-* u and v are the number of prey and predators respectively;
-* a is the natural growth rate of prey when there are no predators;
-* b is the natural death rate of prey due to predation;
-* c is the natural death rate of predators when there are no prey; and
+(or see it in [mathematical notation](lotkavolterra.png))
+
+where:
+
+* u is the number of prey.
+* v is the number of predators.
+* a is the natural growth rate of prey when there are no predators.
+* b is the natural death rate of prey due to predation.
+* c is the natural death rate of predators when there are no prey.
 * d describes how many prey have to be caught and eaten to produce a new predator.
 
 Let's define this equation in Python. If X is the pair [u, v], the prey and predator populations, then the equation of change in population over time is:
