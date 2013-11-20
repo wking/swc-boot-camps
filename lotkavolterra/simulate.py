@@ -8,7 +8,7 @@ import sys
 import getopt
 
 def usage():
-    print "Usage: make [options] [target] ..."
+    print "Usage: python simulate.py [options]"
     print "Options:"
     print "  -a N, --rabbit-birth=N  Natural growth rate of prey when there are no predators. Default: ", rabbit_birth
     print "  -b N, --rabbit-death=N  Natural death rate of prey due to predation. Default: ", rabbit_death
