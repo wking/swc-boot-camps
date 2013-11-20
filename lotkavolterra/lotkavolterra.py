@@ -1,6 +1,6 @@
 import numpy as np
-from scipy import integrate
 from matplotlib import pyplot as plt
+from scipy import integrate
 
 PREY = 0
 PREDATOR = 1
@@ -45,7 +45,7 @@ def update_population(population, time, prey, predator):
 
 def simulate(prey, predator, end_time = 20, time_steps = 2000):
     '''
-    Simulate the evoluation of a population of predators and prey
+    Simulate the evolution of a population of predators and prey
     using the Lotka-Volterra equations.
 
     Parameters
