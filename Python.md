@@ -5,9 +5,9 @@ In this session, we will provide an introduction to Python and its support for s
 
 We will use [IPython](http://ipython.org/), an interactive computing shell based on Python. Two useful features are auto-completion and command history, analogous to what is provided by the shell. We will see more later.
 
-    ipython --matplotlib
+    ipython --pylab
 
-We add the ``--matplotlib`` flag as we will be using Matplotlib later.
+We add the ``--pylab`` flag as when we come to use matplotlib this allows us to do interactive plotting.
 
 ## Implementing a dot product function
 
