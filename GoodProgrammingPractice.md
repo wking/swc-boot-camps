@@ -1,14 +1,14 @@
 
 # Good Programming Practice
 
-Yesterday, we finished with a script that simulated predator-prey
-behavior via an implementation of the Lotka-Volterra equations using
-NumPy, SciPy and matplotlib.  
+We will start with a script that simulates predator-prey behavior via
+an implementation of the Lotka-Volterra equations using NumPy, SciPy
+and matplotlib.   
 
-Today we'll clean up that script into a program, exploring aspects of
-good programming practice along the way. 
+We'll clean up that script into a program, exploring aspects of good
+programming practice along the way.
 
-## Pull up the `import` statements
+## Conform to style guidelines
 
 First, we will pull our `import` statements up to the top of our file.
 
@@ -21,20 +21,21 @@ Code](http://www.python.org/dev/peps/pep-0008/). Many languages have
 style guides which specify conventions as to how constants, variables
 and functions should be named, how code should be indented, what types
 of code goes where etc. These are designed to help us produce readable
-code that is understandable by others. By conforming to a style guide,
-we are being consistent, so that once someone has learned the style
-for a particular language,they can more readily recognise what parts
-of the code does what, regardless of who wrote the code - providing
-they conformed to the style guide.
+code that is understandable by others (and ourselves 6 months from
+now). By conforming to a style guide, we ensure our code is consistent
+in its presentation with that written by others. Once someone has
+learned the style for a particular language,they can more readily
+recognise what parts of the code does what, regardless of who wrote
+the code - providing they conformed to the style guide.
 
 While code is ultimately destined to be processed by a computer, it is
 humans that spend a significant amount of time reading and writing it,
 and your time is more valuable than computer time, so anything that
 makes the job of reading and writing code easier is a good thing!
 
-Now, we run our script to see that it still works.
+Now, we run our script to see that it still works after our changes.
 
-## Convert into functions
+## Modularise into functions
 
 Our program consists of two main parts, that which does the
 computation, and that which plots the results. We can pull out the
@@ -73,14 +74,24 @@ Finally, we need to add a bit of 'glue':
 
 We now run this to see that it still works.
 
+Why do this?  Well, we've decoupled how our computation is done from
+how the results are presented. We are now free to change one or the
+other without having to change both, so long as the *interface* each
+function presents to the rest of the program does not change.
+
 ## Remove dependence on global variables
 
 We have a number of variables that are global, they are used within
 our functions but are assumed to have been defined elsewhere. Global
-variables can be a problem for many reasons. One of these is that it
-hinders our ability to understand code - given one of our functions we
-then have to root around looking for where the global variables are
-defined to see what value they might be.
+variables can be a problem:
+
+ * They can be modified from anywhere within the program which can
+make it difficult to understand how a program works.
+ * They create mutual dependencies across a program - any part of a
+program can change a global variable and any part of a program might
+use a global variable.
+ * They make it more difficult to reuse parts of a program in other
+contexts e.g. as useful library such as we'll create shortly.
 
 We'll start with `dX_dt. Let's add arguments to the function, so we
 know, when looking at the function body, where those values come from:
@@ -103,17 +114,20 @@ Now, let's do the same for `simulate`.
 ## Remove hard-coded values
 
 We have hard-coded values for the initial populations of prey and
-predators and the number of time-steps and the end-time. Hard-coded
-values are a problem - if we wanted to change the number of time steps
-or end time we'd have to edit our function, so let's pass those in as
-arguments too. Define the initial values for these at the top of the
-file.
+predators and the number of time-steps and the end-time.  If we wanted
+to change the number of time steps or end time we'd have to edit our
+function, so let's pass those in as arguments too.
 
-## Refactor into a module
+We've now make our function more general - rather than run a
+simulation over a specific number of steps to a specific end-time we
+can now choose how many steps and till when it runs. We've made our
+function more general, flexible, and useful.
+
+## Modularise into modules
 
 We now have a single script that consists of functions and code that
 is executed directly. We may want to use these functions in other
-scripts, so we can pull them out into a library.
+scripts, so we can pull them out into a new Python module.
 
 Create a new file, `lotkavolterra.py`, and copy the `import`
 statements and the functions into it.
@@ -127,13 +141,25 @@ script. We need to import them:
     from lotkavolterra import simulate
     from lotkavolterra import plot
 
-If we run it again it should still work.
+If we run it again it should still work. 
 
-## Rename variables
+We could now give this module to a colleague and they can use our
+functions within their own programs should they wish. It's also
+separated the computation and plotting code from the code that sets up
+the initial values of the simulation, so we can them implement various
+ways of setting up these initial values (e.g. by having one script
+read them from the command-line or another read them from a
+configuration file).
 
-Our variable and function names in lotkavolterra.py are somewhat
-cryptic. Readable variable names help our code to be
-self-documenting. So, let's rename:
+## Rename variables to be more meaningful
+
+Our variable and function names in `lotkavolterra.py` are somewhat
+cryptic. Variable names that are too short can be too cryptic, but if
+they're too long this can inhibit comprehension. 12 characters or less
+is recommended. Readable variable names also help our code to be
+self-documenting.
+
+Let's rename:  
 
 * `dX_dt` - update predator and prey populations
 * `X` - predator and prey populations
@@ -142,12 +168,19 @@ self-documenting. So, let's rename:
 
 We'll deal with the rest shortly.
 
-## Abstract out related variables into a data structure
+## Identify where data structures can be introduced
 
-The argument list to `simulate` is getting rather big - it has 8
-arguments - which can impact upon readability. We can reduce the
-number of arguments by recognising that the arguments group into those
-for prey and those for prey, plus the end time and time-series.
+In the same way in which we bundled related code into functions, we
+can bundle related variables into data structures.
+
+If we look at the argument list to `simulate` is getting rather big -
+it has 8 arguments - which can impact upon readability, since we are
+programmed typically to hold only 7+/-2 chunks of information in
+short-term memory at any time.
+
+We can reduce the number of arguments by recognising that the
+arguments group into those for prey and those for prey, plus the end
+time and time-series. 
 
 Let's use a Python dictionary to store the configuration values for
 prey and predators. A Python dictionary is a set of key-value
@@ -172,72 +205,71 @@ Then create two dictionaries:
     prey_config = {}
     predator_config = {}
 
-Now, 
-
-* Update your script to populate the dictionaries e.g.
+Now, update your script to populate the dictionaries e.g.
 
     prey_config[BIRTH] = a
 
-* Update `simulate` and `dX_dt` to replace the 6 arguments relating to
-prey and predators with two arguments, `prey_config` and `predator_config`.
+Update `simulate` and `dX_dt` to replace the 6 arguments relating to
+prey and predators with two arguments, `prey_config` and
+`predator_config`
 
-* Update `dX_dt` to pull out values from the dictionaries e.g.
+Update `dX_dt` to pull out values from the dictionaries e.g.
 
     prey_config[BIRTH]
 
 If you get stuck as someone sitting by you - a fresh pair of eyes on
-code can work wonders.
+code can work wonders. Fagan (1976) discovered that a rigorous
+inspection can remove 60-90% of errors before the first test is
+run. M.E., Fagan (1976). [Design and Code inspections to reduce errors
+in program development](http://www.mfagan.com/pdfs/ibmfagan.pdf). IBM
+Systems Journal 15 (3): pp. 182-211. 
 
-What we know about software development - code reviews work. Fagan
-(1976) discovered that a rigorous inspection can remove 60-90% of
-errors before the first test is run. M.E., Fagan (1976). [Design and
-Code inspections to reduce errors in program
-development](http://www.mfagan.com/pdfs/ibmfagan.pdf). IBM Systems
-Journal 15 (3): pp. 182-211. 
+We currently return a tuple from `simulate`. Our time-series together
+with the prey and predator populations together constitute the data
+from our simulation. We can combine these into a single NumPy array
+that contains one row per time-step where each row has the time, prey
+population and predator population at that time-step.
 
-Similarly, we currently return a tuple from `simulate`. It could be
-good if we could return a NumPy array that contained our time-steps
-plus the prey and predator populations at each time-step. The array
-returned by `integrate.odeint` already contains the prey and predator
-populations at each time-step, and we have each time-step in the array
-returned by `np.linspace` so we can insert the time-steps as a first
-column by doing:
+The array returned by `integrate.odeint` already contains the prey and
+predator populations at each time-step, and we have each time-step in
+the array returned by `np.linspace` so we can insert the time-steps as
+a first column by doing: 
 
     data = np.insert(populations, 0, time_series, axis=1)
 
-As this may be a bit cryptic to someone not familiar with NumPy we can
-add a comment:
+This inserts `time_series` into `populations` at index 0 of the 1st
+axis (as our data is 2D it inserts `time_series` as a new first
+column). As this may be a bit cryptic to someone not familiar with
+NumPy we can add comment before this line:
 
     # Insert time_series as a new first column.
 
 Comments in-code should be used sparingly, to tell us why the code as
-it is and also to make something which may be confusing, clear.
+it is and also to make something which may be confusing, clear. 
 
-This inserts `time_series` into `populations` at index 0 of the 1st
-axis (as our data is 2D it inserts `time_series` as a new first
-column). We can now just return this instead of a tuple and remove
-the, now redundant, lines:
+Now just return this instead of a tuple and remove the, now redundant,
+lines:  
 
     prey = X[:, 0]
     predators = X[:, 1]
 
-We now need to change `plot` to take in a single argument and then
-unpack the data. To unpack the data we can use:
+Now change `plot` to take in a single argument and then unpack the
+data. To unpack the data, use: 
 
 * Time series - `data[:,0]`
 * Prey values - `data[:,1]`
 * Predator values - `data[:,1]`
 
-Finally, we need to change our script to reflect the fact that
-`simulate` returns a single array and `plot` takes in a single array. 
+Finally, change your script to reflect the fact that `simulate`
+returns a single array and `plot` takes in a single array. 
 
-## Save data as a file
+## Save the simulation data
 
-So, we now have a program that runs the Lotka-Volterra equations to
-determine the evoluation of prey and predators over time. We could
-save our image if we wish but then we would not be able to perform
-further analyses upon it (and nor would our colleagues). So what we
-can do is save the raw data itself. NumPy again helps us here:
+Our program runs the Lotka-Volterra equations to simulate the
+evoluation of prey and predators over time. We could save our image if
+we wish but then we would not be able to perform further analyses upon
+it (and nor would our colleagues). So what we can do is save the raw
+data itself. NumPy again helps us here: 
 
     np.savetxt("data.csv", data, delimiter=",")
 
@@ -245,11 +277,16 @@ If we look at our data file:
 
     data head.csv
 
-It has no context, nothing. We can add information to our file to
-record:
+It has no context, nothing. What does this data mean? We know, as
+we've just created it, but would we remember 6 months from now? We can
+add information to our file to record:
 
-* What the data is.
-* What produced it i.e. the provenance of this data.
+ * What the data is.
+ * What produced it i.e. the provenance of this data.
+
+`savetxt` allows us to add a commented header to the data file. We can
+use this, plus Python functions to add both the name of our program
+plus the current date and time to this header:
 
     import os
 
@@ -259,17 +296,22 @@ record:
     header += "\nTime-step, predator population, prey population"
     np.savetxt(output_file, results, delimiter=",", header=header)
 
-Now if we rerun our script and look at our data file it's been stamped
-with information about how and when it was produced and what it
-is.
-
-We can load this into Python using `np.loadtxt` which will ignore the
-lines beginning with `#` which are treated as comments.
+Now, rerun the script and look at the data file. We now know when we
+ran this script, what script was run, and what the data is. We can
+load this into Python using `np.loadtxt` which will ignore the lines
+beginning with `#` which are treated as comments.
 
 ## Key points
 
-* Write code for humans not computers
-* Sensible variable and function names help make code self-documenting
-* Add comments to explain why the code as it is or to explain code
-that might otherwise be cryptic
-* Record meta-data and provenance information in data files
+ * Write code for humans not computers.
+ * Conformance to programming style guides helps others to understand
+your code. 
+ * Sensible variable and function names help make code
+self-documenting. 
+ * Breaking up code into functions and modules promotes the
+development of code that is easier to understand, modify and fix, and
+reuse. 
+ * Add comments to explain why the code as it is or to explain code
+that might otherwise be cryptic 
+ * Record meta-data and provenance information in data files so you
+have an audit trail.
