@@ -102,11 +102,11 @@ def plot(time_series, prey, predators):
         An array of the predators at each time-step in time_series.
     '''
     fig = plt.figure()
-    plt.plot(time_series, prey, 'r-', label='Prey')
-    plt.plot(time_series, predators, 'b-', label='Predators')
+    plt.plot(time_series, prey, "r-", label="Prey")
+    plt.plot(time_series, predators, "b-", label="Predators")
     plt.grid()
-    plt.legend(loc='best')
-    plt.xlabel('time')
-    plt.ylabel('population')
-    plt.title('Evolution of predator and prey populations')
+    plt.legend(loc="best")
+    plt.xlabel("time")
+    plt.ylabel("population")
+    plt.title("Evolution of predator and prey populations")
     plt.show()
