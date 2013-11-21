@@ -488,3 +488,10 @@ it displays your plot. Remember to add in
 at the top of the file.
 
 Now, we have a script that does our analysis. We'll look at how to clean this up into a useful piece of code tomorrow.
+
+## Key points
+
+* A number of powerful scientific libraries are available in Python.
+* Why reinvent the wheel when someone may have done what you need already, and better.
+* A lot of software development involves taking off-the-shelf libraries and gluing them together.
+* Readability versus efficiency is a common trade-off.
