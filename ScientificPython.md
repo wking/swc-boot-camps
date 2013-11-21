@@ -174,8 +174,9 @@ Let's try to copy an array and then change a value in the copy:
 Why has `first` changed? It has changed because the data in `first` was not copied to `second`. Rather, `second` was changed to point at the same place in memory as `first`. This is similar to pointers in C or object references in Java. In NumPy this is called *aliasing*. Aliasing is done as:
 
  * It is more efficient that copying data unnecessarily, and that's what Python does in other cases e.g. with lists.
- * If we want to copy data so that we can safely make changes, we can do that explicitly using the array object's `copy` method:
+ * If we want to copy data so that we can safely make changes, we can do that explicitly using the array object's `copy` method.
 
+Let's try an example with `copy`:
 
    third = first.copy()
    third[1, 1] = 1234
