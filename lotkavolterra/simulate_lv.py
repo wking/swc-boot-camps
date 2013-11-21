@@ -1,8 +1,10 @@
 import ConfigParser
-import numpy as np
 import os
 import sys
-import time;
+import time
+
+import numpy as np
+
 from lotkavolterra import plot
 from lotkavolterra import simulate
 from lotkavolterra import BIRTH

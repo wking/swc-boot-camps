@@ -1,5 +1,6 @@
 import getopt
 import sys
+
 from lotkavolterra import plot
 from lotkavolterra import simulate
 from lotkavolterra import BIRTH
