@@ -3,17 +3,17 @@
 
 In this session, we will provide an introduction to Python and its support for scientific programming.
 
-We will use [IPython](http://ipython.org/), an interactive computing shell based on Python. Two useful features are auto-completion and command history, analogous to what is provided by the shell. We will see more later.
+We will use [IPython](http://ipython.org/), an interactive computing shell buolt on top of Python. Two useful features are auto-completion and command history, analogous to what is provided by the shell. We will explore more features in due course.
 
     ipython --pylab
 
-We add the ``--pylab`` flag as when we come to use matplotlib this allows us to do interactive plotting.
+We add the ``--pylab`` flag as when we come to use Matplotlib this allows us to do interactive plotting.
 
 ## Implementing a dot product function
 
-Scientists write a lot of code to simulate physical phenomena like diffusion-limited aggregation, but a lot more to crunch numbers. From the matrices used to calculate the stress and strain on a bridge to the tables used in statistics, the bulk of scientific data lives in arrays of one kind or another.
+Scientists write a lot of software to simulate physical phenomena like diffusion-limited aggregation, but a lot more to crunch numbers. From the matrices used to calculate the stress and strain on a bridge to the tables used in statistics, the bulk of scientific data lives in arrays of one kind or another.
 
-Define an array of data, using a Python list:
+We can define an array of data, using a Python list:
 
     vector = [2,4,6]
     len(vector)
@@ -45,14 +45,16 @@ Let us calculate the dot product of the vectors. For this we will use the `range
 
     print range(len(left))
 
-It gives us a list of values. We will use these to provide indices into the vectors. Our dot product is calculated by:
+It gives us a list of values. We can use these as indices into the vectors. 
+
+Our dot product is calculated by:
 
     product = 0.0
     for i in range(len(left)):
         product += left[i] * right[i]
     print product
 
-In Python blocks are indented. Research into program comprehension has shown that people use white-space, not brackets, to determine what blocks of code belong to what conditions, loops, and functions. The Python designers force us to indent, so force us to write readable code.
+In Python blocks are indented. Research into program comprehension has shown that people use white-space, not brackets, to determine what blocks of code belong to what conditions, loops, and functions. The Python designers force us to indent, so force us to write readable, or less unreadable, code.
 
 Let us define a function to calculate the dot product, to save retyping this code:
 
@@ -64,41 +66,35 @@ Let us define a function to calculate the dot product, to save retyping this cod
             result += left[i] * right[i]
         return result
 
-Call the function:
+Now we can call the function:
 
-    dot(vector, vector2)
+    dot(left, right)
 
-Cross-check against the result already calculated:
+Let's cross-check against the result already calculated:
 
     print result
 
-''' denotes a comment. Python can display this as a form of command-line help:
+''' denotes a comment. Python can display this at the prompt:
 
     print dot.__doc__
 
-'''assert''' checks that a pre-condition holds, the two vectors should be of equal length, and if not throws an error:
+`assert` checks that a pre-condition holds, the two vectors should be of equal length, and if not throws an error:
 
     dot([2,4,6], [1, 3])
 
 Here the error causes our program to stop. In more complex programs, we can *catch* the error and *handle* it e.g. by popping up a dialog box to the user if we had a graphical user interface.
 
-Writing code like this is inefficient. The same handful of matrix operations come up so often that it's worth developing a special notation for them. In addition, these operations are so common, it's worth investing time in optimizing their performance. Thousands of software developers have done exactly that over fifty years, producing libraries that are much faster, and much more reliable, than anything a single person could develop. These libraries are typically written in low-level languages like Fortran and C, and then wrapped up in MATLAB or Python to make them easier to use. For Python, one such library is NumPy.
+Writing code like this is inefficient in two senses. First, the same handful of matrix operations come up so often that it's worth developing a special notation for them. Second, because those operations are common, it's worth investing time in optimizing their performance. Thousands of software developers have done exactly that over fifty years, producing libraries that are much faster, and much more reliable, than anything a single person could develop. These libraries are typically written in low-level languages like Fortran and C, and then wrapped up in MATLAB or Python to make them easier to use. For Python, one such library is NumPy.
 
-## Scientific programming in Python using NumPy
+## NumPy
 
 [NumPy](http://www.numpy.org/) terms itself the "fundamental package for scientific computing with Python". NumPy  includes linear algebra, Fourier transform and random number capabilities. 
-
-### NumPy arrays
-
-At it's heart is an optimised N-dimensional array object. A Python list, [0, 1, 2], is actually an array of pointers to Python objects representing each number. NumPy arrays differ from Python lists, and tuples, in that the data is contiguous in memory. This allows NumPy arrays to be considerably faster for numerical operations than Python lists or tuples.
 
 First we need to import the NumPy package:
 
     import numpy as np
 
-```import``` imports functions, variables or collections of these from elsewhere. This is similar to the ```import``` command in Java or ```include``` in C.
-
-By convention, we import ```numpy``` under the name ```np```, since we're going to be typing it a lot. 
+`import` imports functions, variables or collections of these from elsewhere. This is similar to the `import` command in Java or `include` in C. By convention, we import `numpy` under the name `np`, since we're going to be typing it a lot. 
 
 NumPy has a built-in dot product function. Let us look at its documentation:
 
@@ -107,6 +103,8 @@ NumPy has a built-in dot product function. Let us look at its documentation:
 `dot` is *polymorphic* so can take Python lists as arguments:
 
     np.dot(left, right)
+
+A Python list, [0, 1, 2], is actually an array of pointers to Python objects representing each number. At NumPy's heart is an optimised N-dimensional array object. NumPy arrays differ from Python lists, and tuples, in that the data is contiguous in memory. This allows NumPy arrays to be considerably faster for numerical operations than Python lists or tuples.
 
 We can convert Python lists to NumPy arrays as follows:
 
@@ -117,18 +115,18 @@ We can convert Python lists to NumPy arrays as follows:
 
 `larray` and `rarray` are not lists but N-dimensional array, or ```ndarray```s.
 
-Let us calculate the dot product:
+Let's calculate the dot product:
 
     np.dot(larray, rarray)
 
-Let us create a new array and inspect it:
+Let's create a new array and inspect it:
 
     vector = np.array([1,4,9,16])
     type(vector) # Type of vector
     vector.type  # Shape of vector - size along each axis, in this case 4 as it has 4 elements along the first axis
     vector.dtype # Type of vector's members - all members must be the same type
 
-`#` is a comment.
+`#` is a Python comment.
 
 We can create an array with members of different types. NumPy will convert everything to the most general type:
 
@@ -146,7 +144,7 @@ We can force everything to be a particular data type by providing an optional ar
 
 ### Creating arrays in-code
 
-NumPy comes with a number of useful functions to create arrays of a given size and initial values.
+We won't normally type in all our data. Instead, we will either construct arrays in stereotyped ways, or read data from files. Here are some examples of the first approach as NumPy comes with a number of useful functions to create arrays of a given size and initial values.
 
     z = np.zeros((5, 3))
     print z
@@ -154,7 +152,7 @@ NumPy comes with a number of useful functions to create arrays of a given size a
     print np.ones((5, 3))
     print np.identity(5)
 
-In NumPy array dimensions are expressed as a Python *tuple* - unlike in a list, or array, a tuple's items cannot be re-assigned. Here we are giving `zeros` and `ones` exactly 1 argument, a tuple.
+In NumPy, array dimensions are expressed as a Python *tuple* - unlike in a list, or array, a tuple's items cannot be re-assigned. Here we are giving `zeros` and `ones` exactly 1 argument, a tuple.
 
 Note that the shape (5,3) does not mean "5 elements along the X axis, and 3 along the Y". Instead, it means "5 along the first axis, and 3 along the second". This is called row-major order, and when we print the array, NumPy shows us 5 sub-arrays, each containing 3 elements.
 
@@ -164,6 +162,8 @@ We can create multi-dimensional arrays using lists of lists:
     print rectangle
 
 ### Aliasing
+
+Let's try to copy an array and then change a value in the copy:
 
     first = np.ones((2, 2))
     second = first
@@ -175,6 +175,7 @@ Why has `first` changed? It has changed because the data in `first` was not copi
 
  * It is more efficient that copying data unnecessarily, and that's what Python does in other cases e.g. with lists.
  * If we want to copy data so that we can safely make changes, we can do that explicitly using the array object's `copy` method:
+
 
    third = first.copy()
    third[1, 1] = 1234
