@@ -7,7 +7,7 @@ We will use [IPython](http://ipython.org/), an interactive computing shell buolt
 
     ipython --pylab
 
-We add the ``--pylab`` flag as when we come to use Matplotlib this allows us to do interactive plotting.
+We add the ``--pylab`` flag as when we come to use matplotlib this allows us to do interactive plotting.
 
 ## Implementing a dot product function
 
@@ -86,7 +86,7 @@ Here the error causes our program to stop. In more complex programs, we can *cat
 
 Writing code like this is inefficient in two senses. First, the same handful of matrix operations come up so often that it's worth developing a special notation for them. Second, because those operations are common, it's worth investing time in optimizing their performance. Thousands of software developers have done exactly that over fifty years, producing libraries that are much faster, and much more reliable, than anything a single person could develop. These libraries are typically written in low-level languages like Fortran and C, and then wrapped up in MATLAB or Python to make them easier to use. For Python, one such library is NumPy.
 
-## NumPy
+## Efficient data processing and NumPy
 
 [NumPy](http://www.numpy.org/) terms itself the "fundamental package for scientific computing with Python". NumPy  includes linear algebra, Fourier transform and random number capabilities. 
 
@@ -173,10 +173,10 @@ Let's try to copy an array and then change a value in the copy:
 
 Why has `first` changed? It has changed because the data in `first` was not copied to `second`. Rather, `second` was changed to point at the same place in memory as `first`. This is similar to pointers in C or object references in Java. In NumPy this is called *aliasing*. Aliasing is done as:
 
- * It is more efficient that copying data unnecessarily, and that's what Python does in other cases e.g. with lists.
- * If we want to copy data so that we can safely make changes, we can do that explicitly using the array object's `copy` method.
+ * It is more efficient that copying data unnecessarily, and
+ * that's what Python does in other cases e.g. with lists.
 
-Let's try an example with `copy`:
+If we want to copy data so that we can safely make changes, we can do that explicitly using the array object's `copy` method.
 
     third = first.copy()
     third[1, 1] = 1234
@@ -203,15 +203,13 @@ And in the array:
     %%timeit
     np.sum(as_array)
 
-Note that `timeit` is an IPython command, not a Python command.
+Note that `timeit` is an IPython command, not a Python command. This is denoted by the `%`.
 
-## Analyzing patient data
+### Analyzing patient data
 
-Typically we have data already stored in files. NumPy has functions to handle a wide variety of common file formats, including comma-separated values (CSV). 
+The other way to create arrays is to read data from files. NumPy has functions to handle a wide variety of common formats, including comma-separated values (CSV). Suppose we have a file called patients.csv that contains normalized white blood cell counts for 60 people during the 40 days after contact with someone carrying drug-resistant tuberculosis (DRTB). We can use shell commands to look at how large the file is, and the first few lines in it.
 
-Suppose we have a file called `patients.csv` that contains normalized white blood cell counts for 60 people during the 40 days after contact with someone carrying drug-resistant tuberculosis (DRTB). 
-
-We can use shell commands to look at how large the file is, and the first few lines in it. Rather than having to kick up a new terminal window, IPython allows us to run shell commands using `!`:
+Rather than having to kick up a new terminal window, IPython allows us to run shell commands using `!`:
 
     !wc -l patients.csv
     !head -5 patients.csv
@@ -230,7 +228,7 @@ Let us look at the values for a single patient:
     len(p0)
     print p0
 
-`[0, :]` is *slice syntax*. Here we are saying that we want the first, 0th, set of data from the first dimension, then all the data from the second dimension. Or, as our data is 2-dimensional, want the entire first row only..
+`[0, :]` is *slice syntax*. Here we are saying that we want the first, 0th, set of data from the first axis, then all the data from the second axis. Or, as our data is 2-dimensional, want the entire first row only.
 
 Let us look at the white cell counts at time t=0 for all patients:
 
@@ -238,13 +236,13 @@ Let us look at the white cell counts at time t=0 for all patients:
     len(t0)
     print t0
 
-`[:, 0]` says that we want all the data from the first dimension, then, from that the first, 0th, set of data from the second dimension. Or, as our data is 2-dimensional, we want the entire first column only.
+`[:, 0]` says that we want all the data from the first axis, then, from that the first, 0th, set of data from the second axis. Or, as our data is 2-dimensional, we want the entire first column only.
 
 We can calculate the average white cell count for all patients across the entire 40 days:
 
     np.mean(patients)
 
-A more meaningful statistic is probably the mean white cell count over time across all our patients. To get this, we  tell NumPy which axis we want it to sweep over. In this case, that is axis 0, because that's the one that distinguishes patients from each other:
+A more meaningful statistic is probably the mean white cell count over time across all our patients. To get this, we  tell NumPy which axis we want it to sweep over. In this case, that is the first axis, 0, because that's the one that distinguishes patients from each other:
 
     mean_over_time = np.mean(patients, 0)
 
@@ -252,7 +250,7 @@ We can check that we've done the calculation along the right axis by looking at 
 
     len(mean_over_time)
 
-Simlarly, we can calculate the average white cell count for each patient over all time by asking NumPy to calculate the mean over axis 1:
+Simlarly, we can calculate the average white cell count for each patient over all time by asking NumPy to calculate the mean over the second axis:
 
     patient_means = np.mean(patients, 1)
     len(patient_means)
@@ -261,7 +259,7 @@ In many cases, we will now want to calculate statistics on all of our values, bu
 
     print patients[:, 0] == 0
 
-We can do a visual inspection but suppose we had 100 or 1000 patients. As always we should automate where we can and let the computer do all the work. Here, we can check using `np.all`, which tells us whether all the elements in an array are true:
+We can do a visual inspection but suppose we had 100 or 1000 patients. We should always automate such monotonous, potentially error-prone activity and let the computer do the work. Here, we can check using `np.all`, which tells us whether all the elements in an array are true:
 
     np.all(patients[:, 0] == 0)
 
@@ -296,7 +294,7 @@ and compare it with the average maximum cell count for people who weren't showin
 
 ### Readability versus efficiency
 
-Our code highlights the simultaneous strength and weakness of using array operators. On the one hand, we can write a single expression that calculates the same result as this:
+Our code highlights the simultaneous strength and weakness of using array operators. The following is clear, but not efficient:
 
     total = 0.0
     num = 0
@@ -315,13 +313,13 @@ On the other hand, the expression:
 
     np.average(np.max(patients[ patients[:, 1] == 0], 1))
 
-does take a bit of practice to read, and it's very easy to fail to notice the difference between == and !=, or axis 0 versus axis 1, when they're buried inside a complex expression.
+is efficient, but does take a bit of practice to read, and it's very easy to fail to notice the difference between == and !=, or axis 0 versus axis 1, when they're buried inside a complex expression.
 
 ## Visualization and matplotlib
 
 The mathematician Richard Hamming once said, "The purpose of computing is insight, not numbers," and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few features of Python's 2D plotting library, [matplotlib](http://matplotlib.org), here. 
 
-First let us import Matplotlib:
+First let us import matplotlib:
 
     from matplotlib import pyplot as plt
 
@@ -383,9 +381,9 @@ If we're going to do that, though, we probably ought to tidy up our plots. First
 
 This time we start by creating a figure that is 8.0 units wide and 3.0 units high. `xlabel` and `ylabel` put labels on the axes, and `tight_layout` makes sure that there's enough space between the figures that the vertical labels don't overlap the adjacent figures.
 
-## Scientific programming in Python using SciPy
+## Scientific programming and SciPy
 
-[SciPy](http://scipy.org) is an open source library of Python tools for mathematics, science and engineering. We've already been using three of these tools: UIPython, NumPy and Matplotlib. Here, we'll play with an ordinary differential equation (ODE) solver.
+[SciPy](http://scipy.org) is an open source library of Python tools for mathematics, science and engineering. We've already been using three of these tools: UIPython, NumPy and matplotlib. Here, we'll use SciPy's ordinary differential equation (ODE) solver.
 
 The [Lotka-Volterra](http://wiki.scipy.org/Cookbook/LoktaVolterraTutorial) equation, first proposed in the 1920s, models the interactions between predators and prey (e.g. cats and mice, foxes and rabbits). When predators are scarce, prey breed rapidly; as more prey become available, the predator population increases; and as the number of predators increases, prey become scarcer, so the predator population peaks and falls. In mathematical form, this is:
 
@@ -413,9 +411,9 @@ Let's define this equation in Python. If X is the pair [u, v], the prey and pred
     def dX_dt(X, t):
         return np.array([ a*X[0] - b*X[0]*X[1] , -c*X[1] + d*b*X[0]*X[1] ])
 
-We create the state variable X in order to use the numerical integration function we'll introduce in a moment. Similarly, the function that calculates the derivative, `dX_dt`, has to take the state and the time as parameters, even though it doesn't use the latter.
+We create the state variable `X` in order to use the numerical integration function we'll introduce in a moment. Similarly, the function that calculates the derivative, `dX_dt`, has to take the state and the time as parameters, even though it doesn't use the latter.
 
-Let us integrate our equation from t=0 to t=20 in 2000 time-steps. To do this, we need a vector of time values, which we can create using NumPy's `linspace` function, which returns a list of evenly spaced numbers over an interval:
+Let us integrate our equation from t = 0 to t = 20 in 2000 time-steps. To do this, we need a vector of time values, which we can create using NumPy's `linspace` function, which returns a list of evenly spaced numbers over an interval:
 
     t = np.linspace(0, 20, 2000)
 
@@ -446,7 +444,9 @@ Let us now plot these:
     plt.title('Evolution of predator and prey populations')
     plt.show()
 
-## Wrapping-up
+## IPython added-value
+
+We mentioned at the outset that IPython extends Python with a number of useful tools. Let's look at a couple of these that help us save our work to date.
 
 Through trial and error we might have done some experimental data analysis and created a plot as we did above. How do we record all the commands we ran? IPython provides commands to allow us to do just that. Run:
 
@@ -489,11 +489,12 @@ it displays your plot. Remember to add in
 
 at the top of the file.
 
-Now, we have a script that does our analysis. We'll look at how to clean this up into a useful piece of code tomorrow.
+Now, we have a script that does our analysis that we can rerun as and when desired.
 
 ## Key points
 
-* A number of powerful scientific libraries are available in Python.
-* Why reinvent the wheel when someone may have done what you need already, and better.
-* A lot of software development involves taking off-the-shelf libraries and gluing them together.
-* Readability versus efficiency is a common trade-off.
+ * If you're using a matrix library and end up writing a loop, chances are you're doing something wrong.
+ * A number of powerful scientific libraries are available for Python.
+ * Not-invented-here can incur a lot of reinventing the wheel, more poorly than existing inventions.
+ * A lot of software development involves taking off-the-shelf libraries and gluing them together.
+ * Readability versus efficiency is a commonly-occurring trade-off.
