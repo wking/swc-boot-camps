@@ -14,7 +14,7 @@ TIME = "time"
 TIME_STEPS = "time_steps"
 
 def usage():
-    print "Usage: python simulate.py CONFIG_FILE OUTPUT_FILE"
+    print "Usage: python simulate_lv.py CONFIG_FILE OUTPUT_FILE"
     print "Run a simulation of the evolution of a population of predators and prey using the Lotka-Volterra equations."
     print "This program inputs a configuration file with the configuration parameters and outputs a CSV file with the time, prey population and predator population at each time-step"
     print "The configuration file should be of form:"
