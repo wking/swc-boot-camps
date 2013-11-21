@@ -1,6 +1,8 @@
 import ConfigParser
 import numpy as np
+import os
 import sys
+import time;
 from lotkavolterra import plot
 from lotkavolterra import simulate
 from lotkavolterra import BIRTH
@@ -48,11 +50,13 @@ config = ConfigParser.RawConfigParser()
 config.read(config_file)
 prey_config = get_animal_config(config, PREY)
 predator_config = get_animal_config(config, PREDATOR)
-time = config.getfloat(SIMULATION, TIME)
+end_time = config.getfloat(SIMULATION, TIME)
 time_steps = config.getint(SIMULATION, TIME_STEPS)
 
-results = simulate(prey_config, predator_config, time, time_steps)
+results = simulate(prey_config, predator_config, end_time, time_steps)
 
 header = "Predator-prey Lotka-Volterra simulation data\n"
-header += "Time-step, predator population, prey population"
+header += "Produced by " + os.path.basename(__file__) + " on " + \
+    time.asctime( time.localtime(time.time()))
+header += "\nTime-step, predator population, prey population"
 np.savetxt(output_file, results, delimiter=",", header=header)
