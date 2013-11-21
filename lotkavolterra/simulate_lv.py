@@ -1,4 +1,4 @@
-import getopt
+import ConfigParser
 import numpy as np
 import sys
 from lotkavolterra import plot
@@ -7,76 +7,52 @@ from lotkavolterra import BIRTH
 from lotkavolterra import DEATH
 from lotkavolterra import POPULATION
 
+PREDATOR = "Predator"
+PREY = "Prey"
+SIMULATION = "Simulation"
+TIME = "time"
+TIME_STEPS = "time_steps"
+
 def usage():
-    '''Print usage information.'''
-    print "Usage: python simulate_lv.py [options]"
-    print "Options:"
-    print "  -a N, --prey-birth=N        Natural growth rate of prey when there are no predators. Default: ", prey_birth
-    print "  -b N, --prey-death=N        Natural death rate of prey due to predation. Default: ", prey_death
-    print "  -c N, --predator-death=N    Natural death rate of predators when there are no prey. Default: ", predator_death
-    print "  -d N, --predator-birth=N    How many prey have to be caught and eaten to produce a new predator. Default: ", predator_birth
-    print "  -f N, --num-predators=N     Initial predator population. Default: ", num_predators
-    print "  -r N, --num-prey=N          Initial prey population. Default: ", num_prey
-    print "  -t N, --time=N              End time for simulation. Default: ", time
-    print "  -n N, --time-steps=N        Number of time steps to run simulation for. Default: ", time_steps
-    print "  -o FILE, --output-file=FILE Output file name. Default: ", output_file
-    print "  -h, --help                  Print this message and exit."
+    print "Usage: python simulate.py CONFIG_FILE OUTPUT_FILE"
     print "Run a simulation of the evolution of a population of predators and prey using the Lotka-Volterra equations."
-    print "This program outputs a CSV file with the time, prey population and predator population at each time-step"
+    print "This program inputs a configuration file with the configuration parameters and outputs a CSV file with the time, prey population and predator population at each time-step"
+    print "The configuration file should be of form:"
+    print "[Prey]"
+    print "birth = 1.0"
+    print "death = 0.1"
+    print "population = 20"
+    print "[Predator]"
+    print "death = 1.5"
+    print "birth = 0.75"
+    print "population = 4"
+    print "[Simulation]"
+    print "time = 20"
+    print "time_steps = 2000"
 
-flags = "a:b:c:d:f:r:t:n:o:h"
-long_flags = ["prey-birth=", "prey-death=", "predator-death=",
-    "predator-birth=", "num-predators=", "num-prey=",
-    "time=", "time-steps=", "output-file=", "help"]
+def get_animal_config(config, animal_type):
+    animal = {}
+    animal[BIRTH] = config.getfloat(animal_type, BIRTH)
+    animal[DEATH] = config.getfloat(animal_type, DEATH)
+    animal[POPULATION] = config.getint(animal_type, POPULATION)
+    return animal
 
-prey_birth = 1.0
-prey_death = 0.1
-predator_death = 1.5
-predator_birth = 0.75
-num_predators = 4
-num_prey = 20
-time = 20
-time_steps = 2000
-output_file = "data.csv"
-
-try:
-    options, arguments = getopt.getopt(sys.argv[1:], flags, long_flags)
-except getopt.GetoptError as err:
+if len(sys.argv) < 3:
     usage()
     sys.exit()
-for option, argument in options:
-    if option in ("-h", "--help"):
-        usage()
-        sys.exit()
-    elif option in ("-a", "--prey-birth"):
-        prey_birth = float(argument)
-    elif option in ("-b", "--prey-death"):
-        prey_death = float(argument)
-    elif option in ("-c", "--predator-death"):
-        predator_death = float(argument)
-    elif option in ("-d", "--predator-birth"):
-        predator_birth = float(argument)
-    elif option in ("-f", "--num-predators"):
-        num_predators = float(argument)
-    elif option in ("-r", "--num-prey"):
-        num_prey = float(argument)
-    elif option in ("-t", "--time"):
-        time = float(argument)
-    elif option in ("-n", "--time-steps"):
-        time_steps = float(argument)
-    elif option in ("-o", "--output-file"):
-        output_file = argument
+else:
+    config_file = sys.argv[1]
+    output_file = sys.argv[2]
 
-predator_config = {}
-predator_config[BIRTH] = predator_birth
-predator_config[DEATH] = predator_death
-predator_config[POPULATION] = num_predators
-prey_config = {}
-prey_config[BIRTH] = prey_birth
-prey_config[DEATH] = prey_death
-prey_config[POPULATION] = num_prey
+config = ConfigParser.RawConfigParser()
+config.read(config_file)
+prey_config = get_animal_config(config, PREY)
+predator_config = get_animal_config(config, PREDATOR)
+time = config.getfloat(SIMULATION, TIME)
+time_steps = config.getint(SIMULATION, TIME_STEPS)
 
 results = simulate(prey_config, predator_config, time, time_steps)
-header = "Predator-prey simulation data\n"
+
+header = "Predator-prey Lotka-Volterra simulation data\n"
 header += "Time-step, predator population, prey population"
 np.savetxt(output_file, results, delimiter=",", header=header)
