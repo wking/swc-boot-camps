@@ -9,7 +9,7 @@ from lotkavolterra import POPULATION
 def usage():
     '''Print usage information.'''
     print "Run a simulation of the evolution of a population of predators and prey using the Lotka-Volterra equations and view the results."
-    print "Usage: python simulate.py [options]"
+    print "Usage: python simulate_and_plot_lv.py [options]"
     print "Options:"
     print "  -a N, --prey-birth=N      Natural growth rate of prey when there are no predators. Default: ", prey_birth
     print "  -b N, --prey-death=N      Natural death rate of prey due to predation. Default: ", prey_death

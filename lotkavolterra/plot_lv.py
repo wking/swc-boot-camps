@@ -7,7 +7,7 @@ def usage():
     '''Print usage information.'''
     print "View the results of a simulation of the evolution of a population of predators and prey using the Lotka-Volterra equations."
     print "This program expects to find three files - prey.csv, predator.csv and time_series.csv - holding the outputs of the simulation"
-    print "Usage: python view_predator_prey.py"
+    print "Usage: python ploy_lv.py"
     print "Options:"
     print "  -h, --help              Print this message and exit."
 
