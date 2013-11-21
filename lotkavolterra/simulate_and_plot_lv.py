@@ -8,7 +8,6 @@ from lotkavolterra import POPULATION
 
 def usage():
     '''Print usage information.'''
-    print "Run a simulation of the evolution of a population of predators and prey using the Lotka-Volterra equations and view the results."
     print "Usage: python simulate_and_plot_lv.py [options]"
     print "Options:"
     print "  -a N, --prey-birth=N      Natural growth rate of prey when there are no predators. Default: ", prey_birth
@@ -20,6 +19,7 @@ def usage():
     print "  -t N, --time=N            End time for simulation. Default: ", time
     print "  -n N, --time-steps=N      Number of time steps to run simulation for. Default: ", time_steps
     print "  -h, --help                Print this message and exit."
+    print "Run a simulation of the evolution of a population of predators and prey using the Lotka-Volterra equations and plot the results."
 
 flags = "a:b:c:d:f:r:t:n:h"
 long_flags = ["prey-birth=", "prey-death=", "predator-death=",
@@ -70,5 +70,5 @@ prey_config[BIRTH] = prey_birth
 prey_config[DEATH] = prey_death
 prey_config[POPULATION] = num_prey
 
-(time_series, prey, predator) = simulate(prey_config, predator_config, time, time_steps)
-plot(time_series, prey, predator)
+results = simulate(prey_config, predator_config, time, time_steps)
+plot(results)

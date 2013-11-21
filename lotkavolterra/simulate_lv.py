@@ -9,24 +9,25 @@ from lotkavolterra import POPULATION
 
 def usage():
     '''Print usage information.'''
-    print "Run a simulation of the evolution of a population of predators and prey using the Lotka-Volterra equations."
-    print "This program outputs three files - prey.csv, predator.csv and time_series.csv - holding the outputs of the simulation"
     print "Usage: python simulate_lv.py [options]"
     print "Options:"
-    print "  -a N, --prey-birth=N      Natural growth rate of prey when there are no predators. Default: ", prey_birth
-    print "  -b N, --prey-death=N      Natural death rate of prey due to predation. Default: ", prey_death
-    print "  -c N, --predator-death=N  Natural death rate of predators when there are no prey. Default: ", predator_death
-    print "  -d N, --predator-birth=N  How many prey have to be caught and eaten to produce a new predator. Default: ", predator_birth
-    print "  -f N, --num-predators=N   Initial predator population. Default: ", num_predators
-    print "  -r N, --num-prey=N        Initial prey population. Default: ", num_prey
-    print "  -t N, --time=N            End time for simulation. Default: ", time
-    print "  -n N, --time-steps=N      Number of time steps to run simulation for. Default: ", time_steps
-    print "  -h, --help                Print this message and exit."
+    print "  -a N, --prey-birth=N        Natural growth rate of prey when there are no predators. Default: ", prey_birth
+    print "  -b N, --prey-death=N        Natural death rate of prey due to predation. Default: ", prey_death
+    print "  -c N, --predator-death=N    Natural death rate of predators when there are no prey. Default: ", predator_death
+    print "  -d N, --predator-birth=N    How many prey have to be caught and eaten to produce a new predator. Default: ", predator_birth
+    print "  -f N, --num-predators=N     Initial predator population. Default: ", num_predators
+    print "  -r N, --num-prey=N          Initial prey population. Default: ", num_prey
+    print "  -t N, --time=N              End time for simulation. Default: ", time
+    print "  -n N, --time-steps=N        Number of time steps to run simulation for. Default: ", time_steps
+    print "  -o FILE, --output-file=FILE Output file name. Default: ", output_file
+    print "  -h, --help                  Print this message and exit."
+    print "Run a simulation of the evolution of a population of predators and prey using the Lotka-Volterra equations."
+    print "This program outputs a CSV file with the time, prey population and predator population at each time-step"
 
-flags = "a:b:c:d:f:r:t:n:h"
+flags = "a:b:c:d:f:r:t:n:o:h"
 long_flags = ["prey-birth=", "prey-death=", "predator-death=",
     "predator-birth=", "num-predators=", "num-prey=",
-    "time=", "time-steps=", "help"]
+    "time=", "time-steps=", "output-file=", "help"]
 
 prey_birth = 1.0
 prey_death = 0.1
@@ -36,6 +37,7 @@ num_predators = 4
 num_prey = 20
 time = 20
 time_steps = 2000
+output_file = "data.csv"
 
 try:
     options, arguments = getopt.getopt(sys.argv[1:], flags, long_flags)
@@ -62,6 +64,8 @@ for option, argument in options:
         time = float(argument)
     elif option in ("-n", "--time-steps"):
         time_steps = float(argument)
+    elif option in ("-o", "--output-file"):
+        output_file = argument
 
 predator_config = {}
 predator_config[BIRTH] = predator_birth
@@ -72,7 +76,7 @@ prey_config[BIRTH] = prey_birth
 prey_config[DEATH] = prey_death
 prey_config[POPULATION] = num_prey
 
-(time_series, prey, predator) = simulate(prey_config, predator_config, time, time_steps)
-np.savetxt("prey.csv", prey, delimiter=",")
-np.savetxt("predator.csv", predator, delimiter=",")
-np.savetxt("time_series.csv", time_series, delimiter=",")
+results = simulate(prey_config, predator_config, time, time_steps)
+header = "Predator-prey simulation data\n"
+header += "Time-step, predator population, prey population"
+np.savetxt(output_file, results, delimiter=",", header=header)

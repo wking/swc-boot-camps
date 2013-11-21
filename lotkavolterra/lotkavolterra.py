@@ -2,8 +2,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 from scipy import integrate
 
-PREY = 0
-PREDATOR = 1
 BIRTH = "birth"
 DEATH = "death"
 POPULATION = "population"
@@ -37,11 +35,11 @@ def update_population(population, time, prey, predator):
     output : array
         Array of form [new prey population, new predator population].
     '''
-    return np.array([ 
-        prey[BIRTH]*population[PREY] - 
-            prey[DEATH]*population[PREY]*population[PREDATOR],
-        -predator[DEATH]*population[PREDATOR] + 
-            predator[BIRTH]*prey[DEATH]*population[PREY]*population[PREDATOR]])
+    return np.array([
+        prey[BIRTH]*population[0] - 
+            prey[DEATH]*population[0]*population[1],
+        -predator[DEATH]*population[1] + 
+            predator[BIRTH]*prey[DEATH]*population[0]*population[1]])
 
 def simulate(prey, predator, end_time = 20, time_steps = 2000):
     '''
@@ -65,17 +63,16 @@ def simulate(prey, predator, end_time = 20, time_steps = 2000):
         End-time for simulation in seconds. Default 20.
     time_steps : int, optional
         Number of time-steps. Simulation values will be calculated
-        from time==0 to time==end_time with time_steps - 1
+        from time==0 to time==end_time with time_steps - 2
         intermediate values. Default 2000.
 
     Returns
     -------
   
-    output: tuple
-        3-element tuple consisting of an array of length time_steps
-        with the time-steps for the simulation, an array of the prey
-        population at each time-step, and an array of the predator
-        population at each time-step.
+    output: array
+        Array of time_steps elements where each element consists of
+        the time at a specific time-step, the prey population at that
+        time-step and the predator population at that time-step.
     '''
     time_series = np.linspace(0, end_time, time_steps)
     initial_population = np.array([prey[POPULATION], predator[POPULATION]])
@@ -84,9 +81,10 @@ def simulate(prey, predator, end_time = 20, time_steps = 2000):
         initial_population, 
         time_series, 
         args=(prey, predator))
-    return (time_series, populations[:, PREY], populations[:, PREDATOR])
+    # Insert time_series as a new first column.
+    return np.insert(populations, 0, time_series, axis=1)
 
-def plot(time_series, prey, predators):
+def plot(data):
     '''
     Plot the change in predator and prey populations over time at
     intervals specified by a given time-series.
@@ -94,16 +92,14 @@ def plot(time_series, prey, predators):
     Parameters
     ----------
 
-    time_series : array
-        Time-series.
-    prey : array
-        An array of the prey at each time-step in time_series.
-    predators : array
-        An array of the predators at each time-step in time_series.
+    data: array
+        Array of elements where each element consists of the time at a
+        specific time-step, the prey population at that time-step and
+        the predator population at that time-step. 
     '''
     fig = plt.figure()
-    plt.plot(time_series, prey, "r-", label="Prey")
-    plt.plot(time_series, predators, "b-", label="Predators")
+    plt.plot(data[:,0], data[:,1], "r-", label="Prey")
+    plt.plot(data[:,0], data[:,2], "b-", label="Predators")
     plt.grid()
     plt.legend(loc="best")
     plt.xlabel("time")
