@@ -178,10 +178,10 @@ Why has `first` changed? It has changed because the data in `first` was not copi
 
 Let's try an example with `copy`:
 
-   third = first.copy()
-   third[1, 1] = 1234
-   print third
-   print first
+    third = first.copy()
+    third[1, 1] = 1234
+    print third
+    print first
 
 ### Performance
 
