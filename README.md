@@ -3,6 +3,7 @@
 
 ## Lesson transcripts
 
+ * [Using Version Control](UsingVersionControl.md)
  * [Scientific programming in Python](ScientificPython.md)
  * [Good programming practice](GoodProgrammingPractice.md)
 

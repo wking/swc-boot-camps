@@ -1,4 +1,4 @@
-# Git Instructor copy
+# Using Version Control Instructor copy
 
 This is a condensed version of the student notes.
 
