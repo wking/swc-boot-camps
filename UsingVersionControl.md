@@ -3,9 +3,14 @@
 This is a condensed version of the student notes. Items covered:
 
  - [Additional items to cover](#additional)
+    - [Check we have git](#check)
+    - [Creating a repository](#creating)
+    - [Other things one can do](#other)
+    - [Tagging](#tagging)
  - [Introduction](#intro)
  - [Setting up a local repository](#localrep)
  - [Setting up a remote repository](#remoterep)
+ - [Checking out the Student GitHub material](#student)
 
 <a name="additional"></a>
 # Additional Items to cover
@@ -32,6 +37,7 @@ Move on to the use of git.
 <a name="localrep"></a>
 # Setting up a local repository
 
+<a name="check"></a>
 ## Preliminaries - check we have git
 
 1. Check that we have ```git```
@@ -50,8 +56,10 @@ Move on to the use of git.
 ```
     git help checkout
 ```
+
 1. Any other problems Google it, Google has all the answers
 
+<a name="creating"></a>
 ## Creating a repository
 
 Scenario - you wish to create a web site. You want to work on it from various machines and may invite colleagues to work on it too.
@@ -207,6 +215,7 @@ or can short circuit by using:
 ```
 and avoid the ```git add``` step.
 
+<a name="other"></a>
 ## Other things one can do
 
 Can demonstrate these or talk about them:
@@ -220,7 +229,6 @@ Committing all current *working files*:
 ```
     $ git commit -a
 ```
-
 
 Show the difference between a working file and a committed file:
 ```
@@ -244,7 +252,7 @@ creates a detached `HEAD` though but one can have a look and then go back to the
 ```
      $ git checkout master
 ```
-
+<a name="tagging"></a>
 ## Tagging
 
 Can tag to have more memorable identifiers:
@@ -261,7 +269,8 @@ can view the tags:
 <a name="remoterep"></a>
 # Setting up a remote repository
 
-# Checking out the GitHub course material
+<a name="student"></a>
+# Checking out the Student GitHub material
 
 Want to check out the student branch of the course material:
 
