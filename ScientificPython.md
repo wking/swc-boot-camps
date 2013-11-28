@@ -354,6 +354,7 @@ Let's now take a look at the average degree of infection over time:
     dates = range(n_days)
     print dates
     avg_infection = np.average(patients, 0)
+    plt.figure()
     plt.plot(dates, avg_infection)
     plt.show()
 
@@ -395,10 +396,10 @@ If we're going to do that, though, we probably ought to tidy up our plots. First
     plt.xlabel('date')
     plt.ylabel('minimum')
     plt.tight_layout()
-    plt.show()
-    plt.close()
 
 `xlabel` and `ylabel` put labels on the axes, and `tight_layout` makes sure that there's enough space between the figures that the vertical labels don't overlap the adjacent figures.
+
+    plt.close()
 
 ## Scientific programming and SciPy
 
@@ -453,7 +454,7 @@ Let us now plot these:
 
     prey = X[:, 0]
     predators = X[:, 1]
-    fig = plt.figure()
+    plt.figure()
     plt.plot(t, prey, 'r-', label='Prey')
     plt.plot(t, predators, 'b-', label='Predators')
     plt.grid()
