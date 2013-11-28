@@ -3,12 +3,13 @@
 This is a condensed version of the student notes. Items covered:
 
  - [Additional items to cover](#additional)
+ - [Introduction](#intro)
+ - [Setting up a local repository](#localrep)
     - [Check we have git](#check)
     - [Creating a repository](#creating)
     - [Other things one can do](#other)
     - [Tagging](#tagging)
- - [Introduction](#intro)
- - [Setting up a local repository](#localrep)
+    - [Branching](#branching)
  - [Setting up a remote repository](#remoterep)
  - [Checking out the Student GitHub material](#student)
 
@@ -264,6 +265,73 @@ can view the tags:
 ```
     $ git tag
     v1.0
+```
+
+<a name="branching"></a>
+## Branching
+
+** Do the second half of the presentation to motivate this section**.
+
+1. Find out what branch we are on:
+```
+    $ git branch
+    * master
+```
+1. Suppose we want to test a new feature, like cascading style sheets without impacting on our main development. Can create a new branch to do this:
+```
+    $ git banch css_test
+```
+Now if we do:
+```
+    $ git branch
+      css_test
+    * master
+```
+1. Now switch to the new branch:
+```
+    $ git checkout css_test
+    Switched to branch 'css_test'
+```
+1. Create a stylesheet `mystyle.css`
+```
+     /* make all paragraph text bold and red */
+     p
+     {
+        color: red;
+        font-weight: bold;
+     }
+```
+
+1. Associate with your `index.html` file by adding the line:
+```
+    <head>
+      <title>My Home Page</title>
+      <link rel="stylesheet" type="text/css" href="mystyle.css"/>
+    </head>
+```
+Test to see. Suppose that for some bizarre reason you are happy with this. You add the files and commit:
+```
+    $ git add .
+    $ git commit -m"Cool red text added."
+```
+
+1. Go back to the master thread:
+```
+    $ git checkout master
+```
+Note that all the new content has gone (it's still in the `css_test` branch). If you are really happy you can import the content from `css_test` by doing:
+```
+    $ git merge css_test
+    Updating ebb2075..e003ffe
+    Fast-forward
+     index.html  |    1 +
+     mystyle.css |    6 ++++++
+     2 files changed, 7 insertions(+), 0 deletions(-)
+     create mode 100644 mystyle.css
+```
+Check by viewing the page on your browser. Also, see the output to:
+```
+    $ git --oneline --graph
 ```
 
 <a name="remoterep"></a>
