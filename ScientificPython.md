@@ -3,7 +3,9 @@
 
 In this session, we will provide an introduction to Python and its support for scientific programming.
 
-We will use [IPython](http://ipython.org/), an interactive computing shell buolt on top of Python. Two useful features are auto-completion and command history, analogous to what is provided by the shell. We will explore more features in due course.
+We will use [IPython](http://ipython.org/), an interactive computing shell built on top of Python. Two useful features are auto-completion and command history, analogous to what is provided by the shell. We will explore more features in due course.
+
+Let us start ipython:
 
     ipython --pylab
 
@@ -45,7 +47,9 @@ Let us calculate the dot product of the vectors. For this we will use the `range
 
     print range(len(left))
 
-It gives us a list of values. We can use these as indices into the vectors. 
+It gives us a list of consecutive values, from 0 up to, but not including, the value of its argument, in this case 3. 
+
+We can use these as indices into the vectors. 
 
 Our dot product is calculated by:
 
@@ -72,7 +76,7 @@ Now we can call the function:
 
 Let's cross-check against the result already calculated:
 
-    print result
+    print product
 
 ''' denotes a comment. Python can display this at the prompt:
 
@@ -84,23 +88,19 @@ Let's cross-check against the result already calculated:
 
 Here the error causes our program to stop. In more complex programs, we can *catch* the error and *handle* it e.g. by popping up a dialog box to the user if we had a graphical user interface.
 
-Writing code like this is inefficient in two senses. First, the same handful of matrix operations come up so often that it's worth developing a special notation for them. Second, because those operations are common, it's worth investing time in optimizing their performance. Thousands of software developers have done exactly that over fifty years, producing libraries that are much faster, and much more reliable, than anything a single person could develop. These libraries are typically written in low-level languages like Fortran and C, and then wrapped up in MATLAB or Python to make them easier to use. For Python, one such library is NumPy.
+Writing code like this is inefficient in two senses. First, the same handful of vector and matrix operations come up so often that it's worth developing a special notation for them. Second, because those operations are common, it's worth investing time in optimizing their performance. Thousands of software developers have done exactly that over fifty years, producing libraries that are much faster, and much more reliable, than anything a single person could develop. These libraries are typically written in low-level languages like Fortran and C, and then wrapped up in MATLAB or Python to make them easier to use. For Python, one such library is NumPy.
 
 ## Efficient data processing and NumPy
 
 [NumPy](http://www.numpy.org/) terms itself the "fundamental package for scientific computing with Python". NumPy  includes linear algebra, Fourier transform and random number capabilities. 
 
-First we need to import the NumPy package:
-
-    import numpy as np
-
-`import` imports functions, variables or collections of these from elsewhere. This is similar to the `import` command in Java or `include` in C. By convention, we import `numpy` under the name `np`, since we're going to be typing it a lot. 
+When we run IPython with `--pylab` the NumPy module, `numpy`, is already loaded and available under the alias `np`.
 
 NumPy has a built-in dot product function. Let us look at its documentation:
 
     print np.dot.__doc__
 
-`dot` is *polymorphic* so can take Python lists as arguments:
+Let us apply it to our Python lists:
 
     np.dot(left, right)
 
@@ -115,7 +115,7 @@ We can convert Python lists to NumPy arrays as follows:
 
 `larray` and `rarray` are not lists but N-dimensional array, or ```ndarray```s.
 
-Let's calculate the dot product:
+Let's calculate the dot product. `dot` is *polymorphic* so can take either Python lists or NumPy arrays as arguments:
 
     np.dot(larray, rarray)
 
@@ -123,8 +123,8 @@ Let's create a new array and inspect it:
 
     vector = np.array([1,4,9,16])
     type(vector) # Type of vector
-    vector.type  # Shape of vector - size along each axis, in this case 4 as it has 4 elements along the first axis
     vector.dtype # Type of vector's members - all members must be the same type
+    vector.shape # Shape of vector - size along each axis, in this case 4 as it has 4 elements along the first axis
 
 `#` is a Python comment.
 
@@ -134,7 +134,9 @@ We can create an array with members of different types. NumPy will convert every
     print vector
     vector.dtype
 
-Note how everything is now a float. Note also that NumPy does not display the `0` in `1.0`.
+Note how everything is now a float. 
+
+NumPy does not display the `0` in `1.0` as a way of keeping the output concise.
 
 We can force everything to be a particular data type by providing an optional argument:
 
@@ -166,7 +168,9 @@ We can create multi-dimensional arrays using lists of lists:
 Let's try to copy an array and then change a value in the copy:
 
     first = np.ones((2, 2))
+    print first
     second = first
+    print second
     second[0, 0] = 9
     print second
     print first
@@ -179,31 +183,36 @@ Why has `first` changed? It has changed because the data in `first` was not copi
 If we want to copy data so that we can safely make changes, we can do that explicitly using the array object's `copy` method.
 
     third = first.copy()
+    print third
     third[1, 1] = 1234
     print third
     print first
 
 ### Performance
 
-We said that NumPy arrays give us performance. Let us see if that is the case and create a Python list and a NumPy array, each with a million occurences of the number `1`:
+We said that NumPy arrays give us performance. Let us see if that is the case and create a Python list and a NumPy array, each with a million occurences of the number `1`. First let's create a list of 1000000 elements, using Python short-hand:
 
     million = 1000000
-    plist = [1] * million
-    len(plist)
-    nparray = np.ones((million,))
-    len(nparray)
+    mill_list = [1] * million
+    len(mill_list)
+
+Now, let's create a NumPy array of 1000000 1s:
+
+    mill_parray = np.ones((million,))
+    len(mill_array)
 
 We can now use IPython's `timeit` command to see how long it takes to sum up the values in the list:
 
-    %%timeit
-    sum(as_list)
+    %timeit sum(mill_list)
 
 And in the array:
 
-    %%timeit
-    np.sum(as_array)
+    %timeit np.sum(mill_array)
 
-Note that `timeit` is an IPython command, not a Python command. This is denoted by the `%`.
+Note that `timeit` is an IPython [magic function](http://ipython.org/ipython-doc/dev/interactive/tutorial.html) not a Python command. This is denoted by the `%` - IPython has *cell magics*, denoted by `%`, which take the rest of the line as an argument, and *line magics*, denoted by `%%` which take the following lines, until a blank line, as arguments. So we can also run the above as:
+
+    %%timeit
+    np.sum(mill_array)
 
 ### Analyzing patient data
 
@@ -245,6 +254,7 @@ We can calculate the average white cell count for all patients across the entire
 A more meaningful statistic is probably the mean white cell count over time across all our patients. To get this, we  tell NumPy which axis we want it to sweep over. In this case, that is the first axis, 0, because that's the one that distinguishes patients from each other:
 
     mean_over_time = np.mean(patients, 0)
+    print mean_over_time
 
 We can check that we've done the calculation along the right axis by looking at the size of our result which should match the number of days, 40:
 
@@ -253,6 +263,7 @@ We can check that we've done the calculation along the right axis by looking at 
 Simlarly, we can calculate the average white cell count for each patient over all time by asking NumPy to calculate the mean over the second axis:
 
     patient_means = np.mean(patients, 1)
+    print patient_means
     len(patient_means)
 
 In many cases, we will now want to calculate statistics on all of our values, but only on those that meet certain criteria. For example, let us see which patients had a normalized white cell count of 0 on the first day of exposure:
@@ -268,16 +279,20 @@ Let's try that again for day 1:
     np.all(patients[:, 1] == 0)
     np.sum(patients[:, 1] == 0)
 
-The last line gives us the number of uninfected patients. NumPy treats `True` as `1` and `False` as `0`:
+That last line gives us the number of uninfected patients. NumPy treats `True` as `1` and `False` as `0`:
 
     print True == 1
     print False == 0
 
-We can use these conditions to select data from our array, for example the number of infected patients:
+We can use these conditions to select data from our array, for example the number of infected patients on day 0:
+
+    sample = patients[ patients[:, 0] > 0 ]
+    sample.shape
+
+And on day 1:
 
     sample = patients[ patients[:, 1] > 0 ]
     sample.shape
-    print sample
 
 NumPy uses the array of 40 `True` and `False` as a mask., lines them up with the major axis of `patients`, and gives us just those rows where the mask is `True`. We can now do more arithmetic with this sub-array, such as finding the maximum white cell count for those people who were showing signs of infection on day 1:
 
@@ -306,36 +321,39 @@ Our code highlights the simultaneous strength and weakness of using array operat
                     max_count = patients[p, t]
             total += max_count
             num += 1
-    print 'result', total / num
-    result 17.5757575758
+    print 'result', total / num # We expect 17.5757575758
 
 On the other hand, the expression:
 
     np.average(np.max(patients[ patients[:, 1] == 0], 1))
 
-is efficient, but does take a bit of practice to read, and it's very easy to fail to notice the difference between == and !=, or axis 0 versus axis 1, when they're buried inside a complex expression.
+is efficient, but does take a bit of practice to read, and it's very easy to fail to notice the difference between == and !=, or axis 0 versus axis 1, when they're buried inside a complex expression. 
+
+We'll look more at readability in our session on Good programming practice.
 
 ## Visualization and matplotlib
 
 The mathematician Richard Hamming once said, "The purpose of computing is insight, not numbers," and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few features of Python's 2D plotting library, [matplotlib](http://matplotlib.org), here. 
 
-First let us import matplotlib:
-
-    from matplotlib import pyplot as plt
+When we run IPython with `--pylab` the Matplotlib module, `pyplot`, is already loaded and available under the alias `plt`.
 
 Now let us plot our patient data:
 
     plt.imshow(patients)
     plt.show()
 
-This plot shows how the white cell counts rise and fall for our patients over the 40 day period. They seem to rise and fall quite predictably. Let's take a look at the average degree of infection over time:
+This plot shows how the white cell counts rise and fall for our patients over the 40 day period. They seem to rise and fall quite predictably. 
+
+Let's close that figure.
+
+    plt.close()
+
+Let's now take a look at the average degree of infection over time:
 
     n_patients, n_days = patients.shape
     dates = range(n_days)
     print dates
     avg_infection = np.average(patients, 0)
-
-    plt.figure(2)
     plt.plot(dates, avg_infection)
     plt.show()
 
@@ -353,33 +371,34 @@ Again, that is suspiciously regular. This is because our patient data was produc
 
 If we're going to do that, though, we probably ought to tidy up our plots. First, we'll put them side by side:
 
+    plt.close()
+    plt.figure()
     plt.subplot(1, 3, 1)
     plt.plot(dates, ave_infection)
+    plt.show()
     plt.subplot(1, 3, 2)
     plt.plot(dates, np.max(patients, 0))
+    plt.show()
     plt.subplot(1, 3, 3)
     plt.plot(dates, np.min(patients, 0))
     plt.show()
 
-`subplot` creates a new sub-plot: all subsequent plotting commands apply to it until a new sub-plot is created. The three arguments tell the library how many rows and columns of sub-plots we want, and which sub-plot this is. This figure has all our information, but it looks a bit squashed, and it would be helpful to have some titles. Let's try again:
+`subplot` creates a new sub-plot: all subsequent plotting commands apply to it until a new sub-plot is created. The three arguments tell the library how many rows and columns of sub-plots we want, and which sub-plot this is. This figure has all our information, but it looks a bit squashed, and it would be helpful to have some titles. Let's make some formatting changes:
 
-    plt.figure(figsize=(8.0, 3.0))
     plt.subplot(1, 3, 1)
     plt.xlabel('date')
     plt.ylabel('average')
-    plt.plot(dates, ave_infection)
     plt.subplot(1, 3, 2)
     plt.xlabel('date')
     plt.ylabel('maximum')
-    plt.plot(dates, np.max(patients, 0))
     plt.subplot(1, 3, 3)
     plt.xlabel('date')
     plt.ylabel('minimum')
-    plt.plot(dates, np.min(patients, 0))
     plt.tight_layout()
     plt.show()
+    plt.close()
 
-This time we start by creating a figure that is 8.0 units wide and 3.0 units high. `xlabel` and `ylabel` put labels on the axes, and `tight_layout` makes sure that there's enough space between the figures that the vertical labels don't overlap the adjacent figures.
+`xlabel` and `ylabel` put labels on the axes, and `tight_layout` makes sure that there's enough space between the figures that the vertical labels don't overlap the adjacent figures.
 
 ## Scientific programming and SciPy
 
@@ -487,7 +506,7 @@ it displays your plot. Remember to add in
     import numpy as np
     from matplotlib import pyplot as plt
 
-at the top of the file.
+at the top of the file. As we aren't running IPython, nor its `--pylab` mode, so we need to explicitly import our modules. `import` imports functions, variables or collections of these from elsewhere. This is similar to the `import` command in Java or `include` in C. 
 
 Now, we have a script that does our analysis that we can rerun as and when desired.
 
