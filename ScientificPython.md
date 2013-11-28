@@ -470,11 +470,11 @@ We mentioned at the outset that IPython extends Python with a number of useful t
 
 Through trial and error we might have done some experimental data analysis and created a plot as we did above. How do we record all the commands we ran? IPython provides commands to allow us to do just that. Run:
 
-    % history
+    %history
 
 Now, run the following to see the command history with line numbers:
 
-    % history -n
+    %history -n
 
 We can save selected commands within a file using IPython's `%save` command. So save your Lotka-Volterra commands, specifying the line number where you ran:
 
@@ -486,11 +486,11 @@ and the line number where you ran:
 
 For example:
 
-    % save simplelotka.py 26-48
+    %save simplelotka.py 26-48
 
 Now use IPython to invoke the shell's `cat` command to see that the file is there:
 
-    % !cat simplelotka.py
+    !cat simplelotka.py
 
 Once it is, enter:
 
