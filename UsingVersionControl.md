@@ -1,8 +1,14 @@
 # Using Version Control Instructor copy
 
-This is a condensed version of the student notes.
+This is a condensed version of the student notes. Items covered:
 
-## Additional Items to cover
+ - [Additional items to cover](#additional)
+ - [Introduction](#intro)
+ - [Setting up a local repository](#localrep)
+
+
+<a name="additional"></a>
+# Additional Items to cover
 Things to cover:
 
 * Bash basics
@@ -10,8 +16,8 @@ Things to cover:
  * CTR-A (go to the beginning of a line)
  * Up-arrow (to cycle through history)
 
-
-## Introduction
+<a name="intro"></a>
+# Introduction
 
 Move on to the use of git.
 
@@ -23,9 +29,10 @@ Move on to the use of git.
  * **Distributed development** 
  * **Collaborative work**
 
-## Setting up a local repository
+<a name="localrep"></a>
+# Setting up a local repository
 
-### Preliminaries - check we have git
+## Preliminaries - check we have git
 
 1. Check that we have ```git```
 ```
@@ -42,9 +49,9 @@ Move on to the use of git.
 ```
     git help checkout
 ```
-1. Google, it has all the answers
+1. Any other problems Google it, Google has all the answers
 
-### Creating a repository
+## Creating a repository
 
 Scenario - you wish to create a web site. You want to work on it from various machines and may invite colleagues to work on it too.
 
@@ -75,7 +82,7 @@ also useful to specify what your default editor is going to be:
 ```
     $ git config --global core.editor "vi"
 ```
-You can list the defaults:
+You can list the defaults already defined:
 ```
     $ git config -l
 ```
@@ -126,10 +133,99 @@ Try running ```git status``` after each of the steps to show the differences.
 ```
 1. Add another file:
 ```
-    $cp template.html index.html
+    $ cp template.html index.html
+```
+1. Edit the page to vaguely make it look like a home page. Add a title, a heading and a little bit of content.
+```
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>My Home Page</title>
+    </head>
+    <body>
+    <h1>Welcome to my Home Page</h1>
+    <p>
+    I would like to welcome you to my home page.
+    </p>
+
+    </body>
+    </html>
 ```
 
-## Setting up a remote repository
+1. Add and commit the file:
+```
+    $ git add index.html
+    $ git commit -m"index.html: added a landing page." index.html
+    [master 8353923] index.html: added a landing page.
+    1 files changed, 13 insertions(+), 0 deletions(-)
+    create mode 100644 index.html
+```
+Run ``git status``
+
+1. Checking your history of changes:
+```
+    $ git log
+```
+More useful versions of the command:
+```
+    $ git log --relative-date
+```
+or
+```
+    $ git log --oneline --graph
+```
+
+1. Add an image to the web page:
+```
+    $ mkdir images
+    $ cd images
+    $ wget http://www2.epcc.ed.ac.uk/~mario/man.png # or
+    $ wget http://www2.epcc.ed.ac.uk/~mario/woman.png
+    $ cd ..
+    $ git add images
+```
+
+1. Edit the ```index.html``` file with the lines:
+```
+    <p>
+    <img src="images/man.png"/>
+     This is me.
+    </p>
+```
+Add the file to git:
+```
+    git add index.html
+```
+and commit
+```
+    $ git commit -m"Added an image of myself."
+```
+or can short circuit by using:
+```
+    $ git commit -m"Added an image of myself." index.html
+```
+and avoid the ```git add``` step.
+
+## Other useful commands
+
+Can demonstrate these or talk about them:
+
+Show the difference between a working file and a committed file:
+```
+    $ git diff filename
+```
+
+Committing all currently available files:
+```
+    $ git commit -a
+```
+
+Adding all files in the current directory recursively:
+```
+    $ git add .
+```
+
+# Setting up a remote repository
 
 # Checking out the GitHub course material
 
