@@ -5,7 +5,7 @@ This is a condensed version of the student notes. Items covered:
  - [Additional items to cover](#additional)
  - [Introduction](#intro)
  - [Setting up a local repository](#localrep)
-
+ - [Setting up a remote repository](#remoterep)
 
 <a name="additional"></a>
 # Additional Items to cover
@@ -39,6 +39,7 @@ Move on to the use of git.
     $ git --version
     git version 1.7.9
 ```
+
 1. Getting help
 ```
     git help
@@ -206,25 +207,58 @@ or can short circuit by using:
 ```
 and avoid the ```git add``` step.
 
-## Other useful commands
+## Other things one can do
 
 Can demonstrate these or talk about them:
-
-Show the difference between a working file and a committed file:
-```
-    $ git diff filename
-```
-
-Committing all currently available files:
-```
-    $ git commit -a
-```
 
 Adding all files in the current directory recursively:
 ```
     $ git add .
 ```
 
+Committing all current *working files*:
+```
+    $ git commit -a
+```
+
+
+Show the difference between a working file and a committed file:
+```
+    $ git diff filename
+```
+or with a particular previous commit:
+```
+    $ git diff COMMITID
+```
+where `COMMITID` is the hash for a particular commit (can use the 6 digit form).
+
+Recovering last checked-out version and clobbering existing changes:
+```
+    $ git commit index.html
+```
+or can go to an earlier state
+```
+    $ git checkout COMITD
+```
+creates a detached `HEAD` though but one can have a look and then go back to the original code:
+```
+     $ git checkout master
+```
+
+## Tagging
+
+Can tag to have more memorable identifiers:
+
+```
+    $ git tag v1.0
+```
+can view the tags:
+```
+    $ git tag
+    v1.0
+```
+
+<a name="remoterep"></a>
 # Setting up a remote repository
 
 # Checking out the GitHub course material
