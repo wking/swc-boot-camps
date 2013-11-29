@@ -281,7 +281,7 @@ data itself. NumPy again helps us here (remember to add an `import`):
 
 If we look at our data file:
 
-    data head.csv
+    head data.csv
 
 It has no context, nothing. What does this data mean? We know, as
 we've just created it, but would we remember 6 months from now? We can
@@ -330,9 +330,10 @@ The following files contain further enhancements to the code:
 your code. 
  * Sensible variable and function names help make code
 self-documenting. 
- * Breaking up code into functions and modules promotes the
+ * Breaking up code into functions, modules and packages promotes the
 development of code that is easier to understand, modify and fix, and
 reuse. 
+ * Likewise, creating data-types out of conceptually-related groups of variables.
  * Add comments to explain why the code as it is or to explain code
 that might otherwise be cryptic 
  * Record meta-data and provenance information in data files so you
