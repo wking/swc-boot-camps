@@ -314,6 +314,15 @@ As a quick example, using IPython:
     plot(data[:,0],data[:,1])
     plot(data[:,0],data[:,2])
 
+## More enhancements
+
+The following files contain further enhancements to the code:
+
+ * Library of simulation and plotting functions - [lotkavolterra.py](lotkavolterra/lotkavolterra.py)
+ * Script to read configuration file, run simulation and save data file - [simulate_lv.py](lotkavolterra/simulate_lv.py)
+ * Configuration file for the above - [config.cfg](lotkavolterra/config.cfg)
+ * Script to read data file and plot data - [plot_lv.py](lotkavolterra/plot_lv.py)
+
 ## Key points
 
  * Write code for humans not computers.
