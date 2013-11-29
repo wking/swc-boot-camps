@@ -338,8 +338,12 @@ Can also get a visual rendering using:
    $ gitk
 ```
 
+1. Demonstrate conflict resolution by editing the title in the master and the css_test branch.
+
 <a name="remoterep"></a>
 # Setting up a remote repository
+
+**Use the slide set to set this up.**
 
 <a name="student"></a>
 # Checking out the Student GitHub material
