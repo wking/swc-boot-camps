@@ -51,7 +51,7 @@ code that does the computation into a new function:
 
 As it's a function, we now need to return the time series and the
 predator and prey populations at each time-step. We return these as a
-2 element tuple. 
+3 element tuple. 
 
 Likewise, we can pull out the code that plots the results into a new
 function.  
@@ -109,8 +109,6 @@ conventional function call.
 
 We now run this to see that it still works.
 
-Now, let's do the same for `simulate`.
-
 ## Remove hard-coded values
 
 We have hard-coded values for the initial populations of prey and
@@ -118,10 +116,13 @@ predators and the number of time-steps and the end-time.  If we wanted
 to change the number of time steps or end time we'd have to edit our
 function, so let's pass those in as arguments too.
 
-We've now make our function more general - rather than run a
-simulation over a specific number of steps to a specific end-time we
-can now choose how many steps and till when it runs. We've made our
-function more general, flexible, and useful.
+Update `simulate` and pass in the initial populations of predators and
+prey, the end time and the number of time steps. Remember to update
+the glue code too!
+
+Rather than run a simulation over a specific number of steps to a
+specific end-time we can now choose how many steps and till when it
+runs. We've made our function more general, flexible, and useful.
 
 ## Modularise into modules
 
@@ -209,11 +210,16 @@ Now, update your script to populate the dictionaries e.g.
 
     prey_config[BIRTH] = a
 
-Update `simulate` and `dX_dt` to replace the 6 arguments relating to
-prey and predators with two arguments, `prey_config` and
-`predator_config`
+Remember:
 
-Update `dX_dt` to pull out values from the dictionaries e.g.
+* `a` is the prey birth rate.
+* `b` is the prey death rate.
+* `c` is the predator death rate.
+* `d` is the predator birth rate.
+
+Update the functions to replace the 6 arguments relating to prey and
+predators with two arguments, `prey_config` and `predator_config` and
+to pull out values from the dictionaries when needed:
 
     prey_config[BIRTH]
 
@@ -258,7 +264,7 @@ data. To unpack the data, use:
 
 * Time series - `data[:,0]`
 * Prey values - `data[:,1]`
-* Predator values - `data[:,1]`
+* Predator values - `data[:,2]`
 
 Finally, change your script to reflect the fact that `simulate`
 returns a single array and `plot` takes in a single array. 
@@ -269,7 +275,7 @@ Our program runs the Lotka-Volterra equations to simulate the
 evoluation of prey and predators over time. We could save our image if
 we wish but then we would not be able to perform further analyses upon
 it (and nor would our colleagues). So what we can do is save the raw
-data itself. NumPy again helps us here: 
+data itself. NumPy again helps us here (remember to add an `import`): 
 
     np.savetxt("data.csv", data, delimiter=",")
 
@@ -300,6 +306,13 @@ Now, rerun the script and look at the data file. We now know when we
 ran this script, what script was run, and what the data is. We can
 load this into Python using `np.loadtxt` which will ignore the lines
 beginning with `#` which are treated as comments.
+
+As a quick example, using IPython:
+
+    ipython --pylab
+    data = np.loadtxt('data.csv', delimiter=',')
+    plot(data[:,0],data[:,1])
+    plot(data[:,0],data[:,2])
 
 ## Key points
 
