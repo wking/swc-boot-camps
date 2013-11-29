@@ -21,7 +21,9 @@ Things to cover:
  * TAB completion
  * CTR-A (go to the beginning of a line)
  * Up-arrow (to cycle through history)
-
+* Other stuff
+ * Make sure you can call out to an editor from the command line
+ 
 <a name="intro"></a>
 # Introduction
 
