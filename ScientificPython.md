@@ -515,16 +515,15 @@ Once it is, enter:
 
 to exit IPython.
 
-Now clean up your script so that when you run:
+Now we can run it:
 
     python simplelotka.py
 
-it displays your plot. Remember to add in 
+It'll fail. Use the error message to figure out why (clue, you need to `import` some things) and clean up your script so that when you run:
 
-    import numpy as np
-    from matplotlib import pyplot as plt
+    python simplelotka.py
 
-at the top of the file. As we aren't running IPython, nor its `--pylab` mode, so we need to explicitly import our packages.
+it displays your plot.
 
 Add in commands to display labels on the X and Y axes, a title and a legend (e.g. "Evolution of predator and prey populations")
 
