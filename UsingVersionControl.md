@@ -333,6 +333,10 @@ Check by viewing the page on your browser. Also, see the output to:
 ```
     $ git --oneline --graph
 ```
+Can also get a visual rendering using:
+```
+   $ gitk
+```
 
 <a name="remoterep"></a>
 # Setting up a remote repository
