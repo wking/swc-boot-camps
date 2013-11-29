@@ -9,7 +9,7 @@ Let us start ipython:
 
     ipython --pylab
 
-We add the ``--pylab`` flag as when we come to use matplotlib this allows us to do interactive plotting.
+We add the ``--pylab`` flag as this configures IPython with the libraries needed for interactive plotting.
 
 ## Implementing a dot product function
 
@@ -94,7 +94,7 @@ Writing code like this is inefficient in two senses. First, the same handful of 
 
 [NumPy](http://www.numpy.org/) terms itself the "fundamental package for scientific computing with Python". NumPy  includes linear algebra, Fourier transform and random number capabilities. 
 
-When we run IPython with `--pylab` the NumPy module, `numpy`, is already loaded and available under the alias `np`.
+When we run IPython with `--pylab` the NumPy package, `numpy`, is already loaded and available under the alias `np`.
 
 NumPy has a built-in dot product function. Let us look at its documentation:
 
@@ -214,18 +214,22 @@ Note that `timeit` is an IPython [magic function](http://ipython.org/ipython-doc
     %%timeit
     np.sum(mill_array)
 
+Magic functions have built-in help, for example:
+
+    %timeit?
+
 ### Analyzing patient data
 
 The other way to create arrays is to read data from files. NumPy has functions to handle a wide variety of common formats, including comma-separated values (CSV). Suppose we have a file called patients.csv that contains normalized white blood cell counts for 60 people during the 40 days after contact with someone carrying drug-resistant tuberculosis (DRTB). We can use shell commands to look at how large the file is, and the first few lines in it.
 
 Rather than having to kick up a new terminal window, IPython allows us to run shell commands using `!`:
 
-    !wc -l patients.csv
-    !head -5 patients.csv
+    !wc -l patients/patients.csv
+    !head -5 patients/patients.csv
 
 We will load in this data file using NumPy's `loadtxt` function. We provide an optional delimiter argument to tell it that the values are separated by commas:
 
-    patients = np.loadtxt('patients.csv', delimiter=',')
+    patients = np.loadtxt('patients/patients.csv', delimiter=',')
     patients.shape
     print patients
 
@@ -309,7 +313,7 @@ and compare it with the average maximum cell count for people who weren't showin
 
 ### Readability versus efficiency
 
-Our code highlights the simultaneous strength and weakness of using array operators. The following is clear, but not efficient:
+Our code highlights the simultaneous strength and weakness of using array operators. In `patients/patient-average.py` there is an example of code which calculates our average maximum cell count for the uninfected on day 0:
 
     total = 0.0
     num = 0
@@ -323,11 +327,21 @@ Our code highlights the simultaneous strength and weakness of using array operat
             num += 1
     print 'result', total / num # We expect 17.5757575758
 
-On the other hand, the expression:
+We can look at this using:
+
+    !cat patients/patient-average.py
+
+We can run it using:
+
+    %run -i patients/patient-average.py
+
+`-i` runs in interactive mode meaning that the script can assume we have already set the value of variables such as `patients` when running interactively.
+
+Compare this to our expression:
 
     np.average(np.max(patients[ patients[:, 1] == 0], 1))
 
-is efficient, but does take a bit of practice to read, and it's very easy to fail to notice the difference between == and !=, or axis 0 versus axis 1, when they're buried inside a complex expression. 
+which is efficient, but does take a bit of practice to read, and it's very easy to fail to notice the difference between == and !=, or axis 0 versus axis 1, when they're buried inside a complex expression. 
 
 We'll look more at readability in our session on Good programming practice.
 
@@ -335,7 +349,7 @@ We'll look more at readability in our session on Good programming practice.
 
 The mathematician Richard Hamming once said, "The purpose of computing is insight, not numbers," and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few features of Python's 2D plotting library, [matplotlib](http://matplotlib.org), here. 
 
-When we run IPython with `--pylab` the Matplotlib module, `pyplot`, is already loaded and available under the alias `plt`.
+When we run IPython with `--pylab` the Matplotlib package, `pyplot`, is already loaded and available under the alias `plt`.
 
 Now let us plot our patient data:
 
@@ -403,7 +417,14 @@ If we're going to do that, though, we probably ought to tidy up our plots. First
 
 ## Scientific programming and SciPy
 
-[SciPy](http://scipy.org) is an open source library of Python tools for mathematics, science and engineering. We've already been using three of these tools: UIPython, NumPy and matplotlib. Here, we'll use SciPy's ordinary differential equation (ODE) solver.
+[SciPy](http://scipy.org) is an open source library of Python tools for mathematics, science and engineering. We've already been using three of these tools: UIPython, NumPy and matplotlib. 
+
+We can see what ScipPy offers by viewing the packages it provides:
+
+    import scipy
+    print scipy.__doc__
+
+Here, we'll use SciPy's ordinary differential equation (ODE) solver.
 
 The [Lotka-Volterra](http://wiki.scipy.org/Cookbook/LoktaVolterraTutorial) equation, first proposed in the 1920s, models the interactions between predators and prey (e.g. cats and mice, foxes and rabbits). When predators are scarce, prey breed rapidly; as more prey become available, the predator population increases; and as the number of predators increases, prey become scarcer, so the predator population peaks and falls. In mathematical form, this is:
 
@@ -441,9 +462,14 @@ Let's start with a population of 20 rabbits and 4 foxes:
 
     X_initial = np.array([20, 4])
 
-We can now integrate numerically using `odeint`, the ordinary differential equation integrator, from the SciPy library:
+We can now integrate numerically using `odeint`, the ordinary differential equation integrator, from the SciPy library. First we need to import it. 
 
     from scipy import integrate
+
+`import` imports functions, variables or collections of these from elsewhere. This is similar to the `import` command in Java or `include` in C. 
+
+Now we can run it:
+
     X = integrate.odeint(dX_dt, X_initial, t)
 
 `X` is now 2000 pairs of numbers representing the prey and predator populations at each time t:
@@ -457,16 +483,7 @@ Let us now plot these:
     plt.figure()
     plt.plot(t, prey, 'r-', label='Prey')
     plt.plot(t, predators, 'b-', label='Predators')
-    plt.grid()
-    plt.legend(loc='best')
-    plt.xlabel('time')
-    plt.ylabel('population')
-    plt.title('Evolution of predator and prey populations')
     plt.show()
-
-## IPython added-value
-
-We mentioned at the outset that IPython extends Python with a number of useful tools. Let's look at a couple of these that help us save our work to date.
 
 Through trial and error we might have done some experimental data analysis and created a plot as we did above. How do we record all the commands we ran? IPython provides commands to allow us to do just that. Run:
 
@@ -498,16 +515,17 @@ Once it is, enter:
 
 to exit IPython.
 
-Now clean up your script so that when you run:
+Now we can run it:
 
     python simplelotka.py
 
-it displays your plot. Remember to add in 
+It'll fail. Use the error message to figure out why (clue, you need to `import` some things) and clean up your script so that when you run:
 
-    import numpy as np
-    from matplotlib import pyplot as plt
+    python simplelotka.py
 
-at the top of the file. As we aren't running IPython, nor its `--pylab` mode, so we need to explicitly import our modules. `import` imports functions, variables or collections of these from elsewhere. This is similar to the `import` command in Java or `include` in C. 
+it displays your plot.
+
+Add in commands to display labels on the X and Y axes, a title and a legend (e.g. "Evolution of predator and prey populations")
 
 Now, we have a script that does our analysis that we can rerun as and when desired.
 
