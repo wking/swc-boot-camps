@@ -31,7 +31,7 @@ Your prompt is `In [123]:` ? You're in `ipython`.
 
 * `nano`, type `CTRL-X` to exit. If you have unsaved changes, you will be asked to save these - press `y` to save, or `n` to quit without saving.
 * `vi`, type `:q!` to exit without saving. If the text just appears on screen then press `ESC` then type `:q!`
-* `emacs` or `xemacs`, `CTRL-X CTRL-S`. If you have unsaved changes, you will be asked to save these - press `y` to save, or `n` then type `yes` to quit without saving.
+* `emacs` or `xemacs`, `CTRL-X CTRL-C`. If you have unsaved changes, you will be asked to save these - press `y` to save, or `n` then type `yes` to quit without saving.
 * `python`, type `exit()` or `CTRL-D`
 * `ipython`, type `exit()`, or `CTRL-D` then press `y`
 * `man` page, press `q`
