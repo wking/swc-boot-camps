@@ -271,3 +271,268 @@ The nodetests provide a powerful framework to write and run tests with. The only
 
 ## Writing more tests - revisiting Lotka-Volterra
 
+Start by pulling an updated version of the scripts. In the students directory you checked out from GitHub run the following commands:
+
+```
+    git branch --track instructors remotes/origin/instructors
+```
+
+Here, you re setting a local branch to track the remote instructors branch. Now we can checkout a directory from the instructor directory to the student directory:
+
+```
+    git checkout instructors lotkavolterra
+```
+
+If you on inside the `lotkavolterra` directory you will find:
+
+* `config.cfg`: configuration file with the prey-predator parameters.
+* `lotkavolterra.png`: a png of the differential equations.
+* `lotkavolterra.py`: library of simulation and plotting functions.
+* `plot_lv.py`: script to read data file and plot data.
+* `simplelotka.py`: what would correspond to your first version of the code.
+* `simulate_and_plot_lv.py`: driving script.
+* `simulate_lv.py`: script to read configuration file, run simulation and save data file.
+
+If you run `simulate_and_plot_lv.py` you will get the a graph of the output to get a feeling for what you would expect. If you do:
+
+```
+$ python simulate_and_plot_lv.py --help
+```
+
+You can see what the possible options are. So, you could start with the defaults:
+
+```
+$ python simulate_and_plot_lv.py
+```
+
+which should be familiar. You could make an initial 0 prey population:
+
+```
+$ python simulate_and_plot_lv.py -r 0
+```
+
+and, as expected the predator population would decay to zero unless you give them a negative birth rate:
+
+```
+$python simulate_and_plot_lv.py -r 0 -c -0.1
+```
+Should that be allowed? Regardless, this is not a good way to test the code. Instead we want to write to file and separate the plotting process from the production of the results. This is done in:
+
+```
+$ python simulate_lv.py config.cfg output.csv
+$ python plot_lv.py output.csv
+```
+
+where the first script takes a configuration script (`config.cfg`) and an output filename (`output.csv`) and the second takes the output file and plots the results. 
+
+There are several testing approaches that can be taken. Let's assume, for now, that you are confident in the results that you are producing and want to ensure that you do not mess these up so want to generate a set of reference configuration and output files you can compare against - in essence you are creation some *regression tests*. We will iterate our way to doing a test.
+
+First run the first script to generate the reference output that is going to be used for the tests. We want to preserve these so:
+
+```
+$ cp config.cfg Test1Config.cfg
+$ cp output.csv Test1Output.csv
+```
+
+Will use the `unittest` framework as that can be used on its own and with unit tests. Call this script `TestLTKV.py`
+
+```
+import unittest
+
+class TestLTKV(unittest.TestCase):
+
+    def test1(self):
+        pass
+
+
+if __name__ == '__main__':
+
+   unittest.main()
+```
+
+Now, we want to specify:
+
+* What the script we are running is called
+* What config file is called
+* What the output files is going to be called
+* What the reference file we are comparing this against is going to be called
+* We want a function that will run the script to generate the output
+* We want a test function that will compare the two files and return `True` if the two files are the same
+
+So the test, essentially becomes:
+
+```
+    def test1(self):
+        script  = "simulate_lv.py"
+        config  = "Test1Config.cfg"
+        outfile = "outputT1.csv"
+        reffile = "Test1Output.csv"
+        runTest(script, config, outfile)
+        self.assertTrue(compareFiles(reffile,outfile))
+```
+
+Let's start by looking at the `compareFiles()` function. There is a file comparison function in Python so we can leverage off that:
+
+```
+import filecmp
+
+def compareFiles(file1,file2):
+    return filecmp.cmp(file1,file2)
+```
+
+So, that is fairly straightforward BUT is a bit naive, for instance it will NOT work if you are expecting floating point differences. In that case, you would have to employ a much more sophisticated approach where you have to inspect the
+inside of each file and compare element by element showing that they are
+the same within a given tolerance - to get an idea as to how you might do 
+that have a look at the file [regression_test.py](http://depts.washington.edu/clawpack/users/claw/python/pyclaw/regression_test.py).
+
+Now, let's look at how we might run the code. For this we use the `subprocess` module in Python:
+
+```
+import subprocess
+
+def runTest(script,config,outfile):
+    subprocess.call(["python",script,config,outfile])
+
+```
+
+So the whole script now looks like:
+
+```
+import unittest
+import filecmp
+import subprocess
+
+def runTest(script,config,outfile):
+    subprocess.call(["python",script,config,outfile])
+
+def compareFiles(file1,file2):
+    return filecmp.cmp(file1,file2)
+
+class TestLTKV(unittest.TestCase):
+
+    def test1(self):
+        script  = "simulate_lv.py"
+        config  = "Test1Config.cfg"
+        outfile = "outputT1.csv"
+        reffile = "Test1Output.csv"
+        runTest(script, config, outfile)
+        self.assertTrue(compareFiles(reffile,outfile))
+
+
+if __name__ == '__main__':
+
+   unittest.main()
+```
+
+So let's run the script:
+
+```
+python TestLTKV.py
+F
+======================================================================
+FAIL: test1 (__main__.TestLTKV)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "TestLTKV.py", line 19, in test1
+    self.assertTrue(compareFiles(reffile,outfile))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 0.608s
+
+FAILED (failures=1)
+```
+
+Oops, what happened there? If you do a `diff` between the two files you get:
+
+```
+diff Test1Output.csv outputT1.csv
+2c2
+< # Produced by simulate_lv.py on Mon Dec 02 15:32:34 2013
+---
+> # Produced by simulate_lv.py on Mon Dec 02 17:23:51 2013
+```
+
+The temptation here is to go back into the script and comment out the line that is producing the comment however this is not good practice as having that kind of provenance in your data can prove invaluable. We will just have to work a little harder in our comparison function.
+
+Basically we want to look at a line by line comparison but ignore the remaining parts of any lines that have a `#` in them. Let's try a new version. What we want is:
+
+```
+def compareFiles(file1, file2):
+    # Read the contents of each file.
+    # Check we have the same number of lines
+      # If not return False
+    # Iterate over the lines
+      # Strip out any content that begins with a hash
+      # Compare lines
+      # If different return False
+    # Return true
+```
+
+Now all we have to do is fill in the code. This gives us:
+
+```
+def compareFiles(file1,file2):
+
+    # open each file and read in the lines
+    f1 = open(file1,"r")
+    lines1 = f1.readlines()
+    f1.close()
+    f2 = open(file2,"r")
+    lines2 = f2.readlines()
+    f2.close()
+
+    # Check we have the same number of lines else the
+    # files are not the same.
+    if(len(lines1) != len(lines2)):
+       print "File does not have the same number of lines.\n"
+       return(False)
+
+    # Now iterate over the lines
+    for i in range(len(lines1)):
+
+        # This splits the string on a '#' character, then keeps
+        # everything before the split. The 1 argument makes the .split()
+        # method stop after a one split; since we are just grabbing the
+        # 0th substring (by indexing with [0]) you would get the same 
+        # answer without the 1 argument, but this might be a little bit 
+        # faster. From: http://tinyurl.com/noyk727
+
+        lines1[i] = lines1[i].split("#",1)[0]
+        line1     = lines1[i].rsplit()
+
+        lines2[i] = lines2[i].split("#",1)[0]
+        line2     = lines2[i].rsplit()
+
+        if(line1 != line2):
+           print "Line ",i," not the same (",line1,") and  (",line2,").\n"
+           return False
+
+    # Got through to here so it appears all lines are the same.
+    return True
+```
+
+If we use this routine we now find that our test passes:
+
+```
+python TestLTKV.py
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.610s
+
+OK
+```
+
+But now we have a paradigm that we can use for multiple different number
+of configuration files and output files. 
+
+Now time for you to try and write some tests. You could try to ensure
+that if the initial conditions for the prey is set to zero, the predator
+numbers will decay to zero or try testing some other feature of the trial
+scripts. You will find that you will deepen your understanding of the code
+by doing these tests.
+
+In essence too you will see  that you can use Python as a test harness for non-Python codes as well - in this case we used a Python script but you could have based it on a C or Fortran executable. In that case though you may have to 
+look at individual elements, element by element if you are using floating point values.
+
+Previous: [Testing](README.md) Next: [Testing in practice](RealWorld.md)
