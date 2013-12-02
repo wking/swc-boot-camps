@@ -35,42 +35,108 @@ makes the job of reading and writing code easier is a good thing!
 
 Now, we run our script to see that it still works after our changes.
 
+## Rename variables to be more meaningful
+
+Our variable and function names in `lotkavolterra.py` are somewhat
+cryptic. Variable names that are too short can be too cryptic, but if
+they're too long this can inhibit comprehension. 12 characters or less
+is recommended. Readable variable names also help our code to be
+self-documenting - you may know what your variables hold but will your
+fellow researchers (or, will you yourself remember 6 months from now)?
+
+Let's rename the following:
+
+* `a` is the prey birth rate.
+* `b` is the prey death rate.
+* `c` is the predator death rate.
+* `d` is the predator birth rate.
+* `dX_dt` - update predator and prey populations
+* `X` - predator and prey populations
+* `t` (in `dX_dt`) - time step
+* `t`  - time series
+
+Conform to Python's style guidelines in which variables typically have form `name` or `some_name`.
+
+## Remove hard-coded values
+
+We have hard-coded values in our code for the initial populations of
+prey and predators and the number of time-steps and the
+end-time. Let's pull those hard-coded values out and assign them to
+variables too.
+
+Why might it be good to do this?
+
+All our variable assignments to values are more easily found so we can
+change the variables controlling out simulation without having to go
+raking around within the body of our code. We'll see ways in which we
+can further improve the configurability of our code later.
+
+## Identify where data structures can be introduced
+
+Our brains are programmed typically to hold only 7+/-2 chunks of
+information in short-term memory at any time. By recognising this we
+can design our programs in such a way as to make them more easy to
+understand. One way of doing this is by grouping together related data
+into data structures.
+
+What data structures might we use to make our code more
+comprehensible? 
+
+Let's use a Python dictionary to store the configuration values for
+prey and predators. A Python dictionary is a set of key-value
+pairs. If we give the dictionary a key, we get back the associated
+value. Dictionaries are similar to associative arrays or hashtables in
+other languages.
+
+Let us first define some keys:
+
+    BIRTH = "birth"
+    DEATH = "death"
+    POPULATION = "population"
+
+Then create two dictionaries:
+
+    prey_config = {}
+    predator_config = {}
+
+Now, modify your script to populate the dictionaries e.g.
+
+    prey_config[BIRTH] = 1.0
+
+And to get the values from these e.g.
+
+    prey_config[BIRTH]*population[0]
+
+If you get stuck ask someone sitting by you - a fresh pair of eyes on
+code can work wonders. Fagan (1976) discovered that a rigorous
+inspection can remove 60-90% of errors before the first test is
+run. M.E., Fagan (1976). [Design and Code inspections to reduce errors
+in program development](http://www.mfagan.com/pdfs/ibmfagan.pdf). IBM
+Systems Journal 15 (3): pp. 182-211. 
+
 ## Modularise into functions
 
 Our program consists of two main parts, that which does the
 computation, and that which plots the results. We can pull out the
 code that does the computation into a new function:
 
-    def simulate():
-        t = np.linspace(0, 20, 2000)
-        X_initial = np.array([20, 4])
-        X = integrate.odeint(dX_dt, X_initial, t)
-        prey = X[:, 0]
-        predators = X[:, 1]
-        return (t, prey, predators)
+    def simulate()
 
 As it's a function, we now need to return the time series and the
 predator and prey populations at each time-step. We return these as a
 3 element tuple. 
 
+        return (time_series, prey, predators)
+
 Likewise, we can pull out the code that plots the results into a new
 function.  
 
-    def plot(t, prey, predators):
-        fig = plt.figure()
-        plt.plot(t, prey, 'r-', label='Prey')
-        plt.plot(t, predators, 'b-', label='Predators')
-        plt.grid()
-        plt.legend(loc='best')
-        plt.xlabel('time')
-        plt.ylabel('population')
-        plt.title('Evolution of predator and prey populations')
-        plt.show()
+    def plot(time_series, prey, predators):
 
 Finally, we need to add a bit of 'glue':
 
-    (t, prey, predators) =  simulate()
-    plot(t, prey, predators)
+    (time_series, prey, predators) =  simulate()
+    plot()
 
 We now run this to see that it still works.
 
@@ -79,10 +145,14 @@ how the results are presented. We are now free to change one or the
 other without having to change both, so long as the *interface* each
 function presents to the rest of the program does not change.
 
+Though we've decoupled the computation from the presentation, our
+functions are still closely bound to each other and the surrounding
+code - in what way?
+
 ## Remove dependence on global variables
 
 We have a number of variables that are global, they are used within
-our functions but are assumed to have been defined elsewhere. Global
+our functions but are assumed to have been defined elsewhere. Global 
 variables can be a problem:
 
  * They can be modified from anywhere within the program which can
@@ -93,148 +163,50 @@ use a global variable.
  * They make it more difficult to reuse parts of a program in other
 contexts e.g. as useful library such as we'll create shortly.
 
-We'll start with `dX_dt. Let's add arguments to the function, so we
-know, when looking at the function body, where those values come from:
+Let's change our functions so that they don't rely on global
+variables.
 
-    def dX_dt(X, t, a, b, c, d):
-        return np.array([ a*X[0] - b*X[0]*X[1] , -c*X[1] + d*b*X[0]*X[1] ])
+   def update(population, time_step, prey_config, predator_config)
+   def simulate(prey_config, predator_config, end_time, time_steps)
+   def plot(time_series, prey, predators)
 
-Now we need to change the call to this function:
+Now we need to change the call `integrate_ode` to pass the arguments
+to `update` as a new argument e.g.:
 
-    X = integrate.odeint(dX_dt, X_initial, t, args=(a, b, c, d))
+    population = integrate.odeint(simulate, population_initial, t,
+        args=(prey_config, predator_config))
 
 We use this `args` notation here as a consequence of how `odeint` is
 defined. `odeint` unpacks `args` and passes them to `dX_dt` as a
 conventional function call.
 
+Remember to update the glue too.
+
+    (time_series, prey, predators) = simulate(prey_config, predator_config, end_time, time_steps)
+    plot(time_series, prey, predators)
+
 We now run this to see that it still works.
 
-## Remove hard-coded values
+Imagine how many more arguments each of our functions would take if we
+hadn't introduced a data structure to hold the prey and predator
+configuration values. We keep the argument lists to a manageable size
+for our memories to aid program comprehension.
 
-We have hard-coded values for the initial populations of prey and
-predators and the number of time-steps and the end-time.  If we wanted
-to change the number of time steps or end time we'd have to edit our
-function, so let's pass those in as arguments too.
+Why don't we provide `BIRTH`, `DEATH` and `POPULATION` as arguments? 
 
-Update `simulate` and pass in the initial populations of predators and
-prey, the end time and the number of time steps. Remember to update
-the glue code too!
+We're treating these as constants so will never modify their values.
 
-Rather than run a simulation over a specific number of steps to a
-specific end-time we can now choose how many steps and till when it
-runs. We've made our function more general, flexible, and useful.
+## Identify where data structures can be introduced (again)
 
-## Modularise into modules
+We currently return a tuple from `simulate`. Can we improve this by
+introducting a new data structure? Or, hint, exploiting an existing
+one? 
 
-We now have a single script that consists of functions and code that
-is executed directly. We may want to use these functions in other
-scripts, so we can pull them out into a new Python module.
-
-Create a new file, `lotkavolterra.py`, and copy the `import`
-statements and the functions into it.
-
-Now remove the functions and redundant `import` statements from your
-script and run it again.
-
-We get an error as our functions are now defined outside our
-script. We need to import them:
-
-    from lotkavolterra import simulate
-    from lotkavolterra import plot
-
-If we run it again it should still work. 
-
-We could now give this module to a colleague and they can use our
-functions within their own programs should they wish. It's also
-separated the computation and plotting code from the code that sets up
-the initial values of the simulation, so we can them implement various
-ways of setting up these initial values (e.g. by having one script
-read them from the command-line or another read them from a
-configuration file).
-
-## Rename variables to be more meaningful
-
-Our variable and function names in `lotkavolterra.py` are somewhat
-cryptic. Variable names that are too short can be too cryptic, but if
-they're too long this can inhibit comprehension. 12 characters or less
-is recommended. Readable variable names also help our code to be
-self-documenting.
-
-Let's rename:  
-
-* `dX_dt` - update predator and prey populations
-* `X` - predator and prey populations
-* `t` (in `dX_dt`) - time step
-* `t` (in `simulate`) - time series
-
-We'll deal with the rest shortly.
-
-## Identify where data structures can be introduced
-
-In the same way in which we bundled related code into functions, we
-can bundle related variables into data structures.
-
-If we look at the argument list to `simulate` is getting rather big -
-it has 8 arguments - which can impact upon readability, since we are
-programmed typically to hold only 7+/-2 chunks of information in
-short-term memory at any time.
-
-We can reduce the number of arguments by recognising that the
-arguments group into those for prey and those for prey, plus the end
-time and time-series. 
-
-Let's use a Python dictionary to store the configuration values for
-prey and predators. A Python dictionary is a set of key-value
-pairs. If we give the dictionary a key, we get back the associated
-value. Dictionaries are similar to associative arrays or hashtables in
-other languages.
-
-Let us first define some keys in `lotkavolterra.py`:
-
-    BIRTH = "birth"
-    DEATH = "death"
-    POPULATION = "population"
-
-In your script, import these keys:
-
-    from lotkavolterra import BIRTH
-    from lotkavolterra import DEATH  
-    from lotkavolterra import POPULATION
-
-Then create two dictionaries:
-
-    prey_config = {}
-    predator_config = {}
-
-Now, update your script to populate the dictionaries e.g.
-
-    prey_config[BIRTH] = a
-
-Remember:
-
-* `a` is the prey birth rate.
-* `b` is the prey death rate.
-* `c` is the predator death rate.
-* `d` is the predator birth rate.
-
-Update the functions to replace the 6 arguments relating to prey and
-predators with two arguments, `prey_config` and `predator_config` and
-to pull out values from the dictionaries when needed:
-
-    prey_config[BIRTH]
-
-If you get stuck as someone sitting by you - a fresh pair of eyes on
-code can work wonders. Fagan (1976) discovered that a rigorous
-inspection can remove 60-90% of errors before the first test is
-run. M.E., Fagan (1976). [Design and Code inspections to reduce errors
-in program development](http://www.mfagan.com/pdfs/ibmfagan.pdf). IBM
-Systems Journal 15 (3): pp. 182-211. 
-
-We currently return a tuple from `simulate`. Our time-series together
-with the prey and predator populations together constitute the data
-from our simulation. We can combine these into a single NumPy array
-that contains one row per time-step where each row has the time, prey
-population and predator population at that time-step.
+Our time-series together with the prey and predator populations
+together constitute the data from our simulation. We can combine these
+into a single NumPy array that contains one row per time-step where
+each row has the time, prey population and predator population at that
+time-step. 
 
 The array returned by `integrate.odeint` already contains the prey and
 predator populations at each time-step, and we have each time-step in
@@ -256,8 +228,8 @@ it is and also to make something which may be confusing, clear.
 Now just return this instead of a tuple and remove the, now redundant,
 lines:  
 
-    prey = X[:, 0]
-    predators = X[:, 1]
+    prey = population[:, 0]
+    predators = population[:, 1]
 
 Now change `plot` to take in a single argument and then unpack the
 data. To unpack the data, use: 
@@ -268,6 +240,36 @@ data. To unpack the data, use:
 
 Finally, change your script to reflect the fact that `simulate`
 returns a single array and `plot` takes in a single array. 
+
+## Modularise into modules
+
+We now have a single script that consists of functions and code that
+is executed directly. We may want to use these functions in other
+scripts, so we can pull them out into a new Python module.
+
+Create a new file, `lotkavolterra.py`, and copy the `import`
+statements, constant declarations (`BIRTH`, `DEATH`, `POPULATIONS`)
+and the functions into it.
+
+Now remove the functions, constant declarations and redundant `import`
+statements from your script and run it again.
+
+We get an error as our constants and functions are now defined outside
+our script. We need to import them:
+
+    from lotkavolterra import simulate
+    from lotkavolterra import plot
+    from lotkavolterra import BIRTH
+    from lotkavolterra import DEATH
+    from lotkavolterra import POPULATION
+
+We could now give this module to a colleague and they can use our
+functions within their own programs should they wish. It's also
+separated the computation and plotting code from the code that sets up
+the initial values of the simulation, so we can them implement various
+ways of setting up these initial values (e.g. by having one script
+read them from the command-line or another read them from a
+configuration file).
 
 ## Save the simulation data
 
