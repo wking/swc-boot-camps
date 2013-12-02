@@ -1,8 +1,6 @@
-# Testing
+# Testing 
 
-Mike Jackson, The Software Sustainability Institute. 
-
-**Based on materials by Katy Huff, Rachel Slaybaugh, and Anthony Scopatz. **
+**Based on materials by Mike Jackson, Katy Huff, Rachel Slaybaugh, and Anthony Scopatz. **
 
 ## Some questions for you
 
@@ -47,10 +45,13 @@ Tests also help us remember what all the parts of our code does. If we are worki
 
 Do any of these sound familiar?
 
-* "I don't write buggy code", well, we are naturally very protective of our work and may refuse to accept that our code has bugs. Unfortunately, almost all code has bugs.
-* "It's too hard", but, if it's hard to write a test for some code, then this is a good sign that the code is not well designed.
-* "It's not interesting", sometimes, testing is just viewed as not being interesting which means...
-* "It takes too much time and I've research to do"
+* "*I don't write buggy code*". 
+ * Well, we are naturally very protective of our work and may refuse to accept that our code has bugs. Unfortunately, almost all code has bugs.
+* "*It's too hard*"
+ * If it's hard to write a test for some code, then this is a good sign that the code is not well designed.
+* "*It's not interesting*"
+ * Sometimes, testing is just viewed as not being interesting which means...
+* "*It takes too much time and I've research to do*"
 
 And, this is a fair point. So, why should we care about testing?
 

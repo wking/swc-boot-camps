@@ -1,200 +1,273 @@
-## Let's start writing some tests
+## Let's start writing a python test harness
 
-In the file [dna.py](python/dna/dna.py) we have a Python dictionary that stores the molecular weights of the 4 standard DNA nucleotides, A, T, C and G, 
+Going to use the `unittest` framework. This has been in python since python 2.6. Create a `TestHarness.py` file and type in the following:
 
-    NUCLEOTIDES = {'A':131.2, 'T':304.2, 'C':289.2, 'G':329.2}
+```
+import unittests
 
-and a Python function that takes a DNA sequence as input and returns its molecular weight, which is the sum of the weights for each nucelotide in the sequence,
- 
-    def calculate_weight(sequence):
-        """
-        Calculate the molecular weight of a DNA sequence.
-        @param sequence: DNA sequence expressed as an upper-case string. 
-        @return molecular weight.
-        """
-        weight = 0.0
-        for ch in sequence:
-            weight += NUCLEOTIDES[ch]
-        return weight
+class MyTests(unittest.TestCase):
 
-We can calculate the molecular weight of a sequence by,
- 
-    weight = calculate_weight('GATGCTGTGGATAA')
-    print weight
+    def test1(self):
+        pass
 
-Now, what if we do,
+    def test2(self):
+        pass
 
-    print calculate_weight(123)
+if __name__ == '__main__':
 
-If the input is not a string, or a list of characters, then the `for...in` statement will *raise an exception*, in this case a `TypeError`.
+   unittest.main()
+```
 
-We can add a test to our code as follows,
+A test case is defined by subclassing `unittest.TestCase`. We have defined two rather uninteresting tests. If we run this we get:
 
-    def calculate_weight(sequence):
-        """
-        Calculate the molecular weight of a DNA sequence.
+```
+%run TestHarness.py
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.002s
 
-        @param sequence: DNA sequence expressed as an upper-case string.
-        @return molecular weight.
-        """
-        weight = 0.0
-        try:
-            for ch in sequence:
-                weight += NUCLEOTIDES[ch]
-            return weight
-        except TypeError:
-            print 'The input is not a sequence, e.g. a string or list'
+OK
+```
 
-Now, the exception is *caught* by the `except` block. This is a *runtime test*. It alerts the user to exceptional behaviour in the code. Often, exceptions are related to functions that depend on input that is unknown at compile time. Such tests make our code robust and allows our code to behave gracefully - they anticipate problematic values and handle them.
+Note that we assume that we are running the script from `ipython`. Each "." represents a test that has passed. A test can:
 
-Often, we want to pass such errors to other points in our program rather than just print a message and continue. So, for example we could do,
+* Pass, indicated by a `.`
+* Fail, indicated by an `F`
+* Terminate with an Error, indicated by an `E`, that is something went wrong like your code through a segmentation fault.
 
-    except TypeError:
-        raise ValueError('The input is not a sequence, e.g. a string or list')
+Also if you want more detail you can run your tests using the `-v` flag then you would get:
 
-which raises a new exception, with a more meaningful message. If writing a complex application, our user interface could then present this to the user, e.g. as a dialog box.
+```
+%run TestHarness.py -v
+test1 (__main__.MyTests) ... ok
+test2 (__main__.MyTests) ... ok
 
-Runtime tests don't test our functions behaviour or whether it's implemented correctly. So, we can add some tests,
+----------------------------------------------------------------------
+Ran 2 tests in 0.007s
 
-    print "A is ", calculate_weight('A')
-    print "G is ", calculate_weight('G')
-    print "GA is ", calculate_weight('GA')
+OK
+```
+Or you can run a single test if you wish:
+```
+%run TestHarness.py -v MyTests.test2
+test2 (__main__.MyTests) ... ok
 
-But we'd have to visually inspect the results to see they are as expected. So, let's have the computer do that for us and make our lives easier, and save us time in checking,
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
 
-    assert calculate_weight('A') == 131.2
-    assert calculate_weight('G') == 329.2
-    assert calculate_weight('GA') == 460.4
+OK
+```
+Can add code that will run before and after every test:
+```
+    def setUp(self):
+        print "\nRunning test: ",self.id(),"\n"
 
-`assert` checks whether a condition is true and, if not, raises an exception.
+    def tearDown(self):
+        print "Ending test: ",self.id(),"\n"
+```
+So that execution would now look like:
+```
+%run TestHarness.py
 
-We explicitly list the expected weights in each statement. But, by doing this there is a risk that we mistype one. A good design principle is to define constant values in one place only. As we already have defined them in `nucleotides` we can just refer to that,
+Running test:  __main__.MyTests.test1
 
-    assert calculate_weight('A') == NUCLEOTIDES['A']
-    assert calculate_weight('G') == NUCLEOTIDES['G']
-    assert calculate_weight('GA') == NUCLEOTIDES['G'] + NUCLEOTIDES['A']
+Ending test:  __main__.MyTests.test1
 
-But this isn't very modular, and modularity is a good design principle, so let's define some test functions,
+.
+Running test:  __main__.MyTests.test2
 
-    def test_a():
-        assert calculate_weight('A') == NUCLEOTIDES['A']
-    def test_g():
-        assert calculate_weight('G') == NUCLEOTIDES['G']
-    def test_ga():
-        assert calculate_weight('GA') == NUCLEOTIDES['G'] + NUCLEOTIDES['A']
+Ending test:  __main__.MyTests.test2
 
-    test_a()
-    test_g()
-    test_ga()
+.
+----------------------------------------------------------------------
+Ran 2 tests in 0.020s
 
-And, rather than have our tests and code in the same file, let's separate them out. So, let's create
+OK
+```
+This can be useful set up the *fixtures* for your tests or you could
+use it to time each test:
 
-    $ nano test_dna.py
+```
+import time
 
-Now, our function and nucleotides data are in `dna.py` and we want to refer to them in `test_dna.py` file, we need to *import* them. We can do this as,
+logfile ="timings.txt"
+...
+class MyTests(unittest.TestCase):
 
-    from dna import calculate_weight
-    from dna import NUCLEOTIDES
+    def setUp(self):
+        fh = open(logfile,"a")
+        self.startTime = time.time()
+        fh.write("Test %s.\n" % (self.id()))
+        fh.close()
 
-Then we can add all our test functions and function calls to this file. And run the tests,
+    # Run after every test.
+    def tearDown(self):
+        fh = open(logfile,"a")
+        t  = time.time() - self.startTime
+        fh.write("Time to run test: %.3f seconds.\n" % (t))
+        fh.close()
+...
+```
+Writing to a file so as not to pollute the output. The `unittest` module comes with a number of different ways that you can check that your code is working ok, for instance:
 
-    $ python test_dna.py
+* `assertEqual(a,b)` checks that `a == b`.
+* `assertNotEqual(a,b)` checks that `a != b`.
+* `assertTrue(x)` checks that `x`, a boolean, is `True`.
+* `assertFalse(x)` checks that x, a boolean, is `False`.
+* `assertRaises(exc,fun,*args,**kwds)` checks that `fun(*args,**kwds)` raises exception `exc`.
+* `assertAlmostEqual(a,b)` checks that `round(a-b,7) == 0`
+* `assertNotAlmostEqual(a,b)` checks that `round(a-b,7)!=0`
 
-Typically, a test function,
+Let's make it a little more interesting. Create a new python file: `MyFunctions.py` and add a function:
 
-* Sets up some inputs and the associated expected outputs. The expected outputs might be a single number, a range of numbers, some text, a file, a set of files, or whatever.
-* Runs the function or component being tested on the inputs to get some actual outputs.
-* Checks that the actual outputs match the expected outputs. We use assertions as part of this checking. We can check both that conditions hold and that conditions do not hold.
+```
+def MySum(a,b):
+    return(a+b)
+```
+Now we want to import this function into our test harness. Add the line at the top of `TestHarness.py`:
+```
+from MyFunctions import MySum
+```
+We can now add a test to check this works:
+```
+    def testMySum(self):
+        self.assertEqual(MySum(1,3),4)
+```     
+That should have worked. What happens if we try the following?
 
-So, we could rewrite `test_a`, as the more, verbose, but equivalent,
+```
+    MySum("a","b")
+    "ab"
+```
+It may well be that that is perfectly acceptable behaviour but, on the other hand, you may only want numbers to be added and not to have string concatenation. We can change the sum function accordingly:
+```
+def MySum(a,b)
+    if(type(a) == str or type(b) == str):
+       raise TypeError("Can only have integers or floats")
+    return(a+b)
+```
+We can also add a test to ensure that an exception is being raised:
+```
+    from MyFunctions import MyRepeatedSum
+     ...
+    def testMySumExceptionArg1(self):
+        self.assertRaises(TypeError,MySum,1,"a")
 
-    def test_a():
-        expected = NUCLEOTIDES['A']
-        actual = calculate_weight('A')                     
-        assert expected == actual
+    def testMySumExceptionArg2(self):
+        self.assertRaises(TypeError,MySum,"a",2)
+```
+We can keep on playing these games and add further tests for `MySum` but let's define a new function:
+```
+def MyRepeatedSum(num,repeat):
+    """
+    Sums num a number of times specified by repeat.
+    """
+    tot = 0
+    for i in range(repeat):
+        tot += num
+    return tot
+```
+Now lets import that into our test routine and do a couple of new tests:
+```
+    def testMyRepeatedSum1(self):
+        self.assertEqual(MyRepeatedSum(1,100),100)
 
-Python `assert` allows us to check,
+    def testMyRepeatedSum2(self):
+        self.assertEqual(MyRepeatedSum(0.1,100),10.0)
+```
+When we run this we can see that we have a test failure:
+```
+..F...
+======================================================================
+FAIL: testMyRepeatedSum2 (__main__.MyTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "TestHarness.py", line 26, in testMyRepeatedSum2
+    self.assertEqual(MyRepeatedSum(0.1,100),10.0)
+AssertionError: 9.99999999999998 != 10.0
 
-    assert should_be_true()
-    assert not should_not_be_true()
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+FAILED (failures=1)
+```
+We have our first test failure. You should ***never*** test for equality (`==`) or inequality (`!=`) with floating numbers due to round off errors (amongst other things). We should instead use:
+
+```
+    def testMyRepeatedSum2(self):
+         NumDecPlaces = 3 # default is 7
+        self.assertAlmostEqual(MyRepeatedSum(0.1,100),10.0,NumDecPlaces)
+```
+Now all tests should pass:
+```
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+OK
+```
+This then forms the basics of how one might go on to develop a test framework using Python. We shall come back to this later but lets have a look at `nosetests`.
 
 ## `nose` - a Python test framework
 
 `nose` is a test framework for Python that will automatically find, run and report on tests written in Python. It is an example of what has been termed an *[xUnit test framework](http://en.wikipedia.org/wiki/XUnit)*, perhaps the most famous being JUnit for Java.
 
-To use `nose`, we write test functions, as we've been doing, with the prefix `test_` and put these in files, likewise prefixed by `test_`. The prefixes `Test-`, `Test_` and `test-` can also be used.
+To use `nose`, we write test functions, as we' have been doing, with the prefix `test_` and put these in files, likewise prefixed by `test_`. The prefixes `Test-`, `Test_` and `test-` can also be used (in fact anything that matches the regular expression ` (?:^|[b_.-])[Tt]est)`).
 
-To run `nose` for our tests, we can do,
+To run `nose` for our tests, all we have to do is type:
 
-    $ nosetests test_dna.py
+```
+$ nosetests
+```
+It will find the tests and return:
+```
+test2 (TestHarness.MyTests) ... ok
+testMyRepeatedSum1 (TestHarness.MyTests) ... ok
+testMyRepeatedSum2 (TestHarness.MyTests) ... ok
+testMySum (TestHarness.MyTests) ... ok
+testMySumExceptionArg1 (TestHarness.MyTests) ... ok
+testMySumExceptionArg2 (TestHarness.MyTests) ... ok
 
-Each `.` corresponds to a successful test. And to prove `nose` is finding our tests, let's remove the function calls from `test_dna.py` and try again,
+----------------------------------------------------------------------
+Ran 6 tests in 0.233s
 
-    $ nosetests test_dna.py
+OK
+```
+As before each `.` corresponds to a successful test. 
 
 nosetests can output an "xUnit" test report,
 
-    $ nosetests --with-xunit test_dna.py
-    $ cat nosetests.xml
+```
+$ nosetests --with-xunit TestHarness.py
+$ more nosetests.xml
+```
 
 This is a standard format that that is supported by a number of xUnit frameworks which can then be converted to HTML and presented online. 
 
 `nose` defines additional functions which can be used to check for a rich range of conditions, e.g.
 
-    $ python
-    >>> from nose.tools import *
+```
+$ python
+>>> from nose.tools import *
 
-    >>> expected = 123
-    >>> actual = 123
-    >>> assert_equal(expected, actual)
-    >>> actual = 456
-    >>> assert_equal(expected, actual)
-    >>> expected = "GATTACCA"
-    >>> actual = ["GATC", "GATTACCA"]
-    >>> assert_true(expected in actual)
-    >>> assert_false(expected in actual)
+>>> expected = 123
+>>> actual = 123
+>>> assert_equal(expected, actual)
+>>> actual = 456
+>>> assert_equal(expected, actual)
+>>> expected = "GATTACCA"
+>>> actual = ["GATC", "GATTACCA"]
+>>> assert_true(expected in actual)
+>>> assert_false(expected in actual)
+```
 
 We can add more information to the failure messages by providing additional string arguments, e.g.
 
-    >>> assert_true("GTA" in actual, "Expected value was not in the output list")
+```
+>>> assert_true("GTA" in actual, "Expected value was not in the output list")
+```
 
-## Write some more tests
+The nodetests provide a powerful framework to write and run tests with. The only down-side is that it requires to be installed in the system you wish to run your tests on and you will require special privileges to do this or you can install locally and then set-up accordingly.
 
-Let's spend a few minutes coming up with some more tests for `calculate_weight`. Consider,
+## Writing more tests - revisiting Lotka-Volterra
 
-* What haven't we tested for so far? 
-* Have we covered all the nucleotides? 
-* Have we covered all the types of string we can expect? 
-* In addition to test functions, other types of runtime test could we add to `calculate_weight`?
-
-Examples of tests we could add include,
-
-* `calculate_weight('T')`
-* `calculate_weight('C')`
-* `calculate_weight('TC')`
-* `calculate_weight(123)` 
-
-The latter requires us to check whether an exception was raised which we can do as follows:
-
-    try:
-        calculate_weight(123) 
-        assert False
-    except ValueError:
-        assert True
-
-This is like catching a runtime error. If an exception is raised then our test passes (`assert True`), else if no exception is raised, it fails. Alternatively, we can use `assert_raises` from `nose.tools`,
-
-    from nose.tools import assert_raises
-
-    def test_123():
-        assert_raises(ValueError, calculate_weight, 123)
-
-The assert fails if the named exception is *not* raised.
-
-One other test we could do is `calculate_weight('GATCX')` for which we can add another runtime test,
-
-        ...
-    except KeyError:
-        raise ValueError('The input is not a sequence of G,T,C,A')
-
-Previous: [Testing](README.md) Next: [Testing in practice](RealWorld.md)
