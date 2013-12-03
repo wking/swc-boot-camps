@@ -505,7 +505,8 @@ def compareFiles(file1,file2):
         line2     = lines2[i].rsplit()
 
         if(line1 != line2):
-           print "Line ",i," not the same (",line1,") and  (",line2,").\n"
+           print "Line ",i+1," not the same\n",file1,":",line1,"\n",file2,
+           print ": ",line2,"\n"
            return False
 
     # Got through to here so it appears all lines are the same.
