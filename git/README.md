@@ -27,7 +27,8 @@ For this session, we'll be using [Git](http://git-scm.com/), a popular version c
 1. [Tracking our changes with a local repository](1_Local.md)
 2. [Working from multiple locations with a remote repository](2_Remote.md)
 3. [Collaborating with our colleagues using a repository](3_Collaboration.md)
-4. [Conclusions and further information](4_Conclusion.md)
-5. [Git hints and tips](5_HintsAndTips.md)
+4. [A little on branching](4_Branching.md)
+4. [Conclusions and further information](5_Conclusion.md)
+5. [Git hints and tips](6_HintsAndTips.md)
 
 Next: [Tracking our changes with a local repository](1_Local.md)
