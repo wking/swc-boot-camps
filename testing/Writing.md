@@ -496,7 +496,7 @@ def compareFiles(file1,file2):
         # method stop after a one split; since we are just grabbing the
         # 0th substring (by indexing with [0]) you would get the same 
         # answer without the 1 argument, but this might be a little bit 
-        # faster. From: http://tinyurl.com/noyk727
+        # faster. From steveha at http://tinyurl.com/noyk727
 
         lines1[i] = lines1[i].split("#",1)[0]
         line1     = lines1[i].rsplit()
