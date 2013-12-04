@@ -198,7 +198,7 @@ We said that NumPy arrays give us performance. Let us see if that is the case an
 
 Now, let's create a NumPy array of 1000000 1s:
 
-    mill_parray = np.ones((million,))
+    mill_array = np.ones((million,))
     len(mill_array)
 
 We can now use IPython's `timeit` command to see how long it takes to sum up the values in the list:
@@ -389,7 +389,7 @@ If we're going to do that, though, we probably ought to tidy up our plots. First
     plt.close()
     plt.figure()
     plt.subplot(1, 3, 1)
-    plt.plot(dates, ave_infection)
+    plt.plot(dates, avg_infection)
     plt.show()
     plt.subplot(1, 3, 2)
     plt.plot(dates, np.max(patients, 0))
