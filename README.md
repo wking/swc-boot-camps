@@ -1,17 +1,17 @@
-
 Software Carpentry boot camp - Edinburgh 2013
 =============================================
 
-* [Command-line prompts and how to exit](PromptsExits.md)
-* [Bash hints and tips](BashHintsAndTips.md)
-* [Revision control using git](git/README.md)
-* [Testing](testing/README.md)
+## Hints and tips
+
+ * [Command-line prompts and how to exit](PromptsExits.md)
+ * [Bash hints and tips](BashHintsAndTips.md)
 
 ## Lesson transcripts
 
  * [Using Version Control](git/README.md)
  * [Scientific programming in Python](ScientificPython.md)
  * [Good programming practice](GoodProgrammingPractice.md)
+ * [Testing](testing/README.md)
 
 ## Sample code
 
