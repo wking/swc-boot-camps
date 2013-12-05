@@ -1,0 +1,276 @@
+Software Carpentry boot camp
+ 
+Point your browser at this EtherPad: https://swcuk.etherpad.mozilla.org/13?
+ 
+ Boot camp web page http://mikej888.gexithub.io/2013-12-03-edinburgh/
+
+Check your installation!
+
+To quickly check you have the required tool-set, open up your shell (bash or Git Bash) and run the following commands and you should see the outputs given (don't worry if version numbers differ too much - so long as you have Python 2.6 or 2.7):
+
+$ git --version
+You should see a version number printed.
+
+$ nosetests
+------------------------------------------------------------------
+Ran 0 tests in 0.003s
+
+OK
+
+$ ipython --pylab
+Python 2.7.5 |Anaconda 1.7.0 (64-bit)| (default, Jun 28 2013, 22:10:09)
+Type "copyright", "credits" or "license" for more information.
+
+IPython 1.0.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+Using matplotlib backend: Qt4Agg
+
+In [1]: import numpy
+In [2]: print numpy.__version__
+1.7.1
+In [3]: import scipy
+In [4]: print scipy.__version__
+0.12.0
+In [5]: import matplotlib
+In [6]: print matplotlib.__version__
+1.3.0
+In [7]: from numpy.linalg import * (or just:: from numpy import *)
+In [8]: a = array([[1.0, 2.0], [3.0, 4.0]])
+In [9]: eig(a)
+Out[9]:
+(array([-0.37228132,  5.37228132]),
+ array([[-0.82456484, -0.41597356],
+       [ 0.56576746, -0.90937671]]))
+In [10]: a = zeros(1000)
+In [11]: a[:100] = 1
+In [12]: from scipy import *
+In [13]: b = fft(a)
+In [14]: plot(abs(b))
+Out[14]: [<matplotlib.lines.Line2D at 0x3254d90>]
+You should get a graph window appearing.
+In [15]: CTRL-D
+
+Git basics
+
+$ git --version
+$ git help
+$ mkdir html
+$ cd html
+$ git init
+$ ls .git
+Tell Git who you are so it can log who changed what file, when and why:
+$ git config --global user.name "Fred Bloggs"
+$ git config --global user.email "fred@bloggs.com"
+Specify preferred editor e.g. nano
+$ git config --global core.editor "nano"
+...or Notepad...
+$ git config --global core.editor "notepad"
+
+Git configuration file:
+$ cat ~/.gitconfig
+
+Current status of repository:
+$ git status
+Untracked files - files in the repository that Git has found but Git is not managing
+Add file to staging area. Git is aware of the file and that you might want to commit it. Think of this as a loading dock:
+$ git add template.html
+Commit changes to repository. -m specifies a commit message which says "why" you made these changes. Git can automatically detect what you changed, what lines were changed and when, but only you can say why!
+$ git commit -m "First draft" template.html
+Git is now managing the versions of template.html
+$ git diff template.html
+Show difference between current version, that you might have edited, and most recent version in repository.
+
+Show branches:
+$ git branch
+Create branch:
+$ git branch css_test
+Checkout branch:
+$ git checkout css_test
+
+Using bash command wget to download a file
+
+wget http://www2.epcc.ed.ac.uk/~mario/man.png
+wget http://www2.epcc.ed.ac.uk/~mario/woman.png
+
+Setup for scientific programming in Python
+
+Try this:
+$ ipython --pylab
+In [10]: a = zeros(1000)
+In [11]: a[:100] = 1
+In [12]: from scipy import *
+In [13]: b = fft(a)
+In [14]: plot(abs(b))
+You should get a graph window appearing.
+
+Python calling FORTRAN
+
+http://cens.ioc.ee/projects/f2py2e/
+
+http://www.ucs.cam.ac.uk/docs/course-notes/unix-courses/pythonfortran/files/f2py.pdf
+
+PyCharm integrated development environment for Python
+
+http://www.jetbrains.com/pycharm/
+
+Simple Python file save example
+
+# Open file test.txt for writing
+f = open('test.txt','w')
+# Write a line
+f.write("This is a test\n")
+# Close file
+f.close()
+
+Renaming the Lotka-Volterra function
+
+Variables to rename
+
+Within dX_dt it would be valid to keep the variable names a, c, d, b, X, t with a docstring comment for the function explaining that the function implements the Lotka-Volterra equations. For example, here we rename dX_dt to calculate_lotka_volterra and X to population but keep the rest of the variables as they are:
+
+def calculate_lotka_volterra(population, time_step, a, b, c, d):
+    ' ' '
+    Calculate the Lotka-Volterra equation which models interactions between predators
+    and prey.
+    
+    Parameters
+    ----------
+    population : array-like
+        Current population of predators and prey as an array of form [u,v] where u is 
+        current prey population and v is current predator population. 
+    time : float
+        Time-step value.
+    a : float
+        Prey birth rate.
+    b : float
+        Prey death rate.
+    c : float
+        Predator death rate.
+    d : float     
+        Predator birth rate.
+
+    Return
+    ------        
+    
+    output : array
+        Array of form [du/new prey population, new predator population].
+    
+    The Lotka-Volterra equation is:
+    
+    du/dt =  a*u -   b*u*v
+    dv/dt = -c*v + d*b*u*v
+            
+    http://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equation
+
+    ' ' '
+    u = population[0]
+    v = population[1]
+    return np.array([ a*u - b*u*v, -c*v + d*b*u*v])
+
+In our program we'd still use prey_config[BIRTH] etc.
+
+populations = integrate.odeint(
+    calculate_lotka_volterra,
+    initial_population,
+    time_series,
+    args = (prey_config[BIRTH], prey_config[DEATH], predator_config[DEATH], 
+        prey_config[BIRTH]))
+    
+Save and load comma-separated values in numpy
+
+data = np.zeros((200,300))
+np.savetxt('data.csv', data, delimiter=",")
+
+loaded_data = np.loadtxt('data.csv', delimiter=",")
+plot(loaded_data)
+
+Adding a header to a numpy data file
+
+import os
+import time
+
+data = np.zeros((200,300))
+
+header = "Predator-prey LotkaVolterra simulation\n"
+header += "Produced by: " + os.path.basename(__file__) + "\n"
+header += "On: " +  time.asctime(time.localtime(time.time())) + "\n"
+header += "Time-step,Prey Population,Predator Population\n"
+np.savetxt('data.csv', data, delimiter=",", header = header)
+
+numpy.savetxt only supports the header="some header" argument for versions of numpy >= 1.7.0. To check your numpy version do:
+
+python
+import numpy
+print numpy.__version__
+
+Command-line arguments
+
+import sys
+
+sys.argv is a list which holds the Python script name and command-line arguments. We can access these as, for example:
+
+python_script_name = sys.argv[0]
+arg1 = sys.argv[1]
+arg2 = sys.argv[2]
+
+So if we ran:
+
+python myscript.py count 123
+
+then python_script_name is myscript.py, arg1 is count, arg2 is 123
+
+Comparing data files
+
+To compare two CSV files with floating point data to within a given tolerance we can do:
+
+import numpy as np
+expected = np.loadtxt("expected_data.csv", delimiter=",")
+actual = np.loadtxt("output_data.csv", delimiter=",")
+assert expected.shape == actual.shape
+assert np.allclose(actual, expected, 0.001)
+
+Feedback
+
++ First-time introduction to version control
+- Too much information in too little time
++ Python 
+- Common theme, work with same data set rather than switching from patients
++ Git and revision control
+- Git not relevant to what I'm doing as it's just me working on my code
++ Making code more reusable across different data sets
+- Difficult to catch up if fall behind
++ One projector monitor per table
+- Git is complex, would like to see more visual references used
++ PostIts and timing of intervals
+- Still unclear on how to use unit testing to help me 
++ Deeper knowledge of Git and Python
+- No debugging in Python
++ Version control and also Python 
+- Tests only seemed applicable to simple programs and codes
++ Mix of different material covered to get an overview
+- Too fast and challenge to keep up
++ Git
+- Use an IDE so people can keep up
+- Why use Python and not bash for the examples presented?
++ So many helpers
+- Thought I'd get more version control and testing - Python was too basic
+- Too much in too little time - another day 
++ Introduction to Python 
+- Hard to catch up
++ Version control, BitBucket, helpful instructors, PostIts
+- Too much in too little time - 3 days might be better?
++ Time spent on the practical aspects
+
+
+
+
+
+
+
+
+
+
+
